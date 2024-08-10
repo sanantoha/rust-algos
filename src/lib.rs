@@ -1,3 +1,4 @@
 pub mod arrays;
+pub mod tree;
 
-mod tests;
+pub mod tests;

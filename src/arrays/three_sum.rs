@@ -1,6 +1,6 @@
 
 // O(n ^ 3) time | O(n) space
-pub fn tree_sum(vec: Vec<i32>, target: i32) -> Vec<[i32; 3]> {
+pub fn three_sum(vec: Vec<i32>, target: i32) -> Vec<[i32; 3]> {
     let mut res: Vec<[i32; 3]> = vec![];
 
     for i in 0..vec.len() {
@@ -17,7 +17,7 @@ pub fn tree_sum(vec: Vec<i32>, target: i32) -> Vec<[i32; 3]> {
 }
 
 // O(n * log(n)) time | O(n) space
-pub fn tree_sum1(vec: Vec<i32>, target: i32) -> Vec<[i32; 3]> {
+pub fn three_sum1(vec: Vec<i32>, target: i32) -> Vec<[i32; 3]> {
     let mut res: Vec<[i32; 3]> = Vec::new();
 
     let mut vec_copy = vec.clone(); // to avoid mutate passing vec

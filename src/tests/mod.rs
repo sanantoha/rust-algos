@@ -1,1 +1,2 @@
-mod tree_sum_tests;
+mod arrays;
+mod tree;
