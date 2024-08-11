@@ -3,7 +3,7 @@ mod tests {
     #[test]
     fn test_balanced_binary_tree() {
         use super::super::super::super::tree::tree::TreeNode;
-        use super::super::super::super::tree::balanced_binary_tree::is_balanced;
+        use super::super::super::super::tree::balanced_binary_tree;
 
         let root = Some(Box::new(TreeNode::new(
             3,
@@ -31,7 +31,7 @@ mod tests {
             )
         ));
 
-        assert!(is_balanced(&root));
-        assert!(!is_balanced(&root1));
+        assert!(balanced_binary_tree::is_balanced(&root));
+        assert!(!balanced_binary_tree::is_balanced(&root1));
     }
 }

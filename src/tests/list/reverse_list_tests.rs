@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
     use crate::list::list::ListNode;
-    use super::super::super::super::list::reverse_list::reverse;
+    use super::super::super::super::list::reverse_list;
 
     #[test]
     fn test_reverse() {
@@ -19,6 +19,6 @@ mod tests {
                                              Some(Box::new(ListNode::with_next(2,
                                                   Some(Box::new(ListNode::new(1)))))))))))));
 
-        assert_eq!(reverse(Some(Box::new(head))), Some(Box::new(exp_list)));
+        assert_eq!(reverse_list::reverse(Some(Box::new(head))), Some(Box::new(exp_list)));
     }
 }
