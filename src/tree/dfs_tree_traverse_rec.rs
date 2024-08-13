@@ -46,7 +46,7 @@ fn post_order_rec_helper(root: &Option<Box<TreeNode>>, res: &mut Vec<i32>) {
 }
 
 #[test]
-pub fn test_pre_order_rec() {
+pub fn test_dfs_rec() {
 
     let root = Some(
         Box::new(TreeNode::new(5,

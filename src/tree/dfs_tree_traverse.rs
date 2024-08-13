@@ -90,7 +90,7 @@ pub fn post_order(root: &Option<Box<TreeNode>>) -> Vec<i32> {
 }
 
 #[test]
-pub fn test_pre_order() {
+pub fn test_dfs() {
 
     let root = Some(
         Box::new(TreeNode::new(5,
