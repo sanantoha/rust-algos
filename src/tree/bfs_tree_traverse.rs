@@ -5,6 +5,7 @@ use crate::tree::tree::TreeNode;
 pub fn bfs(root: &Option<Box<TreeNode>>) -> Vec<i32> {
     if let Some(node) = root {
 
+        // let mut queue = VecDeque::new(); // based on growable ring buffer
         let mut queue = LinkedList::new();
         queue.push_back(node);
 
