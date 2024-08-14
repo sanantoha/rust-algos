@@ -6,3 +6,5 @@ pub mod list;
 pub mod search;
 
 pub mod backtracking;
+
+pub mod sorting;
