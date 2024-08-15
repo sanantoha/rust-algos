@@ -1,14 +1,16 @@
-use crate::list::list::ListNode;
+use std::cell::RefCell;
+use std::rc::Rc;
+use crate::list::list::{DisplayableListNode, ListNode};
 
 // O(n) time | O(1) space
-pub fn reverse(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+pub fn reverse(head: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
 
     let mut prev = None;
     let mut curr = head;
 
-    while let Some(mut node) = curr {
-        let next = node.next;
-        node.next = prev;
+    while let Some(node) = curr {
+        let next = node.borrow().next.as_ref().map(Rc::clone);
+        node.borrow_mut().next = prev;
         prev = Some(node);
         curr = next;
     }
@@ -19,18 +21,14 @@ pub fn reverse(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
 #[test]
 fn test_reverse() {
 
-    let head: ListNode = ListNode::with_next(1,
-                                             Some(Box::new(ListNode::with_next(2,
-                                                                               Some(Box::new(ListNode::with_next(3,
-                                                                                                                 Some(Box::new(ListNode::with_next(4,
-                                                                                                                                                   Some(Box::new(ListNode::new(5)))))))))))));
+    let head = ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5)))))))));
 
 
-    let exp_list: ListNode = ListNode::with_next(5,
-                                                 Some(Box::new(ListNode::with_next(4,
-                                                                                   Some(Box::new(ListNode::with_next(3,
-                                                                                                                     Some(Box::new(ListNode::with_next(2,
-                                                                                                                                                       Some(Box::new(ListNode::new(1)))))))))))));
+    let exp_list = ListNode::with_next(5, Some(ListNode::with_next(4, Some(ListNode::with_next(3, Some(ListNode::with_next(2, Some(ListNode::new(1)))))))));
 
-    assert_eq!(reverse(Some(Box::new(head))), Some(Box::new(exp_list)));
+    let res = reverse(Some(head));
+    if let Some(disp_list_node) = DisplayableListNode::from_option(res.clone()) {
+        println!("{}", disp_list_node);
+    }
+    assert_eq!(res, Some(exp_list));
 }

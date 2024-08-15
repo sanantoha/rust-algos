@@ -2,6 +2,7 @@ use rust_algos::tree::tree;
 use tree::TreeNode;
 use rust_algos::list::list;
 use list::ListNode;
+use rust_algos::list::list::DisplayableListNode;
 
 fn main() {
 
@@ -13,12 +14,12 @@ fn main() {
 
     println!("Hello, world1! {:?}", root);
 
-    let third = Box::new(ListNode::new(3));
-    let second = Box::new(ListNode::with_next(2, Some(third)));
-    let first = Box::new(ListNode::with_next(1, Some(second)));
+    let third = ListNode::new(3);
+    let second = ListNode::with_next(2, Some(third));
+    let first = ListNode::with_next(1, Some(second));
 
-    let head = ListNode::with_next(1, Some(Box::new(ListNode::with_next(2, Some(Box::new(ListNode::with_next(3, Some(Box::new(ListNode::with_next(4, Some(Box::new(ListNode::new(5)))))))))))));
+    let head = ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5)))))))));
 
-    println!("{}", first);
-    println!("{}", head);
+    println!("{}", DisplayableListNode::new(first));
+    println!("{}", DisplayableListNode::new(head));
 }
