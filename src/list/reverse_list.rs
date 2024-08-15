@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 use std::rc::Rc;
-use crate::list::list::{DisplayableListNode, ListNode};
+use crate::list::list::ListNode;
 
 // O(n) time | O(1) space
 pub fn reverse(head: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
@@ -20,6 +20,7 @@ pub fn reverse(head: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNod
 
 #[test]
 fn test_reverse() {
+    use crate::list::list::DisplayableListNode;
 
     let head = ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5)))))))));
 

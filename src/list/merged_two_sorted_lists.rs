@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 use std::rc::Rc;
-use crate::list::list::{DisplayableListNode, ListNode};
+use crate::list::list::ListNode;
 
 // O(l1 + l2) time | O(1) space
 pub fn merge(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
@@ -34,6 +34,8 @@ pub fn merge(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCell<ListNode
 
 #[test]
 pub fn test_merge() {
+
+    use crate::list::list::DisplayableListNode;
 
     let head1 = Some(ListNode::with_next(4, Some(ListNode::with_next(8, Some(ListNode::with_next(15, Some(ListNode::new(19))))))));
     let head2 = Some(ListNode::with_next(7, Some(ListNode::with_next(9, Some(ListNode::with_next(10, Some(ListNode::new(16))))))));

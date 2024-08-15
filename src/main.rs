@@ -24,7 +24,7 @@ fn main() {
     let ffirst = Rc::clone(&first);
     let fffirst = Rc::clone(&first);
 
-    println!("{}", DisplayableListNode::new(Rc::clone(&ffirst)));
+    println!("{} | {}", DisplayableListNode::new(Rc::clone(&ffirst)), DisplayableListNode::new(fffirst));
     println!("{}", DisplayableListNode::new(head));
 
     println!("{}", Rc::strong_count(&ffirst));
