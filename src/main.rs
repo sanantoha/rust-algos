@@ -1,5 +1,5 @@
 use std::rc::Rc;
-use rust_algos::tree::tree;
+use rust_algos::tree;
 use tree::TreeNode;
 use rust_algos::list;
 use list::ListNode;

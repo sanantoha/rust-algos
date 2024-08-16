@@ -1,8 +1,8 @@
-use crate::tree::tree::TreeNode;
+use crate::tree::TreeNode;
 
 // O(n) time | O(h) space
 pub fn is_balanced(root: &Option<Box<TreeNode>>) -> bool {
-    return helper(root).0
+    helper(root).0
 }
 
 fn helper(root: &Option<Box<TreeNode>>) -> (bool, usize) {
@@ -16,7 +16,7 @@ fn helper(root: &Option<Box<TreeNode>>) -> (bool, usize) {
         return (is_balanced_val, height)
     }
 
-    return (true, 0)
+    (true, 0)
 }
 
 #[test]

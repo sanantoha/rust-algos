@@ -1,4 +1,4 @@
-use crate::tree::tree::TreeNode;
+use crate::tree::TreeNode;
 
 // O(n) time | O(h) space
 pub fn pre_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {

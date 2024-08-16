@@ -1,5 +1,5 @@
 use std::collections::LinkedList;
-use crate::tree::tree::TreeNode;
+use crate::tree::TreeNode;
 
 // O(n) time | O(n) space
 pub fn bfs(root: &Option<Box<TreeNode>>) -> Vec<i32> {
