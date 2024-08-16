@@ -1,9 +1,9 @@
 use std::rc::Rc;
 use rust_algos::tree::tree;
 use tree::TreeNode;
-use rust_algos::list::list;
+use rust_algos::list;
 use list::ListNode;
-use rust_algos::list::list::DisplayableListNode;
+use rust_algos::list::DisplayableListNode;
 
 fn main() {
 

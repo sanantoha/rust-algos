@@ -1,6 +1,6 @@
 use core::cell::RefCell;
 use std::rc::Rc;
-use super::list::ListNode;
+use super::ListNode;
 
 // O(n) time | O(1) space
 pub fn middle_node(head: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
@@ -21,7 +21,7 @@ pub fn middle_node(head: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<Li
 
 #[test]
 pub fn test_middle_node() {
-    use crate::list::list::DisplayableListNode;
+    use crate::list::DisplayableListNode;
 
     let head = Some(ListNode::with_next(4, Some(ListNode::with_next(8, Some(ListNode::with_next(15, Some(ListNode::new(19))))))));
     let exp = Some(ListNode::with_next(15, Some(ListNode::new(19))));

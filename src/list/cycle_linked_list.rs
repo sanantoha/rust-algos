@@ -1,7 +1,7 @@
 use std::cell::RefCell;
 use std::collections::HashSet;
 use std::rc::Rc;
-use crate::list::list::{ListNode, ListNodeWrapper};
+use crate::list::{ListNode, ListNodeWrapper};
 
 // O(n) time | O(n) space
 pub fn is_cycle(head: &Option<Rc<RefCell<ListNode>>>) -> bool {

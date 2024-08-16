@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 use std::rc::Rc;
-use crate::list::list::ListNode;
+use crate::list::ListNode;
 
 // O(max(l1, l2)) time | O(max(l1, l2)) space
 pub fn add_two_numbers(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
@@ -15,8 +15,8 @@ pub fn add_two_numbers(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCel
     let mut curr = Rc::clone(&dummy);
     let mut carry = 0;
 
-    let mut c1 = l1.as_ref().map(|x| Rc::clone(x));
-    let mut c2 = l2.as_ref().map(|x| Rc::clone(x));
+    let mut c1 = l1.as_ref().map(Rc::clone);
+    let mut c2 = l2.as_ref().map(Rc::clone);
 
     while c1.is_some() || c2.is_some() {
         let val1 = c1.as_ref().map_or(0, |x| x.borrow().val);
@@ -43,7 +43,7 @@ pub fn add_two_numbers(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCel
 
 #[test]
 pub fn test_add_two_numbers() {
-    use crate::list::list::DisplayableListNode;
+    use crate::list::DisplayableListNode;
 
     let l1 = Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::with_next(9, Some(ListNode::new(9))))))));
     let l2 = Some(ListNode::with_next(7, Some(ListNode::with_next(3, Some(ListNode::new(2))))));
