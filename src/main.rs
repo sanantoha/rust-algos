@@ -27,7 +27,7 @@ fn main() {
     println!("{} | {}", DisplayableListNode::new(Rc::clone(&ffirst)), DisplayableListNode::new(fffirst));
     println!("{}", DisplayableListNode::new(head));
 
-    println!("{}", Rc::strong_count(&ffirst));
+    // println!("{}", Rc::strong_count(&ffirst));
 
     let s = first.borrow().next.as_ref().map(Rc::clone);
 

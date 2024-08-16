@@ -5,8 +5,8 @@ use crate::list::list::ListNode;
 // O(l1 + l2) time | O(1) space
 pub fn merge(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
 
-    let mut c1 = l1.as_ref().map(|x| Rc::clone(x));
-    let mut c2 = l2.as_ref().map(|x| Rc::clone(x));
+    let mut c1 = l1.as_ref().map(Rc::clone);
+    let mut c2 = l2.as_ref().map(Rc::clone);
 
     let dummy = ListNode::new(0);
     let mut curr = Rc::clone(&dummy);
