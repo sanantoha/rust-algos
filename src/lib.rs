@@ -8,3 +8,5 @@ pub mod search;
 pub mod backtracking;
 
 pub mod sorting;
+
+pub mod graph;
