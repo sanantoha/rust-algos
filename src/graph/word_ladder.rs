@@ -3,7 +3,7 @@ use std::collections::{HashMap, HashSet, VecDeque};
 
 // O(n * l ^ 2) time | O(n * l ^ 2) space
 pub fn ladder_length(begin_word: &str, end_word: &str, word_list: &[&str]) -> i32 {
-    if begin_word.is_empty() || end_word.is_empty() || !word_list.contains(&end_word) {
+    if begin_word.is_empty() || end_word.is_empty() || word_list.is_empty() || !word_list.contains(&end_word) {
         return 0;
     }
 
