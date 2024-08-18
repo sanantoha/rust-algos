@@ -9,7 +9,7 @@ pub fn is_cycle(head: &Option<Rc<RefCell<ListNode>>>) -> bool {
 
     // if let Some(curr) = head {
 
-        let mut current = head.as_ref().map(|x| Rc::clone(x));//Some(Rc::clone(curr));
+        let mut current = head.as_ref().map(Rc::clone);
 
         while let Some(node) = current {
             if set.contains(&ListNodeWrapper(Rc::clone(&node))) {
@@ -21,7 +21,7 @@ pub fn is_cycle(head: &Option<Rc<RefCell<ListNode>>>) -> bool {
         }
     // }
 
-    return false;
+    false
 }
 
 // O(n) time | O(1) space
@@ -43,7 +43,7 @@ pub fn is_cycle_ws(head: &Option<Rc<RefCell<ListNode>>>) -> bool {
             }
         }
     }
-    return false;
+    false
 }
 
 #[test]
