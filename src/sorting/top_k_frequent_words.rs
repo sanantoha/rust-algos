@@ -12,13 +12,11 @@ pub fn top_k_frequent<'a>(words: &Vec<&'a str>, k: i32) -> Vec<&'a str> {
 
     let mut heap: BinaryHeap<&Word> = BinaryHeap::new();
 
-    let mut i = 0;
-    for (_, word) in &words_map {
+    for (i, (_, word)) in words_map.iter().enumerate() {
         heap.push(word);
-        if i >= k {
+        if i as i32 >= k {
             heap.pop();
         }
-        i += 1;
     }
 
     let mut res = vec![];
@@ -28,7 +26,7 @@ pub fn top_k_frequent<'a>(words: &Vec<&'a str>, k: i32) -> Vec<&'a str> {
         }
     }
     res.reverse();
-    return res;
+    res
 }
 
 #[derive(Debug, Eq, PartialEq)]
@@ -42,13 +40,13 @@ impl Ord for Word<'_> {
         if self.cnt == other.cnt {
             return self.word.to_lowercase().cmp(&other.word.to_lowercase());
         }
-        return other.cnt.cmp(&self.cnt);
+        other.cnt.cmp(&self.cnt)
     }
 }
 
 impl PartialOrd for Word<'_> {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        return Some(self.cmp(other))
+        Some(self.cmp(other))
     }
 }
 
