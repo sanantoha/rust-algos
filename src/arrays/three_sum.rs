@@ -13,7 +13,7 @@ pub fn three_sum(vec: Vec<i32>, target: i32) -> Vec<[i32; 3]> {
         }
     }
 
-    return res
+    res
 }
 
 // O(n * log(n)) time | O(n) space
@@ -52,7 +52,7 @@ pub fn three_sum1(vec: Vec<i32>, target: i32) -> Vec<[i32; 3]> {
     }
 
 
-    return res
+    res
 }
 
 
