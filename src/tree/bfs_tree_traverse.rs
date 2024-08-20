@@ -24,32 +24,39 @@ pub fn bfs(root: &Option<Box<TreeNode>>) -> Vec<i32> {
                 }
             }
         }
-        return res;
+        res
     } else {
-        return vec![];
+        vec![]
     }
 }
 
-#[test]
-pub fn test_bfs() {
+#[cfg(test)]
+mod tests {
 
-    let root = Some(Box::new(TreeNode::new(
-        5,
-        Some(Box::new(TreeNode::new(
-            2,
-            Some(Box::new(TreeNode::single(1))),
-            Some(Box::new(TreeNode::single(3))),
-        ))),
-        Some(Box::new(TreeNode::new(
-            10,
-            Some(Box::new(TreeNode::single(7))),
+    use super::bfs;
+    use crate::tree::TreeNode;
+
+    #[test]
+    pub fn test_bfs() {
+
+        let root = Some(Box::new(TreeNode::new(
+            5,
             Some(Box::new(TreeNode::new(
-                15,
-                Some(Box::new(TreeNode::single(13))),
-                Some(Box::new(TreeNode::single(17))),
+                2,
+                Some(Box::new(TreeNode::single(1))),
+                Some(Box::new(TreeNode::single(3))),
             ))),
-        ))),
-    )));
+            Some(Box::new(TreeNode::new(
+                10,
+                Some(Box::new(TreeNode::single(7))),
+                Some(Box::new(TreeNode::new(
+                    15,
+                    Some(Box::new(TreeNode::single(13))),
+                    Some(Box::new(TreeNode::single(17))),
+                ))),
+            ))),
+        )));
 
-    assert_eq!(bfs(&root), vec![5, 2, 10, 1, 3, 7, 15, 13, 17]);
+        assert_eq!(bfs(&root), vec![5, 2, 10, 1, 3, 7, 15, 13, 17]);
+    }
 }

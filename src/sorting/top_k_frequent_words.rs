@@ -51,13 +51,22 @@ impl PartialOrd for Word<'_> {
 }
 
 
-#[test]
-pub fn test_top_k_frequent() {
+#[cfg(test)]
+mod tests {
 
-    let words = vec!["i","love","leetcode","i","love","coding"];
+    use super::top_k_frequent;
 
-    let words1 = vec!["the","day","is","sunny","the","the","the","sunny","is","is"];
+    #[test]
+    pub fn test_top_k_frequent() {
+        let words = vec!["i","love","leetcode","i","love","coding"];
 
-    assert_eq!(top_k_frequent(&words, 2), vec!["i", "love"]);
-    assert_eq!(top_k_frequent(&words1, 4), vec!["the","is","sunny","day"]);
+        assert_eq!(top_k_frequent(&words, 2), vec!["i", "love"]);
+    }
+
+    #[test]
+    pub fn test_top_k_frequent_for_4() {
+        let words = vec!["the","day","is","sunny","the","the","the","sunny","is","is"];
+
+        assert_eq!(top_k_frequent(&words, 4), vec!["the","is","sunny","day"]);
+    }
 }

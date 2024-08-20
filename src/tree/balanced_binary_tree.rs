@@ -19,35 +19,47 @@ fn helper(root: &Option<Box<TreeNode>>) -> (bool, usize) {
     (true, 0)
 }
 
-#[test]
-fn test_balanced_binary_tree() {
+#[cfg(test)]
+mod tests {
 
-    let root = Some(Box::new(TreeNode::new(
-        3,
-        Some(Box::new(TreeNode::single(9))),
-        Some(Box::new(TreeNode::new(
-            20,
-            Some(Box::new(TreeNode::single(15))),
-            Some(Box::new(TreeNode::single(7))),
-        ))),
-    )));
+    use super::is_balanced;
+    use crate::tree::TreeNode;
 
-    let root1 = Some(Box::new(
-        TreeNode::new(
-            1,
+    #[test]
+    fn test_balanced_binary_tree() {
+
+        let root = Some(Box::new(TreeNode::new(
+            3,
+            Some(Box::new(TreeNode::single(9))),
             Some(Box::new(TreeNode::new(
-                2,
-                Some(Box::new(TreeNode::new(
-                    3,
-                    Some(Box::new(TreeNode::new(4, None, None))),
-                    Some(Box::new(TreeNode::new(4, None, None))),
-                ))),
-                Some(Box::new(TreeNode::new(3, None, None))),
+                20,
+                Some(Box::new(TreeNode::single(15))),
+                Some(Box::new(TreeNode::single(7))),
             ))),
-            Some(Box::new(TreeNode::new(2, None, None))),
-        )
-    ));
+        )));        
 
-    assert!(is_balanced(&root));
-    assert!(!is_balanced(&root1));
+        assert!(is_balanced(&root));
+    }
+
+    #[test]
+    pub fn test_not_balanced_tree() {
+
+        let root = Some(Box::new(
+            TreeNode::new(
+                1,
+                Some(Box::new(TreeNode::new(
+                    2,
+                    Some(Box::new(TreeNode::new(
+                        3,
+                        Some(Box::new(TreeNode::new(4, None, None))),
+                        Some(Box::new(TreeNode::new(4, None, None))),
+                    ))),
+                    Some(Box::new(TreeNode::new(3, None, None))),
+                ))),
+                Some(Box::new(TreeNode::new(2, None, None))),
+            )
+        ));
+
+        assert!(!is_balanced(&root));
+    }
 }
