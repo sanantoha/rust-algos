@@ -18,10 +18,16 @@ pub fn first_unique_character_in_string(src: &str) -> i32 {
     -1
 }
 
-#[test]
-pub fn test_first_unique_character_in_string() {
+#[cfg(test)]
+mod tests {
 
-    assert_eq!(first_unique_character_in_string("leetcode"), 0);
-    assert_eq!(first_unique_character_in_string("loveleetcode"), 2);
-    assert_eq!(first_unique_character_in_string("aabb"), -1);
+    use super::first_unique_character_in_string;
+
+    #[test]
+    pub fn test_first_unique_character_in_string() {
+
+        assert_eq!(first_unique_character_in_string("leetcode"), 0);
+        assert_eq!(first_unique_character_in_string("loveleetcode"), 2);
+        assert_eq!(first_unique_character_in_string("aabb"), -1);
+    }
 }
