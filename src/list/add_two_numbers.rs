@@ -41,18 +41,27 @@ pub fn add_two_numbers(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCel
     return dummy.borrow().next.as_ref().map(Rc::clone);
 }
 
-#[test]
-pub fn test_add_two_numbers() {
+
+#[cfg(test)]
+mod tests {
+
     use crate::list::DisplayableListNode;
+    use crate::list::ListNode;
+    use super::add_two_numbers;
 
-    let l1 = Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::with_next(9, Some(ListNode::new(9))))))));
-    let l2 = Some(ListNode::with_next(7, Some(ListNode::with_next(3, Some(ListNode::new(2))))));
+    #[test]
+    pub fn test_add_two_numbers() {
+        
 
-    let exp = Some(ListNode::with_next(8, Some(ListNode::with_next(3, Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::new(1))))))))));
+        let l1 = Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::with_next(9, Some(ListNode::new(9))))))));
+        let l2 = Some(ListNode::with_next(7, Some(ListNode::with_next(3, Some(ListNode::new(2))))));
 
-    let res = add_two_numbers(&l1, &l2);
-    if let Some(disp_list_node) = DisplayableListNode::from_option(res.clone()) {
-        println!("{}", disp_list_node);
+        let exp = Some(ListNode::with_next(8, Some(ListNode::with_next(3, Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::new(1))))))))));
+
+        let res = add_two_numbers(&l1, &l2);
+        if let Some(disp_list_node) = DisplayableListNode::from_option(res.clone()) {
+            println!("{}", disp_list_node);
+        }
+        assert_eq!(res, exp);
     }
-    assert_eq!(res, exp);
 }

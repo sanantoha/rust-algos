@@ -19,27 +19,34 @@ pub fn middle_node(head: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<Li
     slow
 }
 
-#[test]
-pub fn test_middle_node() {
+#[cfg(test)]
+mod tests {
+
     use crate::list::DisplayableListNode;
+    use crate::list::ListNode;
+    use super::middle_node;
 
-    let head = Some(ListNode::with_next(4, Some(ListNode::with_next(8, Some(ListNode::with_next(15, Some(ListNode::new(19))))))));
-    let exp = Some(ListNode::with_next(15, Some(ListNode::new(19))));
+    #[test]
+    pub fn test_middle_node() {
+        let head = Some(ListNode::with_next(4, Some(ListNode::with_next(8, Some(ListNode::with_next(15, Some(ListNode::new(19))))))));
+        let exp = Some(ListNode::with_next(15, Some(ListNode::new(19))));
 
-    let res = middle_node(&head);
-    if let Some(display_res) = DisplayableListNode::from_option(res.clone()) {
-        println!("{}", display_res);
+        let res = middle_node(&head);
+        if let Some(display_res) = DisplayableListNode::from_option(res.clone()) {
+            println!("{}", display_res);
+        }
+        assert_eq!(middle_node(&head), exp);        
     }
-    assert_eq!(middle_node(&head), exp);
 
+    #[test]
+    pub fn test_middle_node_odd_list() {
+        let head1 = Some(ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5))))))))));
+        let exp1 = Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5))))));
 
-
-    let head1 = Some(ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5))))))))));
-    let exp1 = Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5))))));
-
-    let res1 = middle_node(&head1);
-    if let Some(display_res) = DisplayableListNode::from_option(res1.clone()) {
-        println!("{}", display_res);
+        let res1 = middle_node(&head1);
+        if let Some(display_res) = DisplayableListNode::from_option(res1.clone()) {
+            println!("{}", display_res);
+        }
+        assert_eq!(middle_node(&head1), exp1);
     }
-    assert_eq!(middle_node(&head1), exp1);
 }

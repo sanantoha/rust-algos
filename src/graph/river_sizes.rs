@@ -68,19 +68,25 @@ fn get_neighbors(matrix: &[&[i32]], row: usize, col: usize) -> Vec<(usize, usize
     res
 }
 
-#[test]
-pub fn test_river_sizes() {
+#[cfg(test)]
+mod tests {
 
-    let matrix: &[&[i32]] = &[
-        &[1, 0, 0, 1, 0],
-        &[1, 0, 1, 0, 1],
-        &[0, 0, 1, 0, 1],
-        &[1, 0, 1, 1, 0],
-        &[1, 0, 1, 0, 0],
-    ];
+    use super::river_sizes;
 
-    let res = river_sizes(matrix);
-    println!("{:?}", res);
+    #[test]
+    pub fn test_river_sizes() {
 
-    assert_eq!(res, vec![2, 1, 5, 2, 2])
+        let matrix: &[&[i32]] = &[
+            &[1, 0, 0, 1, 0],
+            &[1, 0, 1, 0, 1],
+            &[0, 0, 1, 0, 1],
+            &[1, 0, 1, 1, 0],
+            &[1, 0, 1, 0, 0],
+        ];
+
+        let res = river_sizes(matrix);
+        println!("{:?}", res);
+
+        assert_eq!(res, vec![2, 1, 5, 2, 2])
+    }
 }

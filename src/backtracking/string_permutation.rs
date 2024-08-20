@@ -23,9 +23,15 @@ fn backtrack(src: &str, ans: &str, res: &mut Vec<String>) {
     }
 }
 
-#[test]
-fn test_string_permutation() {
-    let src = String::from("abc");
+#[cfg(test)]
+mod tests {
 
-    assert_eq!(permute(&src), vec!["abc", "acb", "bac", "bca", "cab", "cba"]);
+    use super::permute;
+
+    #[test]
+    fn test_string_permutation() {
+        let src = String::from("abc");
+
+        assert_eq!(permute(&src), vec!["abc", "acb", "bac", "bca", "cab", "cba"]);
+    }
 }

@@ -32,26 +32,33 @@ pub fn merge(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCell<ListNode
     return dummy.borrow().next.as_ref().map(Rc::clone);
 }
 
-#[test]
-pub fn test_merge() {
+
+#[cfg(test)]
+mod tests {
 
     use crate::list::DisplayableListNode;
+    use crate::list::ListNode;
+    use super::merge;
 
-    let head1 = Some(ListNode::with_next(4, Some(ListNode::with_next(8, Some(ListNode::with_next(15, Some(ListNode::new(19))))))));
-    let head2 = Some(ListNode::with_next(7, Some(ListNode::with_next(9, Some(ListNode::with_next(10, Some(ListNode::new(16))))))));
+    #[test]
+    pub fn test_merge() {
 
-    let exp = Some(ListNode::with_next(4,
-                Some(ListNode::with_next(7,
-                    Some(ListNode::with_next(8,
-                        Some(ListNode::with_next(9,
-                            Some(ListNode::with_next(10,
-                                Some(ListNode::with_next(15,
-                                    Some(ListNode::with_next(16,
-                                        Some(ListNode::new(19))))))))))))))));
+        let head1 = Some(ListNode::with_next(4, Some(ListNode::with_next(8, Some(ListNode::with_next(15, Some(ListNode::new(19))))))));
+        let head2 = Some(ListNode::with_next(7, Some(ListNode::with_next(9, Some(ListNode::with_next(10, Some(ListNode::new(16))))))));
 
-    let res = merge(&head1, &head2);
-    if let Some(display_res) = DisplayableListNode::from_option(res.clone()) {
-        println!("{}", display_res);
+        let exp = Some(ListNode::with_next(4,
+                    Some(ListNode::with_next(7,
+                        Some(ListNode::with_next(8,
+                            Some(ListNode::with_next(9,
+                                Some(ListNode::with_next(10,
+                                    Some(ListNode::with_next(15,
+                                        Some(ListNode::with_next(16,
+                                            Some(ListNode::new(19))))))))))))))));
+
+        let res = merge(&head1, &head2);
+        if let Some(display_res) = DisplayableListNode::from_option(res.clone()) {
+            println!("{}", display_res);
+        }
+        assert_eq!(res, exp);
     }
-    assert_eq!(res, exp);
 }

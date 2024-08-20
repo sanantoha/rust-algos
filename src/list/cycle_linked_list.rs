@@ -46,21 +46,51 @@ pub fn is_cycle_ws(head: &Option<Rc<RefCell<ListNode>>>) -> bool {
     false
 }
 
-#[test]
-pub fn test_is_cycle() {
+#[cfg(test)]
+mod tests {
 
-    let node0 = ListNode::with_next(0, Some(ListNode::with_next(1, Some(ListNode::new(3)))));
-    let node4 = ListNode::with_next(4, Some(ListNode::with_next(5, Some(ListNode::with_next(6, Some(ListNode::with_next(7, Some(Rc::clone(&node0)))))))));
+    use std::rc::Rc;
+    use std::cell::RefCell;
+    use crate::list::ListNode;
+    use super::{is_cycle, is_cycle_ws};
+    
+    #[test]
+    pub fn test_is_cycle_if_circle() {
+        let root = create_circle_list();                
 
-    node0.borrow().next.as_ref().unwrap().borrow().next.as_ref().unwrap().borrow_mut().next = Some(Rc::clone(&node4));
+        assert!(is_cycle(&root));                        
+    }
 
-    let root = Some(Rc::clone(&node0));
-    let node10 = ListNode::with_next(0, Some(ListNode::with_next(1, Some(ListNode::new(2)))));
-    let root1 = Some(Rc::clone(&node10));
+    #[test]
+    pub fn test_is_cycle_ws_if_circle() {
+        let root = create_circle_list();
 
-    assert!(is_cycle(&root));
-    assert!(!is_cycle(&root1));
+        assert!(is_cycle_ws(&root));
+    }
 
-    assert!(is_cycle_ws(&root));
-    assert!(!is_cycle_ws(&root1));
+    #[test]
+    pub fn test_is_cycle_() {
+        let root = create_list();
+        assert!(!is_cycle(&root));        
+    }
+
+    #[test]
+    pub fn test_ic_cycle_ws() {
+        let root = create_list();
+        assert!(!is_cycle_ws(&root));
+    }
+
+    pub fn create_circle_list() -> Option<Rc<RefCell<ListNode>>> {
+        let node0 = ListNode::with_next(0, Some(ListNode::with_next(1, Some(ListNode::new(3)))));
+        let node4 = ListNode::with_next(4, Some(ListNode::with_next(5, Some(ListNode::with_next(6, Some(ListNode::with_next(7, Some(Rc::clone(&node0)))))))));
+
+        node0.borrow().next.as_ref().unwrap().borrow().next.as_ref().unwrap().borrow_mut().next = Some(Rc::clone(&node4));
+
+        Some(node0)
+    }
+
+    pub fn create_list() -> Option<Rc<RefCell<ListNode>>> {
+        let node10 = ListNode::with_next(0, Some(ListNode::with_next(1, Some(ListNode::new(2)))));
+        Some(node10)
+    }
 }
