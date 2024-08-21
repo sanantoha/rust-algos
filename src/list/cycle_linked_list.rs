@@ -7,19 +7,16 @@ use crate::list::{ListNode, ListNodeWrapper};
 pub fn is_cycle(head: &Option<Rc<RefCell<ListNode>>>) -> bool {
     let mut set = HashSet::new();
 
-    // if let Some(curr) = head {
+    let mut current = head.as_ref().map(Rc::clone);
 
-        let mut current = head.as_ref().map(Rc::clone);
-
-        while let Some(node) = current {
-            if set.contains(&ListNodeWrapper(Rc::clone(&node))) {
-                return true;
-            }
-            set.insert(ListNodeWrapper(Rc::clone(&node)));
-
-            current = node.borrow().next.as_ref().map(Rc::clone);
+    while let Some(node) = current.take() {
+        if set.contains(&ListNodeWrapper(Rc::clone(&node))) {
+            return true;
         }
-    // }
+        set.insert(ListNodeWrapper(Rc::clone(&node)));
+
+        current = node.borrow().next.as_ref().map(Rc::clone);
+    }
 
     false
 }
