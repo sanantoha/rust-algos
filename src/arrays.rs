@@ -4,3 +4,4 @@ pub mod first_duplicate_value;
 pub mod fist_unique_character_in_string;
 pub mod four_sum;
 pub mod generate_matrix;
+pub mod greatest_common_devisor;
