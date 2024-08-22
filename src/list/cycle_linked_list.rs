@@ -21,6 +21,7 @@ pub fn is_cycle(head: &Option<Rc<RefCell<ListNode>>>) -> bool {
     false
 }
 
+// O(n) time | O(n) space
 pub fn is_cycle2(head: &Rc<RefCell<ListNode>>) -> bool {
     let mut set = HashSet::new();
 
