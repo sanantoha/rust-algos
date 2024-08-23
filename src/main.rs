@@ -3,7 +3,7 @@ use rust_algos::tree;
 use tree::TreeNode;
 use rust_algos::list;
 use list::ListNode;
-use rust_algos::list::DisplayableListNode;
+use rust_algos::list::Displayable;
 
 fn main() {
 
@@ -24,8 +24,8 @@ fn main() {
     let ffirst = Rc::clone(&first);
     let fffirst = Rc::clone(&first);
 
-    println!("{} | {}", DisplayableListNode::new(Rc::clone(&ffirst)), DisplayableListNode::new(fffirst));
-    println!("{}", DisplayableListNode::new(head));
+    println!("{} | {}", Displayable::new(Rc::clone(&ffirst)), Displayable::new(fffirst));
+    println!("{}", Displayable::new(head));
 
     // println!("{}", Rc::strong_count(&ffirst));
 
@@ -33,7 +33,7 @@ fn main() {
 
     println!("{}", Rc::strong_count(&first));
 
-    if let Some(sss) = DisplayableListNode::from_option(s) {
+    if let Some(sss) = Displayable::from_option(s) {
         println!("{}", sss);
     }
 }

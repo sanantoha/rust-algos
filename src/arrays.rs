@@ -6,3 +6,4 @@ pub mod four_sum;
 pub mod generate_matrix;
 pub mod greatest_common_devisor;
 pub mod largest_range;
+pub mod median_of_two_sorted_arrays;

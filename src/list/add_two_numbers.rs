@@ -45,7 +45,7 @@ pub fn add_two_numbers(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCel
 #[cfg(test)]
 mod tests {
 
-    use crate::list::DisplayableListNode;
+    use crate::list::Displayable;
     use crate::list::ListNode;
     use super::add_two_numbers;
 
@@ -59,7 +59,7 @@ mod tests {
         let exp = Some(ListNode::with_next(8, Some(ListNode::with_next(3, Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::new(1))))))))));
 
         let res = add_two_numbers(&l1, &l2);
-        if let Some(disp_list_node) = DisplayableListNode::from_option(res.clone()) {
+        if let Some(disp_list_node) = Displayable::from_option(res.clone()) {
             println!("{}", disp_list_node);
         }
         assert_eq!(res, exp);

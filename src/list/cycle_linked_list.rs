@@ -1,7 +1,7 @@
 use std::cell::RefCell;
 use std::collections::HashSet;
 use std::rc::Rc;
-use crate::list::{ListNode, ListNodeWrapper};
+use crate::list::ListNode;
 
 // O(n) time | O(n) space
 pub fn is_cycle(head: &Option<Rc<RefCell<ListNode>>>) -> bool {
@@ -10,10 +10,10 @@ pub fn is_cycle(head: &Option<Rc<RefCell<ListNode>>>) -> bool {
     let mut current = head.as_ref().map(Rc::clone);
 
     while let Some(node) = current.take() {
-        if set.contains(&ListNodeWrapper(Rc::clone(&node))) {
+        if set.contains(&Rc::as_ptr(&node)) {
             return true;
         }
-        set.insert(ListNodeWrapper(Rc::clone(&node)));
+        set.insert(Rc::as_ptr(&node));
 
         current = node.borrow().next.as_ref().map(Rc::clone);
     }
@@ -28,10 +28,10 @@ pub fn is_cycle2(head: &Rc<RefCell<ListNode>>) -> bool {
     let mut curr = Some(Rc::clone(head));
 
     while let Some(node) = curr.take() {
-        if set.contains(&ListNodeWrapper(Rc::clone(&node))) {
+        if set.contains(&Rc::as_ptr(&node)) {
             return true;
         }
-        set.insert(ListNodeWrapper(Rc::clone(&node)));
+        set.insert(Rc::as_ptr(&node));
 
         if let Some(next) = node.borrow().next.as_ref() {
             curr = Some(Rc::clone(next))

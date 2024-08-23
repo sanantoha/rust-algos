@@ -36,7 +36,7 @@ pub fn merge(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCell<ListNode
 #[cfg(test)]
 mod tests {
 
-    use crate::list::DisplayableListNode;
+    use crate::list::Displayable;
     use crate::list::ListNode;
     use super::merge;
 
@@ -56,7 +56,7 @@ mod tests {
                                             Some(ListNode::new(19))))))))))))))));
 
         let res = merge(&head1, &head2);
-        if let Some(display_res) = DisplayableListNode::from_option(res.clone()) {
+        if let Some(display_res) = Displayable::from_option(res.clone()) {
             println!("{}", display_res);
         }
         assert_eq!(res, exp);

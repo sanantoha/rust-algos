@@ -21,7 +21,7 @@ pub fn reverse(head: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNod
 #[cfg(test)]
 mod tests {
 
-    use crate::list::DisplayableListNode;
+    use crate::list::Displayable;
     use crate::list::ListNode;
     use super::reverse;
 
@@ -33,7 +33,7 @@ mod tests {
         let exp_list = ListNode::with_next(5, Some(ListNode::with_next(4, Some(ListNode::with_next(3, Some(ListNode::with_next(2, Some(ListNode::new(1)))))))));
 
         let res = reverse(Some(head));
-        if let Some(disp_list_node) = DisplayableListNode::from_option(res.clone()) {
+        if let Some(disp_list_node) = Displayable::from_option(res.clone()) {
             println!("{}", disp_list_node);
         }
         assert_eq!(res, Some(exp_list));

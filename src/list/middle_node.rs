@@ -22,7 +22,7 @@ pub fn middle_node(head: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<Li
 #[cfg(test)]
 mod tests {
 
-    use crate::list::DisplayableListNode;
+    use crate::list::Displayable;
     use crate::list::ListNode;
     use super::middle_node;
 
@@ -32,7 +32,7 @@ mod tests {
         let exp = Some(ListNode::with_next(15, Some(ListNode::new(19))));
 
         let res = middle_node(&head);
-        if let Some(display_res) = DisplayableListNode::from_option(res.clone()) {
+        if let Some(display_res) = Displayable::from_option(res.clone()) {
             println!("{}", display_res);
         }
         assert_eq!(middle_node(&head), exp);        
@@ -44,7 +44,7 @@ mod tests {
         let exp1 = Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5))))));
 
         let res1 = middle_node(&head1);
-        if let Some(display_res) = DisplayableListNode::from_option(res1.clone()) {
+        if let Some(display_res) = Displayable::from_option(res1.clone()) {
             println!("{}", display_res);
         }
         assert_eq!(middle_node(&head1), exp1);
