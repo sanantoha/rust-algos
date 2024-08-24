@@ -7,3 +7,5 @@ pub mod generate_matrix;
 pub mod greatest_common_devisor;
 pub mod largest_range;
 pub mod median_of_two_sorted_arrays;
+pub mod minimal_haviest_set_a;
+pub mod minimum_window_substring;
