@@ -7,7 +7,6 @@ pub mod deep_copy_arbitrary_pointer;
 
 use std::cell::RefCell;
 use std::fmt;
-use std::hash::{Hash, Hasher};
 use std::rc::Rc;
 
 #[derive(Debug, PartialEq, Eq)]
@@ -23,24 +22,6 @@ impl ListNode {
 
     pub fn with_next(val: i32, next: Option<Rc<RefCell<ListNode>>>) -> Rc<RefCell<Self>> {
         Rc::new(RefCell::new(ListNode{ val, next }))
-    }
-}
-
-// Newtype wrapper for Rc<RefCell<ListNode>>
-#[derive(Debug, Clone)]
-pub struct ListNodeWrapper(pub Rc<RefCell<ListNode>>);
-
-impl PartialEq for ListNodeWrapper {
-    fn eq(&self, other: &Self) -> bool {
-        self.0.borrow().val == other.0.borrow().val
-    }
-}
-
-impl Eq for ListNodeWrapper {}
-
-impl Hash for ListNodeWrapper {
-    fn hash<H: Hasher>(&self, state: &mut H) {
-        self.0.borrow().val.hash(state);
     }
 }
 
