@@ -52,6 +52,7 @@ impl Ord for Edge {
     }
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 pub struct EdgeWeightedGraph {
     v: i32,
@@ -59,14 +60,15 @@ pub struct EdgeWeightedGraph {
     adj: Vec<VecDeque<Edge>>,
 }
 
+#[allow(dead_code)]
 impl EdgeWeightedGraph {
     pub fn new() -> Self {
         todo!()
     }
-
-    pub fn from_file(file_path: &str) -> Self {
-        todo!()
-    }
+    
+    // pub fn from_file(file_path: &str) -> Self {
+    //     todo!()
+    // }
 }
 
 fn nearly_equal(a: f64, b: f64, epsilon: f64) -> bool {

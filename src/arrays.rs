@@ -9,3 +9,5 @@ pub mod largest_range;
 pub mod median_of_two_sorted_arrays;
 pub mod minimal_haviest_set_a;
 pub mod minimum_window_substring;
+pub mod min_rewards;
+pub mod min_swaps_transform_string_to_palindrom;

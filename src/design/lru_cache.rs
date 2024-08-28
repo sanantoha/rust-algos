@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use std::rc::Rc;
 use std::{fmt, io};
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct LRUCache {
     capacity: usize,
@@ -11,6 +12,7 @@ struct LRUCache {
     tail: Rc<RefCell<Node>>
 }
 
+#[allow(dead_code)]
 impl LRUCache {
     
     pub fn new(capacity: usize) -> Result<LRUCache, Box<dyn std::error::Error>> {
@@ -93,6 +95,7 @@ impl fmt::Display for LRUCache {
     }
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct Node {
     key: i32,
@@ -116,7 +119,6 @@ mod tests {
 
     use super::LRUCache;
 
-    // #[ignore = "under development"]
     #[test]
     fn it_lru_cache() {
 
