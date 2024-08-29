@@ -11,3 +11,4 @@ pub mod minimal_haviest_set_a;
 pub mod minimum_window_substring;
 pub mod min_rewards;
 pub mod min_swaps_transform_string_to_palindrom;
+pub mod optimal_freelancing;
