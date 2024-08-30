@@ -44,7 +44,7 @@ mod tests {
 
     #[test]
     fn it_optimal_freelancing() {
-
+        
         let mut jobs: Vec<HashMap<&str, i32>> = vec![
             HashMap::from([("deadline", 2), ("payment", 2)]),
             HashMap::from([("deadline", 4), ("payment", 3)]),

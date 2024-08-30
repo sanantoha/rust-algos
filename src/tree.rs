@@ -3,6 +3,8 @@ pub mod dfs_tree_traverse_rec;
 pub mod dfs_tree_traverse;
 pub mod bfs_tree_traverse;
 pub mod kth_smallest_element_in_bst;
+pub mod left_view_binary_tree;
+pub mod level_order_binary_tree_traverse;
 
 
 #[derive(Debug, PartialEq, Eq, Default)]
