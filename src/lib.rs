@@ -16,3 +16,5 @@ pub mod design;
 pub mod strings;
 
 pub mod stack;
+
+pub mod dynamic;

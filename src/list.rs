@@ -4,6 +4,7 @@ pub mod add_two_numbers;
 pub mod merged_two_sorted_lists;
 pub mod middle_node;
 pub mod deep_copy_arbitrary_pointer;
+pub mod delete_node_in_linked_list;
 
 use std::cell::RefCell;
 use std::fmt;
