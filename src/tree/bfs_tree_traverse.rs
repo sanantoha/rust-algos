@@ -43,16 +43,16 @@ mod tests {
             5,
             Some(Box::new(TreeNode::new(
                 2,
-                Some(Box::new(TreeNode::single(1))),
-                Some(Box::new(TreeNode::single(3))),
+                Some(Box::new(TreeNode::leaf(1))),
+                Some(Box::new(TreeNode::leaf(3))),
             ))),
             Some(Box::new(TreeNode::new(
                 10,
-                Some(Box::new(TreeNode::single(7))),
+                Some(Box::new(TreeNode::leaf(7))),
                 Some(Box::new(TreeNode::new(
                     15,
-                    Some(Box::new(TreeNode::single(13))),
-                    Some(Box::new(TreeNode::single(17))),
+                    Some(Box::new(TreeNode::leaf(13))),
+                    Some(Box::new(TreeNode::leaf(17))),
                 ))),
             ))),
         )));

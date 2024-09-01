@@ -115,11 +115,11 @@ mod tests {
         Some(
             Box::new(TreeNode::new(5,
                                 Some(Box::new(TreeNode::new(2,
-                                                            Some(Box::new(TreeNode::single(1))),
-                                                            Some(Box::new(TreeNode::single(3)))))),
+                                                            Some(Box::new(TreeNode::leaf(1))),
+                                                            Some(Box::new(TreeNode::leaf(3)))))),
                                 Some(Box::new(TreeNode::new(8,
-                                                            Some(Box::new(TreeNode::single(7))),
-                                                            Some(Box::new(TreeNode::single(9)))))),
+                                                            Some(Box::new(TreeNode::leaf(7))),
+                                                            Some(Box::new(TreeNode::leaf(9)))))),
             ))
         )
     }

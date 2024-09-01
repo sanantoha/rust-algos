@@ -30,11 +30,11 @@ mod tests {
 
         let root = Some(Box::new(TreeNode::new(
             3,
-            Some(Box::new(TreeNode::single(9))),
+            Some(Box::new(TreeNode::leaf(9))),
             Some(Box::new(TreeNode::new(
                 20,
-                Some(Box::new(TreeNode::single(15))),
-                Some(Box::new(TreeNode::single(7))),
+                Some(Box::new(TreeNode::leaf(15))),
+                Some(Box::new(TreeNode::leaf(7))),
             ))),
         )));        
 

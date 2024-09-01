@@ -49,14 +49,14 @@ mod tests {
     #[test]
     fn it_left_view() {
         let root = Box::new(TreeNode::new(1,
-            Some(Box::new(TreeNode::single(2))),
+            Some(Box::new(TreeNode::leaf(2))),
             Some(Box::new(TreeNode::new(3,
                 Some(Box::new(TreeNode::new(4,
-                    Some(Box::new(TreeNode::single(5))),
+                    Some(Box::new(TreeNode::leaf(5))),
                     Some(Box::new(TreeNode::new(6,
                         None,
-                        Some(Box::new(TreeNode::single(7))))))))),
-                Some(Box::new(TreeNode::single(8)))))),
+                        Some(Box::new(TreeNode::leaf(7))))))))),
+                Some(Box::new(TreeNode::leaf(8)))))),
             ));
 
         let res = left_view(root);

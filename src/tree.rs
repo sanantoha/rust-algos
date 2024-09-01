@@ -5,6 +5,7 @@ pub mod bfs_tree_traverse;
 pub mod kth_smallest_element_in_bst;
 pub mod left_view_binary_tree;
 pub mod level_order_binary_tree_traverse;
+pub mod binary_tree_tilt;
 
 
 #[derive(Debug, PartialEq, Eq, Default)]
@@ -15,7 +16,7 @@ pub struct TreeNode {
 }
 
 impl TreeNode {
-    pub fn single(val: i32) -> Self {
+    pub fn leaf(val: i32) -> Self {
         TreeNode {
             val,
             left: None,

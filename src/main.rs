@@ -7,11 +7,11 @@ use rust_algos::list::Displayable;
 
 fn main() {
 
-    let mut root = TreeNode::single(1);
+    let mut root = TreeNode::leaf(1);
 
     // Replace the empty children with real nodes
-    root.left = Some(Box::new(TreeNode::single(2)));
-    root.right = Some(Box::new(TreeNode::single(3)));
+    root.left = Some(Box::new(TreeNode::leaf(2)));
+    root.right = Some(Box::new(TreeNode::leaf(3)));
 
     println!("Tree {:?}", root);
 
