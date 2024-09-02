@@ -1,9 +1,9 @@
 
 // O(n ^ 2 * n!) time | O(n * n!) space
-pub fn permute(src: &String) -> Vec<String> {
+pub fn permute(src: &str) -> Vec<String> {
     let mut res: Vec<String> = Vec::new();
     backtrack(src, "", &mut res);
-    return res;
+    res
 }
 
 fn backtrack(src: &str, ans: &str, res: &mut Vec<String>) {
@@ -30,8 +30,6 @@ mod tests {
 
     #[test]
     fn test_string_permutation() {
-        let src = String::from("abc");
-
-        assert_eq!(permute(&src), vec!["abc", "acb", "bac", "bca", "cab", "cba"]);
+        assert_eq!(permute("abc"), vec!["abc", "acb", "bac", "bca", "cab", "cba"]);
     }
 }
