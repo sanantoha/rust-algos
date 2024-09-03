@@ -9,7 +9,7 @@ pub mod prim_min_spanning_tree;
 
 const EPSILON: f64 = 1e-10;
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct Edge {
     v: usize,
     u: usize,
@@ -37,7 +37,7 @@ impl Edge {
 
 impl fmt::Display for Edge {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{} -> {} {:.2} ", self.v, self.u, self.weight)
+        write!(f, "{} - {} {:.2} ", self.v, self.u, self.weight)
     }
 }
 
