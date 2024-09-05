@@ -19,3 +19,4 @@ pub mod spiral_matrix_traverse;
 pub mod subarray_sort;
 pub mod stable_internships;
 pub mod subarray_sum;
+pub mod rotate_image;
