@@ -17,3 +17,4 @@ pub mod rotate_array;
 pub mod sparse_matrix_mutliplicaiton;
 pub mod spiral_matrix_traverse;
 pub mod subarray_sort;
+pub mod stable_internships;
