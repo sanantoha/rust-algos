@@ -6,6 +6,7 @@ use std::cmp::Reverse;
 
 use super::{Edge, EdgeWeightedGraph};
 
+// O(E * log(V)) time | O(V) space
 pub fn mst(graph: &EdgeWeightedGraph) -> Option<EdgeWeightedGraph> {
     let mut ngraph = EdgeWeightedGraph::new(graph.v);
 
