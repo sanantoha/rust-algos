@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 use std::cmp::Ordering;
-use std::{fmt, iter};
+use std::fmt;
 use std::path::PathBuf;
 use std::rc::Rc;
 use std::fs::File;
@@ -10,6 +10,7 @@ pub mod river_sizes;
 pub mod word_ladder;
 pub mod prim_min_spanning_tree;
 pub mod breadth_first_search;
+pub mod depth_first_search;
 
 
 const EPSILON: f64 = 1e-10;
