@@ -1,11 +1,16 @@
 use std::collections::VecDeque;
 use std::cmp::Ordering;
-use std::fmt;
+use std::{fmt, iter};
+use std::path::PathBuf;
 use std::rc::Rc;
+use std::fs::File;
+use std::io::{self, BufRead, Error, ErrorKind};
 
 pub mod river_sizes;
 pub mod word_ladder;
 pub mod prim_min_spanning_tree;
+pub mod breadth_first_search;
+
 
 const EPSILON: f64 = 1e-10;
 
@@ -101,6 +106,20 @@ impl DirectedEdge {
 
 }
 
+impl Eq for DirectedEdge {}
+
+impl PartialEq for DirectedEdge {
+    fn eq(&self, other: &Self) -> bool {
+        self.v.eq(&other.v) && self.u.eq(&other.u) && nearly_equal(self.weight, other.weight, EPSILON)
+    }
+}
+
+impl fmt::Display for DirectedEdge {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} -> {} {:.2} ", self.v, self.u, self.weight)
+    }
+}
+
 #[derive(Debug, PartialEq)]
 pub struct EdgeWeightedGraph {
     v: usize,
@@ -137,6 +156,92 @@ impl EdgeWeightedGraph {
 }
 
 impl fmt::Display for EdgeWeightedGraph {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        writeln!(f, "{} {}", self.v, self.e)?;
+        for v in 0..self.v {
+            write!(f, "{}: ", v)?;
+            for edge in &self.adj[v] {
+                write!(f, "{} ", edge)?;
+            }
+            writeln!(f)?;
+        }
+        
+        Ok(())
+    }
+}
+
+#[derive(Debug, PartialEq)]
+pub struct EdgeWeightedDigraph {
+    v: usize,
+    e: usize,
+    adj: Vec<VecDeque<Rc<DirectedEdge>>>,
+}
+
+impl EdgeWeightedDigraph {
+    pub fn new(v: usize) -> Self {
+        let adj = vec![VecDeque::new(); v];
+        EdgeWeightedDigraph {
+            v,
+            e: 0,
+            adj
+        }
+    }
+
+    pub fn from_file(path: PathBuf) -> Result<Self, std::io::Error> {
+        
+        let file = File::open(path)?;
+        let reader = io::BufReader::new(file);
+
+        let mut iterator = reader.lines();
+        let v: usize = iterator.next()
+            .ok_or(Error::new(ErrorKind::InvalidData, "number of vertices not found in the file"))
+            .and_then(|x| x)
+            .and_then(|x| x.parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e)))?;
+
+        let _ = iterator.next();
+            // .ok_or(Error::new(ErrorKind::InvalidData, "number of edges not found in the file"))
+            // .and_then(|x| x)
+            // .and_then(|x| x.parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e)))?;
+
+        let mut graph = EdgeWeightedDigraph::new(v);
+
+        for line in iterator {
+            let line: String = line?;
+            let edge_parts: Vec<&str> = line.split_whitespace().collect();
+            let from: usize = edge_parts[0].parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+            let to: usize = edge_parts[1].parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+            let weight: f64 = edge_parts[2].parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+            graph.add_edge(DirectedEdge::new(from, to, weight));
+        }
+        
+
+        Ok(graph)
+    }
+
+    pub fn add_edge(&mut self, edge: DirectedEdge) {
+        let v = edge.from();
+        let e = Rc::new(edge);
+        self.adj[v].push_back(Rc::clone(&e));
+        self.e += 1;
+    }
+
+    pub fn edges(&self) -> Vec<Rc<DirectedEdge>> {
+        let mut res = vec![];
+        for v in 0..self.v {
+            for edge in &self.adj[v] {
+                res.push(Rc::clone(edge));
+            }
+        }
+
+        res
+    }
+
+    pub fn adj(&self, v: usize) -> impl Iterator<Item = &Rc<DirectedEdge>> {
+        self.adj[v].iter()
+    }
+}
+
+impl fmt::Display for EdgeWeightedDigraph {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         writeln!(f, "{} {}", self.v, self.e)?;
         for v in 0..self.v {
