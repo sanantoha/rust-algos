@@ -33,6 +33,10 @@ impl Edge {
         } 
         panic!("Illegal endpoint");
     }
+
+    pub fn weight(&self) -> f64 {
+        self.weight
+    }
 }
 
 impl fmt::Display for Edge {
@@ -65,6 +69,36 @@ impl Ord for Edge {
             Ordering::Equal
         }
     }
+}
+
+#[derive(Debug)]
+pub struct DirectedEdge {
+    v: usize,
+    u: usize,
+    weight: f64
+}
+
+impl DirectedEdge {
+    pub fn new(v: usize, u: usize, weight: f64) -> Self {
+        DirectedEdge {
+            v,
+            u,
+            weight,
+        }
+    }
+
+    pub fn from(&self) -> usize {
+        self.v
+    }
+
+    pub fn to(&self) -> usize {
+        self.u
+    }
+
+    pub fn weight(&self) -> f64 {
+        self.weight
+    }
+
 }
 
 #[derive(Debug, PartialEq)]

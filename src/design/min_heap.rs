@@ -1,14 +1,13 @@
 
 #[derive(Debug)]
 struct MinHeap {
-
     heap: Vec<i32>
 }
 
 impl MinHeap {
     
     fn new(arr: &[i32]) -> Self {
-        let heap = build_heap(arr);
+        let heap = MinHeap::build_heap(arr);
 
         MinHeap {
             heap
@@ -19,7 +18,7 @@ impl MinHeap {
     fn insert(&mut self, value: i32) {
         self.heap.push(value);
         let idx = self.heap.len();
-        sift_up(idx - 1, &mut self.heap);
+        MinHeap::sift_up(idx - 1, &mut self.heap);
     }
 
     // O(log(n)) time | O(1) space
@@ -39,17 +38,16 @@ impl MinHeap {
         self.heap.swap(0, l - 1);
         let v = self.heap.remove(l - 1);
         let l = self.heap.len();
-        sift_down(0, l - 1, &mut self.heap);
+        MinHeap::sift_down(0, l - 1, &mut self.heap);
         Some(v)
     }
-}
 
-// O(n) time | O(1) space
+    // O(n) time | O(1) space
 fn build_heap(arr: &[i32]) -> Vec<i32> {
     let mut heap = arr.to_vec();
     let size = heap.len();
     for i in (0..arr.len() / 2).rev() {
-        sift_down(i, size - 1, &mut heap);
+        MinHeap::sift_down(i, size - 1, &mut heap);
     }
 
     heap
@@ -94,6 +92,7 @@ fn sift_up(curr_idx: usize, heap: &mut Vec<i32>) {
             break;
         }
     }
+}
 }
 
 #[cfg(test)]
