@@ -4,3 +4,4 @@ pub mod first_permutation_is_substr_of_second_str;
 pub mod combination_sum;
 pub mod generate_parentheses;
 mod phone_number_mnemonics;
+mod powerset;
