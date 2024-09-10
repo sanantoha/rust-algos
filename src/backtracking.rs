@@ -5,3 +5,5 @@ pub mod combination_sum;
 pub mod generate_parentheses;
 mod phone_number_mnemonics;
 mod powerset;
+mod unique_path_iii;
+mod word_search;
