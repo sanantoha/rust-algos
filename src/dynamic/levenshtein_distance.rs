@@ -58,7 +58,6 @@ pub fn levenshtein_distance1(a: &str, b: &str) -> usize {
     let mut curr = vec![0; small.len() + 1]; // odd
 
     for i in 1..=big.len() {
-        std::mem::swap(&mut curr, &mut prev);
         curr[0] = i;
         for j in 1..=small.len() {
             if big.as_bytes()[i - 1] == small.as_bytes()[j - 1] {
@@ -67,6 +66,7 @@ pub fn levenshtein_distance1(a: &str, b: &str) -> usize {
                 curr[j] = 1 + curr[j - 1].min(prev[j - 1]).min(prev[j]);
             }
         }
+        std::mem::swap(&mut curr, &mut prev);
     }
 
     if big.len() % 2 == 0 {
@@ -74,6 +74,12 @@ pub fn levenshtein_distance1(a: &str, b: &str) -> usize {
     } else {
         curr[small.len()]
     }
+    //    a b c
+    //  0 1 2 3
+    //y 1 1 2 3
+    //a 2 1 2 3
+    //b 3 2 1 2
+    //d 4 3 2 2
 }
 
 #[cfg(test)]
@@ -87,7 +93,7 @@ mod tests {
 
     #[test]
     fn it_levenshtein_distance1() {
-        assert_eq!(levenshtein_distance1("abc", "yabc"), 2);
+        assert_eq!(levenshtein_distance1("abc", "yabd"), 2);
     }
 }
 
