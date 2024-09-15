@@ -6,3 +6,4 @@ mod house_robber;
 mod knapsack_problem;
 mod levenshtein_distance;
 mod longest_common_subsequence;
+mod longest_incr_subseq;
