@@ -36,10 +36,7 @@ pub fn lis(arr: &[i32]) -> i32 {
         if prev < arr[i] {
             res.push(arr[i]);
         } else {
-            let j = match res.binary_search(&arr[i]) {
-                Ok(i) => i,
-                Err(i) => i,
-            };
+            let j = res.binary_search(&arr[i]).unwrap_or_else(|i| i);
             res[j] = arr[i];
         }
     }

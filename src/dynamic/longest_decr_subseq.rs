@@ -36,10 +36,7 @@ pub fn lds1(arr: &[i32]) -> i32 {
         if prev > arr[i] {
             res.push(arr[i]);
         } else {
-            let j = match res.binary_search_by(|p| p.cmp(&arr[i]).reverse()) {
-                Ok(i) => i,
-                Err(i) => i,
-            };
+            let j = res.binary_search_by(|p| p.cmp(&arr[i]).reverse()).unwrap_or_else(|i| i);
 
             res[j] = arr[i];
         }
