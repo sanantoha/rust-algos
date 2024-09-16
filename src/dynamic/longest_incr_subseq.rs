@@ -111,7 +111,7 @@ fn lis_list(arr: &[i32]) -> Vec<i32> {
 
 fn binary_search(arr: &[i32], indices: &[Option<usize>], mut l: usize, mut r: usize, target: i32) -> usize {
     while l <= r {
-        let mid = (l + r) >> 1;
+        let mid = l + (r - l) >> 1;
         if let Some(idx) = indices[mid] {
             if target > arr[idx] {
                 l = mid + 1;
