@@ -10,3 +10,6 @@ mod longest_incr_subseq;
 mod maximum_subarray;
 mod longest_decr_subseq;
 mod longest_nondecr_subseq;
+mod max_sum_increasing_subsequence;
+mod min_number_of_coins_for_change;
+mod min_number_of_jumps;
