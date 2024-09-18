@@ -1,4 +1,3 @@
-use std::collections::HashSet;
 
 // O(s * p) time | O(s * p) space
 pub fn is_match(s: &str, p: &str) -> bool {
@@ -12,8 +11,9 @@ fn dp(s: &str, p: &str, i: usize, j: usize, memo: &mut Vec<Vec<bool>>) -> bool {
         if j == p.len() {
             ans = i == s.len();
         } else {
-            let set: HashSet<char> = [s.chars().nth(i).unwrap_or_default(), '.'].iter().copied().collect();
-            let first_match = i < s.len() && set.contains(&p.chars().nth(j).unwrap_or_default());
+            let p_c = p.chars().nth(j).unwrap_or_default();
+            let s_c = s.chars().nth(i).unwrap_or_default();
+            let first_match = i < s.len() && (s_c == p_c || '.' == p_c);
 
             if j + 1 < p.len() && p.chars().nth(j + 1).unwrap_or_default() == '*' {
                 ans = dp(s, p, i, j + 2, memo) || first_match && dp(s, p, i + 1, j, memo);
@@ -34,8 +34,9 @@ pub fn is_match_iter(s: &str, p: &str) -> bool {
 
     for i in (0..=s.len()).rev() {
         for j in (0..p.len()).rev() {
-            let set: HashSet<char> = [s.chars().nth(i).unwrap_or_default(), '.'].iter().copied().collect();
-            let first_match = i < s.len() && set.contains(&p.chars().nth(j).unwrap_or_default());
+            let p_c = p.chars().nth(j).unwrap_or_default();
+            let s_c = s.chars().nth(i).unwrap_or_default();
+            let first_match = i < s.len() && (s_c == p_c || '.' == p_c);
 
             if j + 1 < p.len() && p.chars().nth(j + 1).unwrap_or_default() == '*' {
                 dp[i][j] = dp[i][j + 2] || first_match && dp[i + 1][j];
