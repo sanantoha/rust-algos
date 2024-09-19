@@ -15,3 +15,4 @@ mod min_number_of_coins_for_change;
 mod min_number_of_jumps;
 mod numbers_of_ways_to_make_change;
 mod regular_expression_match;
+mod staircase_traversal;
