@@ -17,3 +17,4 @@ mod numbers_of_ways_to_make_change;
 mod regular_expression_match;
 mod staircase_traversal;
 mod unique_paths;
+mod water_area;
