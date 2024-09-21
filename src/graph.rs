@@ -12,6 +12,7 @@ pub mod prim_min_spanning_tree;
 pub mod breadth_first_search;
 pub mod depth_first_search;
 mod all_paths_from_source_target;
+mod a_star_algorithm;
 
 const EPSILON: f64 = 1e-10;
 
