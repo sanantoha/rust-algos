@@ -13,10 +13,11 @@ pub mod breadth_first_search;
 pub mod depth_first_search;
 mod all_paths_from_source_target;
 mod a_star_algorithm;
+mod bellman_ford;
 
 const EPSILON: f64 = 1e-10;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone)]
 pub struct Edge {
     v: usize,
     u: usize,
@@ -78,7 +79,7 @@ impl Ord for Edge {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct DirectedEdge {
     v: usize,
     u: usize,
@@ -201,9 +202,6 @@ impl EdgeWeightedDigraph {
             .and_then(|x| x.parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e)))?;
 
         let _ = iterator.next();
-            // .ok_or(Error::new(ErrorKind::InvalidData, "number of edges not found in the file"))
-            // .and_then(|x| x)
-            // .and_then(|x| x.parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e)))?;
 
         let mut graph = EdgeWeightedDigraph::new(v);
 
