@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use std::rc::Rc;
 use crate::graph::Node;
 
-// O(n) time | O(n) space
+// O(E + V) time | O(V) space
 pub fn clone_graph(node: Rc<RefCell<Node>>) -> Option<Rc<RefCell<Node>>> {
 
     let mut cache = HashMap::new();
