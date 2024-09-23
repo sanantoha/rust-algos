@@ -1,3 +1,4 @@
+use std::cell::RefCell;
 use std::collections::VecDeque;
 use std::cmp::Ordering;
 use std::fmt;
@@ -5,6 +6,7 @@ use std::path::PathBuf;
 use std::rc::Rc;
 use std::fs::File;
 use std::io::{self, BufRead, Error, ErrorKind};
+use itertools::Itertools;
 
 pub mod river_sizes;
 pub mod word_ladder;
@@ -14,6 +16,7 @@ pub mod depth_first_search;
 mod all_paths_from_source_target;
 mod a_star_algorithm;
 mod bellman_ford;
+mod clone_graph;
 
 const EPSILON: f64 = 1e-10;
 
@@ -260,4 +263,27 @@ fn nearly_equal(a: f64, b: f64, epsilon: f64) -> bool {
     let diff = (a - b).abs();
     let norm = f64::min(a.abs() + b.abs(), f64::MAX);
     diff / norm <= epsilon
+}
+
+#[derive(Debug, Clone)]
+pub struct Node {
+    val: i32,
+    neighbors: Vec<Rc<RefCell<Node>>>,
+}
+
+impl Node {
+    fn new(val: i32) -> Self {
+        Node {
+            val,
+            neighbors: vec![],
+        }
+    }
+}
+
+impl fmt::Display for Node {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let neighbors_str = self.neighbors.iter().map(|x| x.borrow().val).join(", ");
+        writeln!(f, "{} [{}]", self.val, neighbors_str)?;
+        Ok(())
+    }
 }
