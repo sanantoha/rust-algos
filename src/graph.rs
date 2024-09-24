@@ -1,7 +1,8 @@
 use std::cell::RefCell;
-use std::collections::VecDeque;
+use std::collections::{HashMap, HashSet, VecDeque};
 use std::cmp::Ordering;
 use std::fmt;
+use std::fmt::Display;
 use std::path::PathBuf;
 use std::rc::Rc;
 use std::fs::File;
@@ -17,6 +18,7 @@ mod all_paths_from_source_target;
 mod a_star_algorithm;
 mod bellman_ford;
 mod clone_graph;
+mod breadth_first_search_as_map;
 
 const EPSILON: f64 = 1e-10;
 
@@ -286,4 +288,123 @@ impl fmt::Display for Node {
         writeln!(f, "{} [{}]", self.val, neighbors_str)?;
         Ok(())
     }
+}
+
+#[derive(Debug, Clone)]
+pub struct EdgeT<T: Clone + PartialEq> {
+    v: T,
+    u: T,
+    weight: f64
+}
+
+impl <T: Clone + PartialEq> EdgeT<T> {
+    pub fn new(v: T, u: T, weight: f64) -> Self {
+        EdgeT {
+            v,
+            u,
+            weight
+        }
+    }
+
+    pub fn from(&self) -> &T {
+        &self.v
+    }
+
+    pub fn to(&self) -> &T {
+        &self.u
+    }
+
+    pub fn weight(&self) -> f64 {
+        self.weight
+    }
+
+    pub fn other(&self, v: &T) -> &T {
+        if &self.v == v {
+            &self.u
+        } else if &self.u == v {
+            &self.v
+        } else {
+            panic!("Unreachable")
+        }
+    }
+}
+
+impl<T: Clone + PartialEq> Eq for EdgeT<T> {}
+
+impl <T: Clone + PartialEq> PartialEq for EdgeT<T> {
+    fn eq(&self, other: &Self) -> bool {
+        self.v.eq(&other.v) && self.u.eq(&other.u) && nearly_equal(self.weight, other.weight, EPSILON)
+    }
+}
+
+impl <T: Clone + PartialEq> PartialOrd for EdgeT<T> {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl <T: Clone + PartialEq> Ord for EdgeT<T> {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        if self.weight < other.weight {
+            Ordering::Less
+        } else if self.weight > other.weight {
+            Ordering::Greater
+        } else {
+            Ordering::Equal
+        }
+    }
+}
+
+impl <T: Display + Clone + PartialEq> Display for EdgeT<T> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} -> {} {:.2} ", self.v, self.u, self.weight)
+    }
+}
+
+pub fn graph_from_file(path: PathBuf) -> Result<HashMap<String, Vec<Rc<EdgeT<String>>>>, Error> {
+
+    let file = File::open(path)?;
+    let reader = io::BufReader::new(file);
+
+    let mut iterator = reader.lines();
+    let _ = iterator.next(); // read amount of vertices
+    let _ = iterator.next(); // read amount of edges
+
+    let mut graph = HashMap::new();
+
+    for line in iterator {
+        let line: String = line?;
+        let edge_parts: Vec<&str> = line.split_whitespace().collect();
+        let from: String = edge_parts[0].parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+        let to: String = edge_parts[1].parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+        let weight: f64 = edge_parts[2].parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+        let edge = Rc::new(EdgeT::new(from.clone(), to, weight));
+
+        let v = graph.entry(from).or_insert_with(Vec::new);
+        v.push(edge);
+    }
+
+
+    Ok(graph)
+}
+
+pub fn graph_to_string(graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>) -> String {
+    let mut res = String::new();
+    res.push_str(format!("{} ", graph.len()).as_str());
+
+    let mut edges = HashSet::new();
+
+    let mut sub_res = String::new();
+    for (v, lst) in graph.iter() {
+        sub_res.push_str(format!("{}: ", v).as_str());
+        edges.extend(lst.iter().map(|x| Rc::as_ptr(x)));
+
+        for edge in lst.iter() {
+            sub_res.push_str(format!("{}->{} {}  ", edge.from(), edge.to(), edge.weight).as_str());
+        }
+        sub_res.push_str("\n");
+    }
+    res.push_str(format!("{}\n", edges.len()).as_str());
+    res.push_str(sub_res.as_str());
+    res
 }
