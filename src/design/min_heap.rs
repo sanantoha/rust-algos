@@ -43,56 +43,56 @@ impl MinHeap {
     }
 
     // O(n) time | O(1) space
-fn build_heap(arr: &[i32]) -> Vec<i32> {
-    let mut heap = arr.to_vec();
-    let size = heap.len();
-    for i in (0..arr.len() / 2).rev() {
-        MinHeap::sift_down(i, size - 1, &mut heap);
+    fn build_heap(arr: &[i32]) -> Vec<i32> {
+        let mut heap = arr.to_vec();
+        let size = heap.len();
+        for i in (0..arr.len() / 2).rev() {
+            MinHeap::sift_down(i, size - 1, &mut heap);
+        }
+
+        heap
     }
 
-    heap
-}
+    // O(log(n)) time | O(1) space
+    fn sift_down(curr_idx: usize, end_idx: usize, heap: &mut Vec<i32>) {
 
-// O(log(n)) time | O(1) space
-fn sift_down(curr_idx: usize, end_idx: usize, heap: &mut Vec<i32>) {
+        let mut idx = curr_idx;
 
-    let mut idx = curr_idx;
+        while idx <= end_idx {
+            let l = idx * 2 + 1;
+            let r = idx * 2 + 2;
 
-    while idx <= end_idx {
-        let l = idx * 2 + 1;
-        let r = idx * 2 + 2;
-
-        let mut min_idx = idx;
-        if l <= end_idx && heap[min_idx] > heap[l] {
-            min_idx = l;
-        }
-        if r <= end_idx && heap[min_idx] > heap[r] {
-            min_idx = r;
-        }
-        if idx != min_idx {
-            heap.swap(min_idx, idx);
-            idx = min_idx;
-        } else {
-            break;
+            let mut min_idx = idx;
+            if l <= end_idx && heap[min_idx] > heap[l] {
+                min_idx = l;
+            }
+            if r <= end_idx && heap[min_idx] > heap[r] {
+                min_idx = r;
+            }
+            if idx != min_idx {
+                heap.swap(min_idx, idx);
+                idx = min_idx;
+            } else {
+                break;
+            }
         }
     }
-}
 
-// O(log(n)) time | O(1) space
-fn sift_up(curr_idx: usize, heap: &mut Vec<i32>) {
-    let mut idx = curr_idx;        
+    // O(log(n)) time | O(1) space
+    fn sift_up(curr_idx: usize, heap: &mut Vec<i32>) {
+        let mut idx = curr_idx;
 
-    while let Some(i) = idx.checked_sub(1) {
-        let parent_id = i / 2;
+        while let Some(i) = idx.checked_sub(1) {
+            let parent_id = i / 2;
 
-        if heap[parent_id] > heap[idx] {
-            heap.swap(parent_id, idx);
-            idx = parent_id;
-        } else {
-            break;
+            if heap[parent_id] > heap[idx] {
+                heap.swap(parent_id, idx);
+                idx = parent_id;
+            } else {
+                break;
+            }
         }
     }
-}
 }
 
 #[cfg(test)]
