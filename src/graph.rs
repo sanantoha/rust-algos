@@ -19,6 +19,7 @@ mod a_star_algorithm;
 mod bellman_ford;
 mod clone_graph;
 mod breadth_first_search_as_map;
+mod depth_first_search_as_map;
 
 const EPSILON: f64 = 1e-10;
 
