@@ -20,6 +20,8 @@ mod bellman_ford;
 mod clone_graph;
 mod breadth_first_search_as_map;
 mod depth_first_search_as_map;
+mod prim_min_spanning_tree_as_map;
+mod dijkstra_shortest_paths;
 
 const EPSILON: f64 = 1e-10;
 
@@ -120,6 +122,24 @@ impl Eq for DirectedEdge {}
 impl PartialEq for DirectedEdge {
     fn eq(&self, other: &Self) -> bool {
         self.v.eq(&other.v) && self.u.eq(&other.u) && nearly_equal(self.weight, other.weight, EPSILON)
+    }
+}
+
+impl PartialOrd for DirectedEdge {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for DirectedEdge {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        if self.weight < other.weight {
+            Ordering::Less
+        } else if self.weight > other.weight {
+            Ordering::Greater
+        } else {
+            Ordering::Equal
+        }
     }
 }
 
@@ -401,7 +421,7 @@ pub fn graph_to_string(graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>) -> Strin
         edges.extend(lst.iter().map(|x| Rc::as_ptr(x)));
 
         for edge in lst.iter() {
-            sub_res.push_str(format!("{}->{} {}  ", edge.from(), edge.to(), edge.weight).as_str());
+            sub_res.push_str(format!("{}  ", edge).as_str());
         }
         sub_res.push_str("\n");
     }
