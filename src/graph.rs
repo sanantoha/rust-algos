@@ -22,6 +22,7 @@ mod breadth_first_search_as_map;
 mod depth_first_search_as_map;
 mod prim_min_spanning_tree_as_map;
 mod dijkstra_shortest_paths;
+mod kruskal_min_spanning_tree;
 
 const EPSILON: f64 = 1e-10;
 
@@ -176,6 +177,26 @@ impl EdgeWeightedGraph {
         self.adj[v].push_back(Rc::clone(&shared_edge));
         self.adj[u].push_back(Rc::clone(&shared_edge));
         self.e += 1;
+    }
+
+    pub fn edges(&self) -> Vec<Rc<Edge>> {
+        let mut res = vec![];
+        for v in 0..self.v {
+            let mut self_loops = 0;
+            for edge in &self.adj[v] {
+                if edge.other(v) > v {
+                    res.push(Rc::clone(edge));
+                } else if edge.other(v) == v {
+                    if self_loops % 2 == 0 {
+                        res.push(Rc::clone(edge));
+                    }
+                    self_loops += 1;
+                }
+                // res.push(Rc::clone(edge));
+            }
+        }
+
+        res
     }
 
     pub fn adj(&self, v: usize) -> impl Iterator<Item = &Rc<Edge>> {
@@ -428,4 +449,25 @@ pub fn graph_to_string(graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>) -> Strin
     res.push_str(format!("{}\n", edges.len()).as_str());
     res.push_str(sub_res.as_str());
     res
+}
+
+pub fn compare(graph1: &EdgeWeightedGraph, graph2: &EdgeWeightedGraph) -> bool {
+    if graph1.v != graph2.v {
+        println!("graph1.v != graph2.v");
+        return false;
+    }
+    if graph1.e != graph2.e {
+        println!("graph1.e != graph2.e");
+        return false;
+    }
+    for v in 0..graph1.v {
+        let vec1 = graph1.adj[v].iter().sorted().collect::<Vec<_>>();
+        let vec2 = graph2.adj[v].iter().sorted().collect::<Vec<_>>();
+        if vec1 != vec2 {
+            println!("graph1 {} {:?} != graph2 {} {:?}", v, graph1.adj[v], v, graph2.adj[v]);
+            return false;
+        }
+    }
+
+    true
 }
