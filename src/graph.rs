@@ -472,3 +472,21 @@ pub fn compare(graph1: &EdgeWeightedGraph, graph2: &EdgeWeightedGraph) -> bool {
 
     true
 }
+
+pub fn compare_as_map(graph1: &HashMap<String, Vec<Rc<EdgeT<String>>>>, graph2: &HashMap<String, Vec<Rc<EdgeT<String>>>>) -> bool {
+    if graph1.len() != graph2.len() {
+        println!("graph1.v != graph2.v");
+        return false;
+    }
+
+    for v in graph1.keys() {
+        let vec1: Option<Vec<&Rc<EdgeT<String>>>> = graph1.get(v).map(|x| x.into_iter().sorted().collect::<Vec<_>>());
+        let vec2: Option<Vec<&Rc<EdgeT<String>>>> = graph2.get(v).map(|x| x.into_iter().sorted().collect::<Vec<_>>());
+        if vec1 != vec2 {
+            println!("graph1 {} {:?} != graph2 {} {:?}", v, vec1, v, vec2);
+            return false;
+        }
+    }
+
+    true
+}
