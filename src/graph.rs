@@ -23,6 +23,7 @@ mod depth_first_search_as_map;
 mod prim_min_spanning_tree_as_map;
 mod dijkstra_shortest_paths;
 mod kruskal_min_spanning_tree;
+mod largest_island;
 
 const EPSILON: f64 = 1e-10;
 
