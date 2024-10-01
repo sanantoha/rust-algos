@@ -1,6 +1,6 @@
 
 // O(w * h) time | O(w * h) space
-pub fn largest_increasing_path_in_matrix(matrix: &[&[i32]]) -> i32 {
+pub fn longest_increasing_path_in_matrix(matrix: &[&[i32]]) -> i32 {
     if matrix.is_empty() {
         return 0;
     }
@@ -53,7 +53,7 @@ fn get_neighbors(matrix: &[&[i32]], row: usize, col: usize) -> Vec<(usize, usize
 
 #[cfg(test)]
 mod tests {
-    use crate::graph::largest_increasing_path_in_matrix::largest_increasing_path_in_matrix;
+    use crate::graph::longest_increasing_path_in_matrix::longest_increasing_path_in_matrix;
 
     #[test]
     fn test_largest_increasing_path_in_matrix() {
@@ -63,7 +63,7 @@ mod tests {
             &[2,1,1],
         ];
 
-        assert_eq!(largest_increasing_path_in_matrix(matrix), 4);
+        assert_eq!(longest_increasing_path_in_matrix(matrix), 4);
     }
 
     #[test]
@@ -74,6 +74,6 @@ mod tests {
             &[2,2,1],
         ];
 
-        assert_eq!(largest_increasing_path_in_matrix(matrix), 4);
+        assert_eq!(longest_increasing_path_in_matrix(matrix), 4);
     }
 }
