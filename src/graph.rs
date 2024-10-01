@@ -26,6 +26,7 @@ mod kruskal_min_spanning_tree;
 mod largest_island;
 mod longest_increasing_path_in_matrix;
 mod munimum_passes_of_matrix;
+mod number_of_islands;
 
 const EPSILON: f64 = 1e-10;
 
