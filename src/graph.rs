@@ -27,6 +27,7 @@ mod largest_island;
 mod longest_increasing_path_in_matrix;
 mod munimum_passes_of_matrix;
 mod number_of_islands;
+mod surround_regions;
 
 const EPSILON: f64 = 1e-10;
 
