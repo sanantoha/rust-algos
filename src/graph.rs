@@ -28,6 +28,7 @@ mod longest_increasing_path_in_matrix;
 mod munimum_passes_of_matrix;
 mod number_of_islands;
 mod surround_regions;
+mod topological_sort;
 
 const EPSILON: f64 = 1e-10;
 
@@ -152,6 +153,74 @@ impl Ord for DirectedEdge {
 impl fmt::Display for DirectedEdge {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{} -> {} {:.2} ", self.v, self.u, self.weight)
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct Digraph {
+    v: usize,
+    e: usize,
+    adj: Vec<VecDeque<usize>>,
+}
+
+impl Digraph {
+    pub fn new(v: usize) -> Self {
+        Digraph {
+            v,
+            e: 0,
+            adj: vec![VecDeque::new(); v],
+        }
+    }
+
+    pub fn from_file(path: PathBuf) -> Result<Self, std::io::Error> {
+
+        let file = File::open(path)?;
+        let reader = io::BufReader::new(file);
+
+        let mut iterator = reader.lines();
+        let v: usize = iterator.next()
+            .ok_or(Error::new(ErrorKind::InvalidData, "number of vertices not found in the file"))
+            .and_then(|x| x)
+            .and_then(|x| x.parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e)))?;
+
+        let mut graph = Digraph::new(v);
+
+        let _ = iterator.next();
+
+        for line in iterator {
+            let line: String = line?;
+            let edge_parts: Vec<&str> = line.split_whitespace().collect();
+            let from: usize = edge_parts[0].parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+            let to: usize = edge_parts[1].parse().map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+            graph.add_edge(from, to);
+        }
+
+        Ok(graph)
+    }
+
+
+    pub fn add_edge(&mut self, v: usize, u: usize) {
+        self.adj[v].push_front(u);
+        self.e += 1;
+    }
+
+    pub fn adj(&self, v: usize) -> impl Iterator<Item = &usize> {
+        self.adj[v].iter()
+    }
+}
+
+impl fmt::Display for Digraph {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        writeln!(f, "{} {}", self.v, self.e)?;
+        for v in 0..self.v {
+            write!(f, "{}: ", v)?;
+            for u in &self.adj[v] {
+                write!(f, "{} ", u)?;
+            }
+            writeln!(f)?;
+        }
+
+        Ok(())
     }
 }
 
