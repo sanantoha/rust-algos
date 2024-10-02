@@ -23,12 +23,12 @@ pub fn sort_rec(graph: &Digraph) -> Result<Vec<usize>, String> {
     Ok(res)
 }
 
-fn dfs(graph: &Digraph, v: usize, visited: &mut Vec<u8>, stack: &mut Vec<usize>) -> Result<(), usize> {
+fn dfs(graph: &Digraph, v: usize, visited: &mut Vec<u8>, stack: &mut Vec<usize>) -> Result<(), String> {
     visited[v] = 1;
 
     for &u in graph.adj(v) {
         if visited[u] == 1 {
-            return Err(u);
+            return Err(format!("cyrcle in the graph in {}", v));
         }
         if visited[u] == 0 {
             if let Err(k) = dfs(graph, u, visited, stack) {
@@ -43,7 +43,7 @@ fn dfs(graph: &Digraph, v: usize, visited: &mut Vec<u8>, stack: &mut Vec<usize>)
 }
 
 // O(E + V) time | O(V) space
-pub fn sort_iter(graph: &Digraph) -> Result<Vec<usize>, usize> {
+pub fn sort_iter(graph: &Digraph) -> Result<Vec<usize>, String> {
 
     let mut cnt = vec![0usize; graph.v];
 
@@ -63,7 +63,7 @@ pub fn sort_iter(graph: &Digraph) -> Result<Vec<usize>, usize> {
     }
 
     if is_circle {
-        return Err(0)
+        return Err("circle in the graph".to_string());
     }
 
     let mut res = vec![];
@@ -80,7 +80,7 @@ pub fn sort_iter(graph: &Digraph) -> Result<Vec<usize>, usize> {
     }
 
     if res.len() != graph.v {
-        return Err(0);
+        return Err("circle in the graph".to_string());
     }
 
     Ok(res)
