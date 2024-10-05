@@ -1,3 +1,4 @@
+use std::hash::{Hash, Hasher};
 use std::cell::RefCell;
 use std::collections::{HashMap, HashSet, VecDeque};
 use std::cmp::Ordering;
@@ -31,6 +32,7 @@ mod surround_regions;
 mod topological_sort;
 mod topological_sort_dfs_cycle_graph;
 mod word_ladder_ii;
+mod bellman_ford_as_map;
 
 const EPSILON: f64 = 1e-10;
 
@@ -470,6 +472,14 @@ impl <T: Clone + PartialEq> Ord for EdgeT<T> {
         } else {
             Ordering::Equal
         }
+    }
+}
+
+impl Hash for EdgeT<String> {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.v.hash(state);
+        self.u.hash(state);
+        self.weight.to_bits().hash(state);
     }
 }
 
