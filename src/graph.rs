@@ -33,6 +33,7 @@ mod topological_sort;
 mod topological_sort_dfs_cycle_graph;
 mod word_ladder_ii;
 mod bellman_ford_as_map;
+mod dijkstra_shortest_paths_as_map;
 
 const EPSILON: f64 = 1e-10;
 
