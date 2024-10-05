@@ -1,5 +1,6 @@
 use std::collections::{HashMap, HashSet};
 use std::rc::Rc;
+use itertools::Itertools;
 use crate::graph::EdgeT;
 
 // O(E * V) time | O(V) space
@@ -17,9 +18,11 @@ pub fn shortest_path(graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>, start: Str
     let s = shortest.entry(start).or_insert(f64::MAX);
     *s = 0f64;
 
+    // not required for this algorithms, but for stability
+    let edges_list: Vec<Rc<EdgeT<String>>> = edges.iter().map(|x| Rc::clone(x)).sorted().collect();
 
     for _ in 0..(graph.len() - 1) {
-        for edge in edges.iter() {
+        for edge in edges_list.iter() {
             relax(&mut shortest, &mut prev, Rc::clone(edge));
         }
     }
@@ -100,19 +103,14 @@ mod tests {
             exp_prev.insert(String::from("0"), String::from("4"));
             exp_prev.insert(String::from("1"), String::from("2"));
             exp_prev.insert(String::from("2"), String::from("4"));
-            exp_prev.insert(String::from("3"), String::from("0"));
+            exp_prev.insert(String::from("3"), String::from("1"));
             exp_prev.insert(String::from("4"), String::from("1"));
 
             println!("shortest: {:?}, prev {:?}", shortest, prev);
             assert_eq!(prev.len(), exp_prev.len());
             for (k, v) in &prev {
                 if let Some(v2) = exp_prev.get(k) {
-                    if k == "3" {
-                        assert!(v == "0" || v == "1", "{}", k);
-                    } else {
-                        assert_eq!(v, v2, "{}", k);
-                    }
-
+                    assert_eq!(v, v2, "{}", k);
                 }
             }
 
