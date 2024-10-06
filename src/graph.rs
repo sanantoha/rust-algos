@@ -34,6 +34,7 @@ mod topological_sort_dfs_cycle_graph;
 mod word_ladder_ii;
 mod bellman_ford_as_map;
 mod dijkstra_shortest_paths_as_map;
+mod kruskal_min_spanning_tree_as_map;
 
 const EPSILON: f64 = 1e-10;
 
@@ -538,6 +539,138 @@ pub fn graph_to_string(graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>) -> Strin
     res
 }
 
+/*
+    6 9
+    2: 0 -> 2 8.00   1 -> 2 3.00   2 -> 3 4.00   2 -> 4 3.00
+    3: 1 -> 3 6.00   2 -> 3 4.00   3 -> 4 2.00   3 -> 5 5.00
+    5: 3 -> 5 5.00   4 -> 5 2.00
+    4: 2 -> 4 3.00   3 -> 4 2.00   4 -> 5 2.00
+    0: 0 -> 1 7.00   0 -> 2 8.00
+    1: 0 -> 1 7.00   1 -> 2 3.00   1 -> 3 6.00
+*/
+fn create_graph() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
+    let mut graph = HashMap::new();
+
+    let edge01 = Rc::new(EdgeT::new("0".to_owned(), "1".to_owned(), 7.0));
+    let edge02 = Rc::new(EdgeT::new("0".to_owned(), "2".to_owned(), 8.0));
+
+    let edge12 = Rc::new(EdgeT::new("1".to_owned(), "2".to_owned(), 3.0));
+    let edge13 = Rc::new(EdgeT::new("1".to_owned(), "3".to_owned(), 6.0));
+
+    let edge23 = Rc::new(EdgeT::new("2".to_owned(), "3".to_owned(), 4.0));
+    let edge24 = Rc::new(EdgeT::new("2".to_owned(), "4".to_owned(), 3.0));
+
+    let edge34 = Rc::new(EdgeT::new("3".to_owned(), "4".to_owned(), 2.0));
+    let edge35 = Rc::new(EdgeT::new("3".to_owned(), "5".to_owned(), 5.0));
+
+    let edge45 = Rc::new(EdgeT::new("4".to_owned(), "5".to_owned(), 2.0));
+
+    graph.insert(String::from("0"), vec![Rc::clone(&edge01), Rc::clone(&edge02)]);
+    graph.insert(String::from("1"), vec![Rc::clone(&edge01), Rc::clone(&edge12), Rc::clone(&edge13)]);
+    graph.insert(String::from("2"), vec![Rc::clone(&edge02), Rc::clone(&edge12), Rc::clone(&edge23), Rc::clone(&edge24)]);
+    graph.insert(String::from("3"), vec![Rc::clone(&edge13), Rc::clone(&edge23), Rc::clone(&edge34), Rc::clone(&edge35)]);
+    graph.insert(String::from("4"), vec![Rc::clone(&edge24), Rc::clone(&edge34), Rc::clone(&edge45)]);
+    graph.insert(String::from("5"), vec![Rc::clone(&edge35), Rc::clone(&edge45)]);
+
+    graph
+}
+
+/*
+    7 10
+    0: 0->1 2.0  0->2 3.0  0->3 7.0
+    1: 0->1 2.0  1->2 6.0  1->6 3.0
+    2: 0->2 3.0  1->2 6.0  2->4 1.0  2->5 8.0
+    3: 0->3 7.0  3->4 5.0
+    4: 2->4 1.0  3->4 5.0  4->5 4.0
+    5: 2->5 8.0  4->5 4.0  5->6 2.0
+    6: 1->6 3.0  5->6 2.0
+*/
+fn create_graph1() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
+    let mut graph = HashMap::new();
+
+    let edge01 = Rc::new(EdgeT::new("0".to_owned(), "1".to_owned(), 2.0));
+    let edge02 = Rc::new(EdgeT::new("0".to_owned(), "2".to_owned(), 3.0));
+    let edge03 = Rc::new(EdgeT::new("0".to_owned(), "3".to_owned(), 7.0));
+
+    let edge12 = Rc::new(EdgeT::new("1".to_owned(), "2".to_owned(), 6.0));
+    let edge16 = Rc::new(EdgeT::new("1".to_owned(), "6".to_owned(), 3.0));
+
+    let edge24 = Rc::new(EdgeT::new("2".to_owned(), "4".to_owned(), 1.0));
+    let edge25 = Rc::new(EdgeT::new("2".to_owned(), "5".to_owned(), 8.0));
+
+    let edge34 = Rc::new(EdgeT::new("3".to_owned(), "4".to_owned(), 5.0));
+
+    let edge45 = Rc::new(EdgeT::new("4".to_owned(), "5".to_owned(), 4.0));
+
+    let edge56 = Rc::new(EdgeT::new("5".to_owned(), "6".to_owned(), 2.0));
+
+    graph.insert(String::from("0"), vec![Rc::clone(&edge01), Rc::clone(&edge02), Rc::clone(&edge03)]);
+    graph.insert(String::from("1"), vec![Rc::clone(&edge01), Rc::clone(&edge12), Rc::clone(&edge16)]);
+    graph.insert(String::from("2"), vec![Rc::clone(&edge02), Rc::clone(&edge12), Rc::clone(&edge24), Rc::clone(&edge25)]);
+    graph.insert(String::from("3"), vec![Rc::clone(&edge03), Rc::clone(&edge34)]);
+    graph.insert(String::from("4"), vec![Rc::clone(&edge24), Rc::clone(&edge34), Rc::clone(&edge45)]);
+    graph.insert(String::from("5"), vec![Rc::clone(&edge25), Rc::clone(&edge45), Rc::clone(&edge56)]);
+    graph.insert(String::from("6"), vec![Rc::clone(&edge16), Rc::clone(&edge56)]);
+
+    graph
+}
+
+/*
+    6 5
+    0: 0-1 7.0
+    1: 1-2 3.0  0-1 7.0
+    2: 1-2 3.0  2-4 3.0
+    3: 3-4 2.0
+    4: 3-4 2.0  4-5 2.0  2-4 3.0
+    5: 4-5 2.0
+*/
+fn exp_graph() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
+    let mut exp_graph = HashMap::new();
+    let edge01 = Rc::new(EdgeT::new("0".to_owned(), "1".to_owned(), 7.0));
+    let edge12 = Rc::new(EdgeT::new("1".to_owned(), "2".to_owned(), 3.0));
+    let edge24 = Rc::new(EdgeT::new("2".to_owned(), "4".to_owned(), 3.0));
+    let edge34 = Rc::new(EdgeT::new("3".to_owned(), "4".to_owned(), 2.0));
+    let edge45 = Rc::new(EdgeT::new("4".to_owned(), "5".to_owned(), 2.0));
+    exp_graph.insert(String::from("0"), vec![Rc::clone(&edge01)]);
+    exp_graph.insert(String::from("1"), vec![Rc::clone(&edge12), Rc::clone(&edge01)]);
+    exp_graph.insert(String::from("2"), vec![Rc::clone(&edge12), Rc::clone(&edge24)]);
+    exp_graph.insert(String::from("3"), vec![Rc::clone(&edge34)]);
+    exp_graph.insert(String::from("4"), vec![Rc::clone(&edge34), Rc::clone(&edge45), Rc::clone(&edge24)]);
+    exp_graph.insert(String::from("5"), vec![Rc::clone(&edge45)]);
+    exp_graph
+}
+
+/*
+    7 6
+    0: 0-1 2.0  0-2 3.0
+    1: 0-1 2.0  1-6 3.0
+    2: 2-4 1.0  0-2 3.0
+    3: 3-4 5.0
+    4: 2-4 1.0  3-4 5.0
+    5: 5-6 2.0
+    6: 5-6 2.0  1-6 3.0
+*/
+fn exp_graph1() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
+    let mut exp_graph = HashMap::new();
+    let edge01 = Rc::new(EdgeT::new("0".to_owned(), "1".to_owned(), 2.0));
+    let edge02 = Rc::new(EdgeT::new("0".to_owned(), "2".to_owned(), 3.0));
+    let edge16 = Rc::new(EdgeT::new("1".to_owned(), "6".to_owned(), 3.0));
+    let edge24 = Rc::new(EdgeT::new("2".to_owned(), "4".to_owned(), 1.0));
+    let edge34 = Rc::new(EdgeT::new("3".to_owned(), "4".to_owned(), 5.0));
+    let edge56 = Rc::new(EdgeT::new("5".to_owned(), "6".to_owned(), 2.0));
+
+    exp_graph.insert(String::from("0"), vec![Rc::clone(&edge01), Rc::clone(&edge02)]);
+    exp_graph.insert(String::from("1"), vec![Rc::clone(&edge01), Rc::clone(&edge16)]);
+    exp_graph.insert(String::from("2"), vec![Rc::clone(&edge02), Rc::clone(&edge24)]);
+    exp_graph.insert(String::from("3"), vec![Rc::clone(&edge34)]);
+    exp_graph.insert(String::from("4"), vec![Rc::clone(&edge24), Rc::clone(&edge34)]);
+    exp_graph.insert(String::from("5"), vec![Rc::clone(&edge56)]);
+    exp_graph.insert(String::from("6"), vec![Rc::clone(&edge16), Rc::clone(&edge56)]);
+    exp_graph
+}
+
+
+
 pub fn compare(graph1: &EdgeWeightedGraph, graph2: &EdgeWeightedGraph) -> bool {
     if graph1.v != graph2.v {
         println!("graph1.v != graph2.v");
@@ -566,13 +699,42 @@ pub fn compare_as_map(graph1: &HashMap<String, Vec<Rc<EdgeT<String>>>>, graph2: 
     }
 
     for v in graph1.keys() {
-        let vec1: Option<Vec<&Rc<EdgeT<String>>>> = graph1.get(v).map(|x| x.into_iter().sorted().collect::<Vec<_>>());
-        let vec2: Option<Vec<&Rc<EdgeT<String>>>> = graph2.get(v).map(|x| x.into_iter().sorted().collect::<Vec<_>>());
-        if vec1 != vec2 {
+        let vec1 = graph1.get(v);
+        let vec2 = graph2.get(v);
+        if !compare_vectors(vec1, vec2) {
             println!("graph1 {} {:?} != graph2 {} {:?}", v, vec1, v, vec2);
             return false;
         }
     }
 
     true
+}
+
+fn compare_vectors(v1: Option<&Vec<Rc<EdgeT<String>>>>, v2: Option<&Vec<Rc<EdgeT<String>>>>) -> bool {
+    match (v1, v2) {
+        (Some(v1), Some(v2)) => {
+            if v1.len() != v2.len() {
+                return false;
+            }
+            let mp = create_map(v1);
+            for edge2 in v2.iter() {
+                let key = format!("{}_{}", edge2.v, edge2.u);
+                if let Some(edge1) = mp.get(&key) {
+                    if !edge1.eq(edge2) {
+                        println!("edge {:?} != {:?}", edge1, edge2);
+                        return false;
+                    }
+                }
+            }
+            true
+        }
+        (_, _) => false
+    }
+}
+
+fn create_map(vec: &Vec<Rc<EdgeT<String>>>) -> HashMap<String, Rc<EdgeT<String>>> {
+    vec.into_iter().map(|x| {
+        let key = format!("{}_{}", x.v, x.u);
+        (key, Rc::clone(&x))
+    }).collect()
 }
