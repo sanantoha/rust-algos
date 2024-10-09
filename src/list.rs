@@ -7,6 +7,7 @@ pub mod deep_copy_arbitrary_pointer;
 pub mod delete_node_in_linked_list;
 pub mod intersection_linked_list;
 pub mod odd_even_linked_list;
+mod insert_greatest_common_divisor;
 
 use std::cell::RefCell;
 use std::fmt;
