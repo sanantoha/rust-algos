@@ -8,6 +8,7 @@ pub mod delete_node_in_linked_list;
 pub mod intersection_linked_list;
 pub mod odd_even_linked_list;
 mod insert_greatest_common_divisor;
+mod palindrome_linked_list;
 
 use std::cell::RefCell;
 use std::fmt;
