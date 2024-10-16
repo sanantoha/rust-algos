@@ -5,3 +5,4 @@ mod counting_sort;
 mod heap_sort;
 mod kth_smallest_element_in_array;
 mod merge_intervals;
+mod quick_sort;
