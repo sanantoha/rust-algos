@@ -6,8 +6,11 @@ pub fn top_k_frequent<'a>(words: &Vec<&'a str>, k: i32) -> Vec<&'a str> {
 
     let mut words_map: HashMap<&str, Word> = HashMap::new();
     for &w in words {
-        let word = words_map.entry(w).or_insert(Word {word: w, cnt: 0});
-        word.cnt += 1;
+        words_map.entry(w)
+            .and_modify(|word | word.cnt += 1)
+            .or_insert(Word {word: w, cnt: 0});
+        // let word = words_map.entry(w).or_insert(Word {word: w, cnt: 0});
+        // word.cnt += 1;
     }
 
     let mut heap: BinaryHeap<&Word> = BinaryHeap::new();
