@@ -18,3 +18,4 @@ pub mod strings;
 pub mod stack;
 
 pub mod dynamic;
+pub mod math;
