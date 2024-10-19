@@ -1,4 +1,5 @@
 
+// O(n ^ 2) time | O(1) space
 pub fn count_substrings(s: &str) -> usize {
     if s.is_empty() {
         return 0;
