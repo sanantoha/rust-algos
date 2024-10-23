@@ -8,6 +8,7 @@ pub mod level_order_binary_tree_traverse;
 pub mod binary_tree_tilt;
 mod all_elements_in_two_binary_search_trees;
 mod binary_tree_diameter;
+mod binary_tree_zigzag_level_order_traverse;
 
 #[derive(Debug, PartialEq, Eq, Default)]
 pub struct TreeNode {
