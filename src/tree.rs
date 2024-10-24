@@ -1,3 +1,6 @@
+use std::cell::RefCell;
+use std::rc::Rc;
+
 pub mod balanced_binary_tree;
 pub mod dfs_tree_traverse_rec;
 pub mod dfs_tree_traverse;
@@ -10,6 +13,7 @@ mod all_elements_in_two_binary_search_trees;
 mod binary_tree_diameter;
 mod binary_tree_zigzag_level_order_traverse;
 mod brunch_sums;
+mod bst_successor_search;
 
 #[derive(Debug, PartialEq, Eq, Default)]
 pub struct TreeNode {
@@ -32,6 +36,26 @@ impl TreeNode {
             val,
             left,
             right,
+        }
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, Default)]
+pub struct Node {
+    pub val: i32,
+    pub left: Option<Rc<RefCell<Node>>>,
+    pub right: Option<Rc<RefCell<Node>>>,
+    pub parent: Option<Rc<RefCell<Node>>>,
+}
+
+impl Node {
+
+    pub fn new(val: i32) -> Self {
+        Node {
+            val,
+            left: None,
+            right: None,
+            parent: None,
         }
     }
 }

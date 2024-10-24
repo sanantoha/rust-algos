@@ -1,0 +1,168 @@
+use std::cell::RefCell;
+use std::rc::Rc;
+use crate::tree::Node;
+
+// O(h) time | O(1) space
+pub fn find_in_order_successor(node: &Option<Rc<RefCell<Node>>>) -> Option<Rc<RefCell<Node>>> {
+    if let Some(curr) = node {
+        let right_opt = curr.borrow().right.as_ref().map(Rc::clone);
+        if let Some(right) = right_opt {
+            return get_left_most_child(Rc::clone(&right));
+        } else {
+            return get_right_most_parent(Rc::clone(&curr));
+        }
+    }
+    None
+}
+
+fn get_left_most_child(node: Rc<RefCell<Node>>) -> Option<Rc<RefCell<Node>>> {
+    let mut curr = Rc::clone(&node);
+    let mut next_opt = node.borrow().left.as_ref().map(Rc::clone);
+
+    while let Some(next) = next_opt.take() {
+        curr = Rc::clone(&next);
+        next_opt = next.borrow().left.as_ref().map(Rc::clone);
+    }
+
+    Some(Rc::clone(&curr))
+}
+
+fn get_right_most_parent(node: Rc<RefCell<Node>>) -> Option<Rc<RefCell<Node>>> {
+    let mut curr = Rc::clone(&node);
+    let mut parent_opt = curr.borrow().parent.as_ref().map(Rc::clone);
+
+    while let Some(parent) = parent_opt.take() {
+        let left_opt = parent.borrow().left.as_ref().map(Rc::clone);
+        if let Some(left) = left_opt {
+            if Rc::ptr_eq(&left, &curr) {
+                break;
+            }
+        }
+        curr = Rc::clone(&parent);
+        parent_opt = parent.borrow().parent.as_ref().map(Rc::clone);
+    }
+
+    Rc::clone(&curr).borrow().parent.as_ref().map(Rc::clone)
+}
+
+#[cfg(test)]
+mod tests {
+    use std::cell::RefCell;
+    use std::rc::Rc;
+    use crate::tree::Node;
+    use super::find_in_order_successor;
+
+    #[test]
+    fn test_find_in_order_successor() {
+        let (node5, node9) = create_tree(5, 9);
+
+        assert_eq!(find_in_order_successor(&node5), node9)
+    }
+
+    #[test]
+    fn test_find_in_order_successor_case1() {
+        let (node9, node11) = create_tree(9, 11);
+
+        assert_eq!(find_in_order_successor(&node9), node11)
+    }
+
+    #[test]
+    fn test_find_in_order_successor_case2() {
+        let (node11, node12) = create_tree(11, 12);
+
+        assert_eq!(find_in_order_successor(&node11), node12)
+    }
+
+    #[test]
+    fn test_find_in_order_successor_case3() {
+        let (node12, node14) = create_tree(12, 14);
+
+        assert_eq!(find_in_order_successor(&node12), node14)
+    }
+
+    #[test]
+    fn test_find_in_order_successor_case4() {
+        let (node14, node20) = create_tree(14, 20);
+
+        assert_eq!(find_in_order_successor(&node14), node20)
+    }
+
+    #[test]
+    fn test_find_in_order_successor_case5() {
+        let (node20, node25) = create_tree(20, 25);
+
+        assert_eq!(find_in_order_successor(&node20), node25)
+    }
+
+    #[test]
+    fn test_find_in_order_successor_case6() {
+        let (node25, _) = create_tree(25, i32::MAX);
+
+        assert_eq!(find_in_order_successor(&node25), None)
+    }
+
+    fn create_tree(input: i32, result: i32) -> (Option<Rc<RefCell<Node>>>, Option<Rc<RefCell<Node>>>) {
+        /*
+                    20
+                  /   \
+                9     25
+              /   \
+            5     12
+                 /  \
+               11   14
+
+         */
+
+        let node5 = Rc::new(RefCell::new(Node::new(5)));
+        let node9 = Rc::new(RefCell::new(Node::new(9)));
+        let node11 = Rc::new(RefCell::new(Node::new(11)));
+        let node12 = Rc::new(RefCell::new(Node::new(12)));
+        let node14 = Rc::new(RefCell::new(Node::new(14)));
+        let node20 = Rc::new(RefCell::new(Node::new(20)));
+        let node25 = Rc::new(RefCell::new(Node::new(25)));
+
+
+        node5.borrow_mut().parent = Some(Rc::clone(&node9));
+
+        node9.borrow_mut().left = Some(Rc::clone(&node5));
+        node9.borrow_mut().right = Some(Rc::clone(&node12));
+        node9.borrow_mut().parent = Some(Rc::clone(&node20));
+
+        node11.borrow_mut().parent = Some(Rc::clone(&node12));
+
+        node12.borrow_mut().parent = Some(Rc::clone(&node9));
+        node12.borrow_mut().left = Some(Rc::clone(&node11));
+        node12.borrow_mut().right = Some(Rc::clone(&node14));
+
+        node14.borrow_mut().parent = Some(Rc::clone(&node12));
+
+        node20.borrow_mut().left = Some(Rc::clone(&node9));
+        node20.borrow_mut().right = Some(Rc::clone(&node25));
+
+        node25.borrow_mut().parent = Some(Rc::clone(&node20));
+
+        let vec = vec![
+            Rc::clone(&node5),
+            Rc::clone(&node9),
+            Rc::clone(&node11),
+            Rc::clone(&node12),
+            Rc::clone(&node14),
+            Rc::clone(&node20),
+            Rc::clone(&node25)
+        ];
+
+        let mut input_node = None;
+        let mut result_node = None;
+
+        for v in vec.iter() {
+            if v.borrow().val == input {
+                input_node = Some(Rc::clone(&v));
+            }
+            if v.borrow().val == result {
+                result_node = Some(Rc::clone(&v));
+            }
+        }
+
+        (input_node, result_node)
+    }
+}
