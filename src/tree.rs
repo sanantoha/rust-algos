@@ -14,6 +14,7 @@ mod binary_tree_diameter;
 mod binary_tree_zigzag_level_order_traverse;
 mod brunch_sums;
 mod bst_successor_search;
+mod construct_binary_tree_from_preorder_and_inorder_traversal;
 
 #[derive(Debug, PartialEq, Eq, Default)]
 pub struct TreeNode {
