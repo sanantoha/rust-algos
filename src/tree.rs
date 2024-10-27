@@ -16,6 +16,7 @@ mod brunch_sums;
 mod bst_successor_search;
 mod construct_binary_tree_from_preorder_and_inorder_traversal;
 mod convert_sorted_array_to_bst;
+mod evaluate_expression_tree;
 
 #[derive(Debug, PartialEq, Eq, Default)]
 pub struct TreeNode {
