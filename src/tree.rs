@@ -18,6 +18,7 @@ mod construct_binary_tree_from_preorder_and_inorder_traversal;
 mod convert_sorted_array_to_bst;
 mod evaluate_expression_tree;
 mod find_closest_value_in_bst;
+mod find_mode_in_bst;
 
 #[derive(Debug, PartialEq, Eq, Default)]
 pub struct TreeNode {
