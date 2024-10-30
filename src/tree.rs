@@ -20,6 +20,7 @@ mod evaluate_expression_tree;
 mod find_closest_value_in_bst;
 mod find_mode_in_bst;
 mod find_node_distance_k;
+mod lower_common_ancessor_for_bst;
 
 #[derive(Debug, PartialEq, Eq, Default)]
 pub struct TreeNode {
