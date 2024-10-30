@@ -19,6 +19,7 @@ mod convert_sorted_array_to_bst;
 mod evaluate_expression_tree;
 mod find_closest_value_in_bst;
 mod find_mode_in_bst;
+mod find_node_distance_k;
 
 #[derive(Debug, PartialEq, Eq, Default)]
 pub struct TreeNode {
