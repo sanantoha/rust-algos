@@ -20,7 +20,8 @@ mod evaluate_expression_tree;
 mod find_closest_value_in_bst;
 mod find_mode_in_bst;
 mod find_node_distance_k;
-mod lower_common_ancessor_for_bst;
+mod lower_common_ancestor_for_bst;
+mod lowest_common_ancestor_of_binary_tree;
 
 #[derive(Debug, PartialEq, Eq, Default)]
 pub struct TreeNode {
@@ -63,6 +64,31 @@ impl Node {
             left: None,
             right: None,
             parent: None,
+        }
+    }
+}
+
+#[derive(Debug, PartialEq, Eq, Default)]
+pub struct BinaryTree {
+    pub val: i32,
+    pub left: Option<Rc<RefCell<BinaryTree>>>,
+    pub right: Option<Rc<RefCell<BinaryTree>>>,
+}
+
+impl BinaryTree {
+    pub fn new(val: i32, left: Option<Rc<RefCell<BinaryTree>>>, right: Option<Rc<RefCell<BinaryTree>>>) -> Self {
+        BinaryTree {
+            val,
+            left,
+            right
+        }
+    }
+
+    pub fn leaf(val: i32) -> Self {
+        BinaryTree {
+            val,
+            left: None,
+            right: None
         }
     }
 }
