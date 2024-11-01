@@ -22,6 +22,7 @@ mod find_mode_in_bst;
 mod find_node_distance_k;
 mod lower_common_ancestor_for_bst;
 mod lowest_common_ancestor_of_binary_tree;
+mod max_depth_of_bst;
 
 #[derive(Debug, PartialEq, Eq, Default)]
 pub struct TreeNode {
