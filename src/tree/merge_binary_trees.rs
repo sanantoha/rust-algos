@@ -61,7 +61,6 @@ pub fn merge_binary_trees_iter(tree1: &mut Option<Box<TreeNode>>, tree2: &Option
             }
         }
 
-        // return Some(std::mem::take(left_node));
     }
 
     tree1.take()
