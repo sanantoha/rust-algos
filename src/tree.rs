@@ -25,6 +25,7 @@ mod lowest_common_ancestor_of_binary_tree;
 mod max_depth_of_bst;
 mod max_path_sum_in_binary_tree;
 mod merge_binary_trees;
+mod minimum_absolute_difference;
 
 #[derive(Debug, PartialEq, Eq, Default, Clone)]
 pub struct TreeNode {
