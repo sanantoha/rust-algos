@@ -27,6 +27,7 @@ mod max_path_sum_in_binary_tree;
 mod merge_binary_trees;
 mod minimum_absolute_difference;
 mod node_depths;
+mod populating_next_right_pointer_in_each_node;
 
 #[derive(Debug, PartialEq, Eq, Default, Clone)]
 pub struct TreeNode {
@@ -69,6 +70,15 @@ impl Node {
             left: None,
             right: None,
             parent: None,
+        }
+    }
+
+    pub fn new_with(val: i32, left: Option<Rc<RefCell<Node>>>, right: Option<Rc<RefCell<Node>>>, parent: Option<Rc<RefCell<Node>>>) -> Self {
+        Node {
+            val,
+            left,
+            right,
+            parent
         }
     }
 }
