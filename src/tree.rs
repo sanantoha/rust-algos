@@ -29,6 +29,7 @@ mod minimum_absolute_difference;
 mod node_depths;
 mod populating_next_right_pointer_in_each_node;
 mod reconstruct_bst;
+mod reverse_binary_tree;
 
 #[derive(Debug, PartialEq, Eq, Default, Clone)]
 pub struct TreeNode {
