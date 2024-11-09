@@ -15,13 +15,33 @@ pub fn reverse(root: &mut Option<Box<TreeNode>>) {
     }
 }
 
+// O(n) time | O(h) space
 pub fn reverse_iter(root: &mut Option<Box<TreeNode>>) {
+    if let Some(node) = root {
 
+        let mut stack = vec![node];
+
+        while let Some(curr) = stack.pop() {
+
+            let left = curr.left.take();
+            let right = curr.right.take();
+
+            curr.left = right;
+            curr.right = left;
+
+            if let Some(l) = curr.left.as_mut() {
+                stack.push(l);
+            }
+            if let Some(r) = curr.right.as_mut() {
+                stack.push(r);
+            }
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::reverse_binary_tree::reverse;
+    use crate::tree::reverse_binary_tree::{reverse, reverse_iter};
     use crate::tree::TreeNode;
 
     #[test]
@@ -37,8 +57,11 @@ mod tests {
     #[test]
     fn test_reverse_iter() {
         let mut root = create_tree();
+        let exp_tree = create_exp_tree();
 
+        reverse_iter(&mut root);
 
+        assert_eq!(root, exp_tree);
     }
 
     fn create_exp_tree() -> Option<Box<TreeNode>> {
