@@ -30,6 +30,7 @@ mod node_depths;
 mod populating_next_right_pointer_in_each_node;
 mod reconstruct_bst;
 mod reverse_binary_tree;
+mod same_bsts;
 
 #[derive(Debug, PartialEq, Eq, Default, Clone)]
 pub struct TreeNode {
