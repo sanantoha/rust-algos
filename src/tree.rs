@@ -32,6 +32,7 @@ mod reconstruct_bst;
 mod reverse_binary_tree;
 mod same_bsts;
 mod same_tree;
+mod simmetric_tree;
 
 #[derive(Debug, PartialEq, Eq, Default, Clone)]
 pub struct TreeNode {

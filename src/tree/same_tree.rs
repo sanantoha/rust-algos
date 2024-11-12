@@ -25,18 +25,18 @@ pub fn is_same_tree_iter(t1: &Option<Box<TreeNode>>, t2: &Option<Box<TreeNode>>)
                     return false;
                 }
 
-                if let Some(l) = c1.left.as_ref() {
-                    stack.push(l);
-                }
-                if let Some(l) = c2.left.as_ref() {
-                    stack.push(l);
+                if let (Some(l1), Some(l2)) = (c1.left.as_ref(), c2.left.as_ref()) {
+                    stack.push(l1);
+                    stack.push(l2);
+                } else if !(c1.left.is_none() && c2.left.is_none()) {
+                    return false;
                 }
 
-                if let Some(r) = c1.right.as_ref() {
-                    stack.push(r);
-                }
-                if let Some(r) = c2.right.as_ref() {
-                    stack.push(r);
+                if let (Some(r1), Some(r2)) = (c1.right.as_ref(), c2.right.as_ref()) {
+                    stack.push(r1);
+                    stack.push(r2);
+                } else if !(c1.right.is_none() && c2.right.is_none()) {
+                    return false;
                 }
             } else {
                 return false;
@@ -83,6 +83,21 @@ mod tests {
         assert!(!is_same_tree_iter(&t1, &t2));
     }
 
+    #[test]
+    fn test_is_same_tree_case1() {
+        let t1 = create_tree3();
+        let t2 = create_tree31();
+
+        assert!(!is_same_tree(&t1, &t2));
+    }
+
+    #[test]
+    fn test_is_same_tree_iter_case1() {
+        let t1 = create_tree3();
+        let t2 = create_tree31();
+        assert!(!is_same_tree_iter(&t1, &t2));
+    }
+
     fn create_tree1() -> Option<Box<TreeNode>> {
         let tree = TreeNode::new(
             5,
@@ -117,5 +132,39 @@ mod tests {
         );
 
         Some(Box::new(tree))
+    }
+
+    fn create_tree3() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(
+            1,
+            Some(Box::new(TreeNode::new(
+                2,
+                None,
+                Some(Box::new(TreeNode::leaf(3))),
+            ))),
+            Some(Box::new(TreeNode::new(
+                2,
+                None,
+                Some(Box::new(TreeNode::leaf(3))),
+            ))),
+        );
+        Some(Box::new(root))
+    }
+
+    fn create_tree31() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(
+            1,
+            Some(Box::new(TreeNode::new(
+                2,
+                Some(Box::new(TreeNode::leaf(3))),
+                None,
+            ))),
+            Some(Box::new(TreeNode::new(
+                2,
+                None,
+                Some(Box::new(TreeNode::leaf(3))),
+            ))),
+        );
+        Some(Box::new(root))
     }
 }
