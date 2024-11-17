@@ -22,7 +22,7 @@ fn main() {
 }
 
 fn read_completed(path: &str) -> Result<Vec<String>, Box<dyn Error>> {
-    let mut file = OpenOptions::new()
+    let file = OpenOptions::new()
         .read(true)
         .write(true)
         .create(true)
@@ -37,7 +37,9 @@ fn read_completed(path: &str) -> Result<Vec<String>, Box<dyn Error>> {
     let mut res  = vec![];
     for line in reader.lines() {
         match line {
-            Ok(content) => res.push(content.trim().to_string()),
+            Ok(content) => {
+                res.push(content.trim().to_string());
+            },
             Err(e) => {
                 eprintln!("Error reading line: {}", e);
                 return Err(e.into());
@@ -56,8 +58,10 @@ fn get_all_files(base_path: &str) -> Result<Vec<String>, Box<dyn Error>> {
     for dir in dirs {
         let path = format!("{}{}", base_path, dir);
         let files = list(&path, files)?;
-        for file in files {
-            res.push(file);
+        for file_name in files {
+            if file_name.ends_with(".rs") {
+                res.push(file_name);
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-extern crate core;
+#![allow(dead_code)]
 
 pub mod arrays;
 pub mod tree;
