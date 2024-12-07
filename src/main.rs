@@ -1,3 +1,8 @@
+#![deny(clippy::unwrap_used)]
+#![deny(clippy::expect_used)]
+#![deny(clippy::panic)]
+#![deny(clippy::unused_must_use)]
+
 use std::error::Error;
 use std::fs::{DirEntry, FileType};
 use std::fs::OpenOptions;

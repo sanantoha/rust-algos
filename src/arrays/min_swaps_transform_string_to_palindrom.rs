@@ -1,4 +1,5 @@
 
+// O(n) time | O(1) space
 pub fn min_swaps_required(str: &str) -> Option<i32> {
     if str.is_empty() {
         return None;
