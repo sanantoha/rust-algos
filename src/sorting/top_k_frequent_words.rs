@@ -23,10 +23,8 @@ pub fn top_k_frequent<'a>(words: &Vec<&'a str>, k: i32) -> Vec<&'a str> {
     }
 
     let mut res = vec![];
-    while !heap.is_empty() {
-        if let Some(word) = heap.pop() {
-            res.push(word.word);
-        }
+    while let Some(word) = heap.pop() {
+        res.push(word.word);
     }
     res.reverse();
     res
