@@ -3,9 +3,9 @@ use std::rc::Rc;
 use crate::tree::BinaryTree;
 
 // O(n) time | O(n) space
-pub fn lowest_common_ancestor<'a>(root: &'a Option<Rc<RefCell<BinaryTree>>>,
-                                  p: &'a Option<Rc<RefCell<BinaryTree>>>,
-                                  q: &'a Option<Rc<RefCell<BinaryTree>>>) -> Option<Rc<RefCell<BinaryTree>>> {
+pub fn lowest_common_ancestor(root: &Option<Rc<RefCell<BinaryTree>>>,
+                                  p: &Option<Rc<RefCell<BinaryTree>>>,
+                                  q: &Option<Rc<RefCell<BinaryTree>>>) -> Option<Rc<RefCell<BinaryTree>>> {
 
     if let Some(node) = root {
         if let Some(pt) = p {
