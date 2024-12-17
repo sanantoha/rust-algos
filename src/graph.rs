@@ -549,7 +549,7 @@ pub fn graph_to_string(graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>) -> Strin
     0: 0 -> 1 7.00   0 -> 2 8.00
     1: 0 -> 1 7.00   1 -> 2 3.00   1 -> 3 6.00
 */
-fn create_graph() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
+pub fn create_graph() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
     let mut graph = HashMap::new();
 
     let edge01 = Rc::new(EdgeT::new("0".to_owned(), "1".to_owned(), 7.0));
@@ -586,7 +586,7 @@ fn create_graph() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
     5: 2->5 8.0  4->5 4.0  5->6 2.0
     6: 1->6 3.0  5->6 2.0
 */
-fn create_graph1() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
+pub fn create_graph1() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
     let mut graph = HashMap::new();
 
     let edge01 = Rc::new(EdgeT::new("0".to_owned(), "1".to_owned(), 2.0));
@@ -625,7 +625,7 @@ fn create_graph1() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
     4: 3-4 2.0  4-5 2.0  2-4 3.0
     5: 4-5 2.0
 */
-fn exp_graph() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
+pub fn exp_graph() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
     let mut exp_graph = HashMap::new();
     let edge01 = Rc::new(EdgeT::new("0".to_owned(), "1".to_owned(), 7.0));
     let edge12 = Rc::new(EdgeT::new("1".to_owned(), "2".to_owned(), 3.0));
@@ -651,7 +651,7 @@ fn exp_graph() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
     5: 5-6 2.0
     6: 5-6 2.0  1-6 3.0
 */
-fn exp_graph1() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
+pub fn exp_graph1() -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
     let mut exp_graph = HashMap::new();
     let edge01 = Rc::new(EdgeT::new("0".to_owned(), "1".to_owned(), 2.0));
     let edge02 = Rc::new(EdgeT::new("0".to_owned(), "2".to_owned(), 3.0));
