@@ -392,12 +392,12 @@ fn nearly_equal(a: f64, b: f64, epsilon: f64) -> bool {
 
 #[derive(Debug, Clone)]
 pub struct Node {
-    val: i32,
-    neighbors: Vec<Rc<RefCell<Node>>>,
+    pub val: i32,
+    pub neighbors: Vec<Rc<RefCell<Node>>>,
 }
 
 impl Node {
-    fn new(val: i32) -> Self {
+    pub fn new(val: i32) -> Self {
         Node {
             val,
             neighbors: vec![],

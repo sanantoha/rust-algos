@@ -60,41 +60,46 @@ mod tests {
 
         let cloned_graph = clone_graph(Rc::clone(&node1));
 
-        if let Some(copy_node1) = &cloned_graph {
-            assert_eq!(copy_node1.borrow().val, 1);
-            assert!(!Rc::ptr_eq(copy_node1, &node1));
-            assert_eq!(copy_node1.borrow().neighbors.len(), 2);
+        match &cloned_graph {
+            Some(copy_node1) => {
+                assert_eq!(copy_node1.borrow().val, 1);
+                assert!(!Rc::ptr_eq(copy_node1, &node1));
+                assert_eq!(copy_node1.borrow().neighbors.len(), 2);
 
-            let copy_node2 = Rc::clone(copy_node1.borrow().neighbors.get(0).unwrap());
-            let copy_node4 = Rc::clone(copy_node1.borrow().neighbors.get(1).unwrap());
+                let copy_node2 = Rc::clone(copy_node1.borrow().neighbors.get(0).unwrap());
+                let copy_node4 = Rc::clone(copy_node1.borrow().neighbors.get(1).unwrap());
 
-            assert_eq!(copy_node2.borrow().val, 2);
-            assert!(!Rc::ptr_eq(&copy_node2, &node2));
-            assert_eq!(copy_node2.borrow().neighbors.len(), 2);
+                assert_eq!(copy_node2.borrow().val, 2);
+                assert!(!Rc::ptr_eq(&copy_node2, &node2));
+                assert_eq!(copy_node2.borrow().neighbors.len(), 2);
 
-            assert_eq!(copy_node4.borrow().val, 4);
-            assert!(!Rc::ptr_eq(&copy_node4, &node4));
-            assert_eq!(copy_node4.borrow().neighbors.len(), 2);
+                assert_eq!(copy_node4.borrow().val, 4);
+                assert!(!Rc::ptr_eq(&copy_node4, &node4));
+                assert_eq!(copy_node4.borrow().neighbors.len(), 2);
 
-            let copy_node11 = Rc::clone(copy_node2.borrow().neighbors.get(0).unwrap());
-            let copy_node3 = Rc::clone(copy_node2.borrow().neighbors.get(1).unwrap());
+                let copy_node11 = Rc::clone(copy_node2.borrow().neighbors.get(0).unwrap());
+                let copy_node3 = Rc::clone(copy_node2.borrow().neighbors.get(1).unwrap());
 
-            assert_eq!(copy_node11.borrow().val, 1);
-            assert!(!Rc::ptr_eq(&copy_node11, &node1));
-            assert!(Rc::ptr_eq(&copy_node11, &copy_node1));
-            assert_eq!(copy_node11.borrow().neighbors.len(), 2);
+                assert_eq!(copy_node11.borrow().val, 1);
+                assert!(!Rc::ptr_eq(&copy_node11, &node1));
+                assert!(Rc::ptr_eq(&copy_node11, &copy_node1));
+                assert_eq!(copy_node11.borrow().neighbors.len(), 2);
 
-            assert_eq!(copy_node3.borrow().val, 3);
-            assert!(!Rc::ptr_eq(&copy_node3, &node3));
-            assert_eq!(copy_node3.borrow().neighbors.len(), 2);
+                assert_eq!(copy_node3.borrow().val, 3);
+                assert!(!Rc::ptr_eq(&copy_node3, &node3));
+                assert_eq!(copy_node3.borrow().neighbors.len(), 2);
 
-            let copy_node22 = Rc::clone(copy_node3.borrow().neighbors.get(0).unwrap());
-            let copy_node44 = Rc::clone(copy_node3.borrow().neighbors.get(1).unwrap());
-            assert!(Rc::ptr_eq(&copy_node22, &copy_node2));
-            assert!(Rc::ptr_eq(&copy_node44, &copy_node4));
+                let copy_node22 = Rc::clone(copy_node3.borrow().neighbors.get(0).unwrap());
+                let copy_node44 = Rc::clone(copy_node3.borrow().neighbors.get(1).unwrap());
+                assert!(Rc::ptr_eq(&copy_node22, &copy_node2));
+                assert!(Rc::ptr_eq(&copy_node44, &copy_node4));
 
-            let copy_node33 = Rc::clone(copy_node4.borrow().neighbors.get(1).unwrap());
-            assert!(Rc::ptr_eq(&copy_node33, &copy_node3));
+                let copy_node33 = Rc::clone(copy_node4.borrow().neighbors.get(1).unwrap());
+                assert!(Rc::ptr_eq(&copy_node33, &copy_node3));
+            }
+            None => {
+                assert!(false);
+            }
         }
     }
 }
