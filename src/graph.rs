@@ -720,9 +720,13 @@ fn compare_vectors(v1: Option<&Vec<Rc<EdgeT<String>>>>, v2: Option<&Vec<Rc<EdgeT
             let mp = create_map(v1);
             for edge2 in v2.iter() {
                 let key = format!("{}_{}", edge2.v, edge2.u);
-                if let Some(edge1) = mp.get(&key) {
-                    if !edge1.eq(edge2) {
-                        println!("edge {:?} != {:?}", edge1, edge2);
+                match mp.get(&key) {
+                    Some(edge1) =>
+                        if !edge1.eq(edge2) {
+                            println!("edge {:?} != {:?}", edge1, edge2);
+                            return false;
+                        }
+                    None => {
                         return false;
                     }
                 }
