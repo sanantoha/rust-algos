@@ -1,21 +1,23 @@
 
 // O(n) time | O(1) space
-pub fn find_pivot_index(arr: &[i32]) -> i32 {
+pub fn find_pivot_index(arr: &[i32]) -> Option<usize> {
+    if arr.is_empty() {
+        return None;
+    }
 
     let mut left_sum = 0;
     let mut right_sum = arr.iter().sum();
 
-    for (i, v) in arr.iter().enumerate() {
-        right_sum -= v;
+    for i in 0..arr.len() {
+        right_sum -= arr[i];
 
         if left_sum == right_sum {
-            return i as i32;
+            return Some(i);
         }
 
-        left_sum += v;
+        left_sum += arr[i];
     }
-
-    -1
+    None
 }
 
 #[cfg(test)]
@@ -26,8 +28,8 @@ mod tests {
     #[test]
     fn test_find_pivot_index() {
 
-        assert_eq!(find_pivot_index(&[1, 7, 3, 6, 5, 6]), 3);
-        assert_eq!(find_pivot_index(&[1, 2, 3]), -1);
-        assert_eq!(find_pivot_index(&[2, 1, -1]), 0);
+        assert_eq!(find_pivot_index(&[1, 7, 3, 6, 5, 6]), Some(3));
+        assert_eq!(find_pivot_index(&[1, 2, 3]), None);
+        assert_eq!(find_pivot_index(&[2, 1, -1]), Some(0));
     }
 }
