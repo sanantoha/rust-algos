@@ -165,8 +165,8 @@ impl fmt::Display for DirectedEdge {
 
 #[derive(Debug, Clone)]
 pub struct Digraph {
-    v: usize,
-    e: usize,
+    pub v: usize,
+    pub e: usize,
     adj: Vec<VecDeque<usize>>,
 }
 
