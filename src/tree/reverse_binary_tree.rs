@@ -4,11 +4,14 @@ use crate::tree::TreeNode;
 pub fn reverse(root: &mut Option<Box<TreeNode>>) {
     if let Some(node) = root {
 
-        let left = node.left.take();
-        let right = node.right.take();
+        // let left = node.left.take();
+        // let right = node.right.take();
+        //
+        // node.left = right;
+        // node.right = left;
 
-        node.left = right;
-        node.right = left;
+        // rust way - swap two mutable pointers in memory
+        std::mem::swap(&mut node.left, &mut node.right);
 
         reverse(&mut node.left);
         reverse(&mut node.right);
@@ -23,11 +26,12 @@ pub fn reverse_iter(root: &mut Option<Box<TreeNode>>) {
 
         while let Some(curr) = stack.pop() {
 
-            let left = curr.left.take();
-            let right = curr.right.take();
-
-            curr.left = right;
-            curr.right = left;
+            // let left = curr.left.take();
+            // let right = curr.right.take();
+            //
+            // curr.left = right;
+            // curr.right = left;
+            std::mem::swap(&mut curr.left, &mut curr.right);
 
             if let Some(l) = curr.left.as_mut() {
                 stack.push(l);
