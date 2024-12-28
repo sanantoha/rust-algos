@@ -1,11 +1,11 @@
 use std::rc::Rc;
 use std::cell::RefCell;
-use super::ListNode;
+use crate::list::ListNode;
 
 // O(n) time | O(1) space
 pub fn delete_node(node: Rc<RefCell<ListNode>>) {
 
-    let mut curr = Some(node.clone());
+    let mut curr = Some(Rc::clone(&node));
 
     while let Some(node) = curr.take() {
         let next_opt = node.borrow().next.as_ref().map(Rc::clone);
@@ -24,7 +24,7 @@ pub fn delete_node(node: Rc<RefCell<ListNode>>) {
 #[cfg(test)]
 mod tests {
 
-    use super::ListNode;
+    use crate::list::ListNode;
     use crate::list::{delete_node_in_linked_list::delete_node, Displayable};
 
     #[test]
