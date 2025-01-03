@@ -86,7 +86,7 @@ fn build_list(arr: &[i32], prev: &[Option<usize>], max_val: Option<usize>) -> Ve
 }
 
 // O(n * log(n)) time | O(n) space
-fn lis_list(arr: &[i32]) -> Vec<i32> {
+pub fn lis_list(arr: &[i32]) -> Vec<i32> {
     if arr.is_empty() {
         return vec![];
     }
