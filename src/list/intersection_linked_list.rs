@@ -45,8 +45,14 @@ pub fn get_intersection_node1(l: &Option<Rc<RefCell<ListNode>>>, r: &Option<Rc<R
             return Some(left);
         }
 
-        curr_l = left.borrow().next.as_ref().map(Rc::clone).or(r.as_ref().map(Rc::clone));
-        curr_r = right.borrow().next.as_ref().map(Rc::clone).or(l.as_ref().map(Rc::clone));
+        curr_l = left.borrow().next.as_ref().map(Rc::clone);
+        curr_r = right.borrow().next.as_ref().map(Rc::clone);
+
+        if curr_l.is_none() && curr_r.is_none() {
+            return None;
+        }
+        curr_l = curr_l.or(r.as_ref().map(Rc::clone));
+        curr_r = curr_r.or(l.as_ref().map(Rc::clone));
     }
     
     None
@@ -88,6 +94,20 @@ mod tests {
         }
         
         assert_eq!(res, Some(exp_common));
+    }
+
+    #[test]
+    fn it_get_intersection_node2() {
+        let l = ListNode::with_next(1, Some(ListNode::new(2)));
+        let r = ListNode::with_next(4, Some(ListNode::new(5)));
+
+        let res = get_intersection_node1(&Some(l), &Some(r));
+
+        if let Some(disp) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
+            println!("{}", disp);
+        }
+
+        assert_eq!(res, None);
     }
 
     fn create_lists() -> (Rc<RefCell<ListNode>>, Rc<RefCell<ListNode>>) {    
