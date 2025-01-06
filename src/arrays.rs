@@ -14,7 +14,7 @@ pub mod min_swaps_transform_string_to_palindrom;
 pub mod optimal_freelancing;
 pub mod product_of_array_except_self;
 pub mod rotate_array;
-pub mod sparse_matrix_mutliplicaiton;
+pub mod sparse_matrix_multiplication;
 pub mod spiral_matrix_traverse;
 pub mod subarray_sort;
 pub mod stable_internships;
