@@ -1,5 +1,6 @@
 use std::collections::VecDeque;
 
+// O(n * log(n)) time | O(n) space
 pub fn merge(intervals: &mut [(i32, i32)]) -> Vec<(i32, i32)> {
     if intervals.len() <= 1 {
         return intervals.to_vec();
