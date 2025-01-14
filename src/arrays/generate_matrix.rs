@@ -1,5 +1,5 @@
 
-
+// O(w * h) time | O(w * h) space
 pub fn generate_matrix(n: usize) -> Vec<Vec<i32>> {
 
     let mut res = vec![vec![0; n]; n];
