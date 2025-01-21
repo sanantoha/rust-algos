@@ -16,7 +16,9 @@ fn main() {
     let mut rnd = rand::thread_rng();
 
     if let (Ok(mut source), Ok(completed)) = (get_all_files(base_path), read_completed(completed_path)) {
-        source.retain(|path| !completed.contains(path));
+        source.retain(|path| {
+            !completed.contains(path) && "current.rs" != path
+        });
 
         source.shuffle(&mut rnd);
 
