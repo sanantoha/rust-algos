@@ -303,8 +303,8 @@ impl fmt::Display for EdgeWeightedGraph {
 
 #[derive(Debug, PartialEq)]
 pub struct EdgeWeightedDigraph {
-    v: usize,
-    e: usize,
+    pub v: usize,
+    pub e: usize,
     adj: Vec<VecDeque<Rc<DirectedEdge>>>,
 }
 
