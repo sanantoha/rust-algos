@@ -133,4 +133,28 @@ mod tests {
 
         assert_eq!(res, Some(exp));
     }
+
+    #[test]
+    fn test_get_mid() {
+        let lst = ListNode::with_next(10,
+                                      Some(ListNode::with_next(13,
+                                           Some(ListNode::with_next(15,
+                                                Some(ListNode::with_next(20,
+                                                    Some(ListNode::with_next(30,
+                                                         Some(ListNode::with_next(33,
+                                                              Some(ListNode::new(34)))))))))))));
+
+        let exp = ListNode::with_next(20,
+                                             Some(ListNode::with_next(30,
+                                                Some(ListNode::with_next(33,
+                                                    Some(ListNode::new(34)))))));
+
+        let res = super::get_mid(Some(lst));
+
+        if let Some(display) = Displayable::from_option(res.clone()) {
+            println!("{}", display);
+        }
+
+        assert_eq!(res, Some(exp));
+    }
 }
