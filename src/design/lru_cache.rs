@@ -52,7 +52,7 @@ impl LRUCache {
             if self.cache.len() == self.capacity {
                 let latest = self.tail.borrow().prev.as_ref().map(Rc::clone);
                 if let Some(latest_node) = latest {
-                    self.cache.remove(&latest_node.borrow().val);
+                    self.cache.remove(&latest_node.borrow().key);
                     LRUCache::remove(&latest_node);
                 }                
             }
