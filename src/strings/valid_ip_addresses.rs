@@ -5,27 +5,27 @@ pub fn valid_ip_addresses(str: &str) -> Vec<String> {
         return vec![];
     }
 
-    let mut address: Vec<String> = vec![String::default(); 4];
+    let mut address = vec![""; 4];
 
     let mut res = vec![];
 
     for i in 1..(str.len().min(4)) {
-        address[0] = str[..i].to_owned();
+        address[0] = &str[..i];
 
         if !is_valid(&address[0]) {
             continue;
         }
 
         for j in i..(str.len().min(i + 4)) {
-            address[1] = str[i..j].to_owned();
+            address[1] = &str[i..j];
 
             if !is_valid(&address[1]) {
                 continue;
             }
 
             for k in j..(str.len().min(j + 4)) {
-                address[2] = str[j..k].to_owned();
-                address[3] = str[k..].to_owned();
+                address[2] = &str[j..k];
+                address[3] = &str[k..];
 
                 if is_valid(&address[2]) && is_valid(&address[3]) {
                     res.push(address.join("."))
