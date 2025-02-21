@@ -8,7 +8,7 @@ use super::ArbListNode;
 // O(n) time | O(n) space
 pub fn deep_copy(head: &Rc<RefCell<ArbListNode>>) -> Option<Rc<RefCell<ArbListNode>>> {
 
-    let mut map = HashMap::new();
+    let mut cache = HashMap::new();
 
     let mut curr = Some(Rc::clone(head));
 
@@ -16,8 +16,8 @@ pub fn deep_copy(head: &Rc<RefCell<ArbListNode>>) -> Option<Rc<RefCell<ArbListNo
     let mut copy_curr = Rc::clone(&dummy);
 
     while let Some(node) = curr.take() {
-        let copy = map.entry(Rc::as_ptr(&node)).or_insert(ArbListNode::new(node.borrow().val));
-        // copy.borrow_mut().arb = node.borrow().arb.as_ref().map(Rc::clone);
+        let copy = cache.entry(Rc::as_ptr(&node)).or_insert(ArbListNode::new(node.borrow().val));
+        copy.borrow_mut().arb = node.borrow().arb.as_ref().map(Rc::clone);
         copy_curr.borrow_mut().next = Some(Rc::clone(copy));
         
 
@@ -25,20 +25,19 @@ pub fn deep_copy(head: &Rc<RefCell<ArbListNode>>) -> Option<Rc<RefCell<ArbListNo
         curr = node.borrow().next.as_ref().map(Rc::clone);
     }
 
-    
-    let mut curr = Some(Rc::clone(head));
-    let mut copy_curr = dummy.borrow().next.as_ref().map(Rc::clone);
 
-    while let (Some(node), Some(copy)) = (curr.take(), copy_curr.take()) {
+    let mut curr_copy = dummy.borrow().next.as_ref().map(Rc::clone);
 
-        if let Some(arb) = node.borrow().arb.as_ref() {
-            let copy_arb = map.entry(Rc::as_ptr(arb)).or_insert(ArbListNode::new(arb.borrow().val));
-            copy.borrow_mut().arb = Some(Rc::clone(copy_arb))
+    while let Some(copy) = curr_copy.take() {
+        let arb_clone = copy.borrow().arb.as_ref().map(Rc::clone);
+        if let Some(arb) = arb_clone {
+            let copy_arb = cache.entry(Rc::as_ptr(&arb)).or_insert(ArbListNode::new(arb.borrow().val));
+            copy.borrow_mut().arb = Some(Rc::clone(copy_arb));
         }
-        curr = node.borrow().next.as_ref().map(Rc::clone);
-        copy_curr = copy.borrow().next.as_ref().map(Rc::clone);
+
+        curr_copy = copy.borrow().next.as_ref().map(Rc::clone);
     }
-    
+
     return dummy.borrow().next.as_ref().map(Rc::clone);
 }
 
