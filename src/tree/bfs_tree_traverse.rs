@@ -1,33 +1,29 @@
-use std::collections::LinkedList;
+use std::collections::VecDeque;
 use crate::tree::TreeNode;
 
 // O(n) time | O(n) space
 pub fn bfs(root: &Option<Box<TreeNode>>) -> Vec<i32> {
-    if let Some(node) = root {
 
-        // let mut queue = VecDeque::new(); // based on growable ring buffer
-        let mut queue = LinkedList::new();
+    let mut res = vec![];
+
+    let mut queue = VecDeque::new();
+
+    if let Some(node) = root {
         queue.push_back(node);
 
-        let mut res = vec![];
+        while let Some(node) = queue.pop_front() {
+            res.push(node.val);
 
-        while !queue.is_empty() {
-            if let Some(curr) = queue.pop_front() {
-                res.push(curr.val);
-
-                if let Some(left) = &curr.left {
-                    queue.push_back(left);
-                }
-
-                if let Some(right) = &curr.right {
-                    queue.push_back(right);
-                }
+            if let Some(left) = &node.left {
+                queue.push_back(left);
+            }
+            if let Some(right) = &node.right {
+                queue.push_back(right);
             }
         }
-        res
-    } else {
-        vec![]
     }
+
+    res
 }
 
 #[cfg(test)]
