@@ -80,7 +80,7 @@ fn get_all_positives(matrix: &mut [&mut [i32]]) -> VecDeque<(usize, usize)> {
 
 #[cfg(test)]
 mod tests {
-    use crate::graph::munimum_passes_of_matrix::minimum_passes_of_matrix;
+    use crate::graph::minimum_passes_of_matrix::minimum_passes_of_matrix;
 
     #[test]
     fn test_minimum_passes_of_matrix() {

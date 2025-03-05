@@ -26,7 +26,7 @@ mod dijkstra_shortest_paths;
 mod kruskal_min_spanning_tree;
 mod largest_island;
 mod longest_increasing_path_in_matrix;
-mod munimum_passes_of_matrix;
+mod minimum_passes_of_matrix;
 mod number_of_islands;
 mod surround_regions;
 mod topological_sort;
