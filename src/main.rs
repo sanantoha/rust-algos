@@ -21,7 +21,10 @@ fn main() {
         });
 
         source.shuffle(&mut rnd);
+        let completed_tasks = completed.len();
+        let left_tasks = source.len();
 
+        println!("total tasks: {}, completed tasks: {}, left tasks: {}", completed_tasks + left_tasks, completed_tasks, left_tasks);
         for path in source {
             println!("{}", path);
         }
