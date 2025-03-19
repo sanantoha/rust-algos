@@ -29,7 +29,7 @@ pub fn string_without_aaa_bbb(mut a: i32, mut b: i32) -> String {
     }
 
     while b > 0 {
-        res = format!("{}{}", "b", res);
+        res.insert(0, 'b');
         b -= 1;
     }
 
