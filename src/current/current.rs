@@ -13,7 +13,7 @@ pub fn dfs<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a st
 #[cfg(test)]
 mod tests {
     use std::path::PathBuf;
-
+    use super::{dfs_rec, dfs};
     use crate::graph::{graph_from_file, graph_to_string};
 
     const PATH: &str = "src/graph/dfs.txt";
