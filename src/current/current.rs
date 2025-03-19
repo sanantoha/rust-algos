@@ -1,40 +1,46 @@
+use std::collections::HashMap;
+use std::rc::Rc;
+use crate::graph::EdgeT;
 
-pub fn string_without_aaa_bbb(mut a: i32, mut b: i32) -> String {
-    "".to_string()
+pub fn dfs_rec<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
+    vec![]
+}
+
+pub fn dfs<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
+    use std::path::PathBuf;
 
-    use super::string_without_aaa_bbb;
+    use crate::graph::{graph_from_file, graph_to_string};
+
+    const PATH: &str = "src/graph/dfs.txt";
+
+    const EXP: &[&str] = &["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"];
 
     #[test]
-    fn test_string_without_aaa_bbb() {
-        assert_eq!(string_without_aaa_bbb(1, 1), "ab");
+    fn it_dfs_rec() {
+        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
+            let graph_str = graph_to_string(&graph);
+            println!("{}", graph_str);
+
+            let res = dfs_rec(&graph, "0");
+            println!("{:?}", res);
+            assert_eq!(res, EXP)
+        }
     }
 
     #[test]
-    fn test_string_without_aaa_bbb_case1() {
-        assert_eq!(string_without_aaa_bbb(3, 3), "abbaab");
-    }
+    fn it_dfs() {
+        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
+            let graph_str = graph_to_string(&graph);
+            println!("{}", graph_str);
 
-    #[test]
-    fn test_string_without_aaa_bbb_case2() {
-        assert_eq!(string_without_aaa_bbb(2, 5), "babbabb");
-    }
-
-    #[test]
-    fn test_string_without_aaa_bbb_case3() {
-        assert_eq!(string_without_aaa_bbb(5, 3), "aabaabab");
-    }
-
-    #[test]
-    fn test_string_without_aaa_bbb_case4() {
-        assert_eq!(string_without_aaa_bbb(3, 3), "abbaab");
-    }
-
-    #[test]
-    fn test_string_without_aaa_bbb_case5() {
-        assert_eq!(string_without_aaa_bbb(1, 4), "bbabb");
+            let res = dfs(&graph, "0");
+            println!("{:?}", res);
+            assert_eq!(res, EXP)
+        }
     }
 }

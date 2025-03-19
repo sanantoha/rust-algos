@@ -90,24 +90,4 @@ mod tests {
             assert_eq!(res, EXP)
         }
     }
-
-    // fn get_exp_res() -> Vec<String> {
-    //     vec![
-    //         String::from("0"),
-    //         String::from("1"),
-    //         String::from("2"),
-    //         String::from("3"),
-    //         String::from("4"),
-    //         String::from("5"),
-    //         String::from("6"),
-    //         String::from("7"),
-    //         String::from("8"),
-    //         String::from("9"),
-    //         String::from("10"),
-    //         String::from("11"),
-    //         String::from("12"),
-    //         String::from("13"),
-    //         String::from("14"),
-    //     ]
-    // }
 }
