@@ -1,46 +1,76 @@
-use std::collections::HashMap;
-use std::rc::Rc;
-use crate::graph::EdgeT;
+use crate::tree::TreeNode;
 
-pub fn dfs_rec<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
-    vec![]
+pub fn merge_binary_trees(left: &mut Option<Box<TreeNode>>, right: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
+    None
 }
 
-pub fn dfs<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
-    vec![]
+pub fn merge_binary_trees_iter(left: &mut Option<Box<TreeNode>>, right: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
+    None
 }
 
 #[cfg(test)]
 mod tests {
-    use std::path::PathBuf;
-    use super::{dfs_rec, dfs};
-    use crate::graph::{graph_from_file, graph_to_string};
-
-    const PATH: &str = "src/graph/dfs.txt";
-
-    const EXP: &[&str] = &["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"];
+    use itertools::assert_equal;
+    use crate::tree::TreeNode;
+    use super::{merge_binary_trees, merge_binary_trees_iter};
 
     #[test]
-    fn it_dfs_rec() {
-        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
-            let graph_str = graph_to_string(&graph);
-            println!("{}", graph_str);
+    fn test_merge_binary_trees() {
+        let mut left = create_left_tree();
+        let right = create_right_tree();
+        let exp_tree = create_exp_tree();
 
-            let res = dfs_rec(&graph, "0");
-            println!("{:?}", res);
-            assert_eq!(res, EXP)
-        }
+        assert_equal(merge_binary_trees(&mut left, &right), exp_tree);
     }
 
     #[test]
-    fn it_dfs() {
-        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
-            let graph_str = graph_to_string(&graph);
-            println!("{}", graph_str);
+    fn test_merge_binary_trees_iter() {
+        let mut left = create_left_tree();
+        let right = create_right_tree();
+        let exp_tree = create_exp_tree();
 
-            let res = dfs(&graph, "0");
-            println!("{:?}", res);
-            assert_eq!(res, EXP)
-        }
+        assert_equal(merge_binary_trees_iter(&mut left, &right), exp_tree);
+    }
+
+    fn create_left_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(1,
+                                 Some(Box::new(TreeNode::new(3,
+                                                             Some(Box::new(TreeNode::leaf(7))),
+                                                             Some(Box::new(TreeNode::leaf(4)))
+                                 ))),
+                                 Some(Box::new(TreeNode::leaf(2)))
+        );
+
+        Some(Box::new(root))
+    }
+
+    fn create_right_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(1,
+                                 Some(Box::new(TreeNode::new(5,
+                                                             Some(Box::new(TreeNode::leaf(2))),
+                                                             None
+                                 ))),
+                                 Some(Box::new(TreeNode::new(9,
+                                                             Some(Box::new(TreeNode::leaf(7))),
+                                                             Some(Box::new(TreeNode::leaf(6)))
+                                 )))
+        );
+
+        Some(Box::new(root))
+    }
+
+    fn create_exp_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(2,
+                                 Some(Box::new(TreeNode::new(8,
+                                                             Some(Box::new(TreeNode::leaf(9))),
+                                                             Some(Box::new(TreeNode::leaf(4)))
+                                 ))),
+                                 Some(Box::new(TreeNode::new(11,
+                                                             Some(Box::new(TreeNode::leaf(7))),
+                                                             Some(Box::new(TreeNode::leaf(6)))
+                                 )))
+        );
+
+        Some(Box::new(root))
     }
 }
