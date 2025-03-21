@@ -35,28 +35,26 @@ pub fn merge_binary_trees_iter(tree1: &mut Option<Box<TreeNode>>, tree2: &Option
         let mut stack2 = vec![curr2_node.as_ref()];
         let dn = TreeNode::default();
 
-        while !stack1.is_empty() {
-            if let Some(curr1) = stack1.pop() {
-                if let Some(curr2) = stack2.pop() {
-                    curr1.val += curr2.val;
+        while let Some(curr1) = stack1.pop() {
+            if let Some(curr2) = stack2.pop() {
+                curr1.val += curr2.val;
 
-                    if curr1.left.is_none() {
-                        curr1.left = curr2.left.clone();
-                    } else {
-                        if let Some(x) = &mut curr1.left {
-                            stack1.push(x);
-                        }
-                        stack2.push(curr2.left.as_ref().map(|x| x.as_ref()).unwrap_or(&dn));
+                if curr1.left.is_none() {
+                    curr1.left = curr2.left.clone();
+                } else {
+                    if let Some(x) = &mut curr1.left {
+                        stack1.push(x);
                     }
+                    stack2.push(curr2.left.as_ref().map(|x| x.as_ref()).unwrap_or(&dn));
+                }
 
-                    if curr1.right.is_none() {
-                        curr1.right = curr2.right.clone();
-                    } else {
-                        if let Some(x) = &mut curr1.right {
-                            stack1.push(x);
-                        }
-                        stack2.push(curr2.right.as_ref().map(|x| x.as_ref()).unwrap_or(&dn));
+                if curr1.right.is_none() {
+                    curr1.right = curr2.right.clone();
+                } else {
+                    if let Some(x) = &mut curr1.right {
+                        stack1.push(x);
                     }
+                    stack2.push(curr2.right.as_ref().map(|x| x.as_ref()).unwrap_or(&dn));
                 }
             }
         }
