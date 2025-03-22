@@ -1,76 +1,48 @@
 use crate::tree::TreeNode;
 
-pub fn merge_binary_trees(left: &mut Option<Box<TreeNode>>, right: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
-    None
+pub fn pre_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
+    vec![]
 }
 
-pub fn merge_binary_trees_iter(left: &mut Option<Box<TreeNode>>, right: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
-    None
+pub fn in_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
+    vec![]
 }
+
+pub fn post_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
+    vec![]
+}
+
 
 #[cfg(test)]
 mod tests {
-    use itertools::assert_equal;
+    use super::{pre_order_rec, in_order_rec, post_order_rec};
     use crate::tree::TreeNode;
-    use super::{merge_binary_trees, merge_binary_trees_iter};
 
     #[test]
-    fn test_merge_binary_trees() {
-        let mut left = create_left_tree();
-        let right = create_right_tree();
-        let exp_tree = create_exp_tree();
-
-        assert_equal(merge_binary_trees(&mut left, &right), exp_tree);
+    pub fn test_dfs_pre_order_rec() {
+        assert_eq!(pre_order_rec(&create_tree()), vec![5, 2, 1, 3, 8, 7, 9]);
     }
 
     #[test]
-    fn test_merge_binary_trees_iter() {
-        let mut left = create_left_tree();
-        let right = create_right_tree();
-        let exp_tree = create_exp_tree();
-
-        assert_equal(merge_binary_trees_iter(&mut left, &right), exp_tree);
+    pub fn test_dfs_in_order_rec() {
+        assert_eq!(in_order_rec(&create_tree()), vec![1, 2, 3, 5, 7, 8, 9]);
     }
 
-    fn create_left_tree() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(1,
-                                 Some(Box::new(TreeNode::new(3,
-                                                             Some(Box::new(TreeNode::leaf(7))),
-                                                             Some(Box::new(TreeNode::leaf(4)))
-                                 ))),
-                                 Some(Box::new(TreeNode::leaf(2)))
-        );
-
-        Some(Box::new(root))
+    #[test]
+    pub fn test_dfs_post_order_rec() {
+        assert_eq!(post_order_rec(&create_tree()), vec![1, 3, 2, 7, 9, 8, 5]);
     }
 
-    fn create_right_tree() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(1,
-                                 Some(Box::new(TreeNode::new(5,
-                                                             Some(Box::new(TreeNode::leaf(2))),
-                                                             None
-                                 ))),
-                                 Some(Box::new(TreeNode::new(9,
-                                                             Some(Box::new(TreeNode::leaf(7))),
-                                                             Some(Box::new(TreeNode::leaf(6)))
-                                 )))
-        );
-
-        Some(Box::new(root))
-    }
-
-    fn create_exp_tree() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(2,
-                                 Some(Box::new(TreeNode::new(8,
-                                                             Some(Box::new(TreeNode::leaf(9))),
-                                                             Some(Box::new(TreeNode::leaf(4)))
-                                 ))),
-                                 Some(Box::new(TreeNode::new(11,
-                                                             Some(Box::new(TreeNode::leaf(7))),
-                                                             Some(Box::new(TreeNode::leaf(6)))
-                                 )))
-        );
-
-        Some(Box::new(root))
+    fn create_tree() -> Option<Box<TreeNode>> {
+        Some(
+            Box::new(TreeNode::new(5,
+                                   Some(Box::new(TreeNode::new(2,
+                                                               Some(Box::new(TreeNode::leaf(1))),
+                                                               Some(Box::new(TreeNode::leaf(3)))))),
+                                   Some(Box::new(TreeNode::new(8,
+                                                                              Some(Box::new(TreeNode::leaf(7))),
+                                                                              Some(Box::new(TreeNode::leaf(9)))))),
+            ))
+        )
     }
 }

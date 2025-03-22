@@ -21,47 +21,43 @@ pub fn merge_binary_trees(left: &mut Option<Box<TreeNode>>, right: &Option<Box<T
 }
 
 // O(n) time | O(h) space - where n, h for the smallest tree
-pub fn merge_binary_trees_iter(tree1: &mut Option<Box<TreeNode>>, tree2: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
-    if tree1.is_none() {
-        return tree2.clone();
+pub fn merge_binary_trees_iter(left: &mut Option<Box<TreeNode>>, right: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
+    if left.is_none() {
+        return right.clone();
     }
-    if tree2.is_none() {
-        return tree1.take();
+    if right.is_none() {
+        return left.take();
     }
 
-    if let (Some(curr1_node), Some(curr2_node)) = (tree1.as_mut(), tree2) {
+    let mut stack1 = vec![left.as_mut()];
+    let mut stack2 = vec![right.as_ref()];
 
-        let mut stack1 = vec![curr1_node.as_mut()];
-        let mut stack2 = vec![curr2_node.as_ref()];
-        let dn = TreeNode::default();
+    while let Some(Some(curr1)) = stack1.pop() {
+        if let Some(Some(curr2)) = stack2.pop() {
 
-        while let Some(curr1) = stack1.pop() {
-            if let Some(curr2) = stack2.pop() {
-                curr1.val += curr2.val;
+            curr1.val += curr2.val;
 
-                if curr1.left.is_none() {
-                    curr1.left = curr2.left.clone();
-                } else {
-                    if let Some(x) = &mut curr1.left {
-                        stack1.push(x);
-                    }
-                    stack2.push(curr2.left.as_ref().map(|x| x.as_ref()).unwrap_or(&dn));
+            if curr1.left.is_none() {
+                curr1.left = curr2.left.clone();
+            } else {
+                if let Some(l) = curr1.left.as_mut() {
+                    stack1.push(Some(l));
                 }
+                stack2.push(curr2.left.as_ref());
+            }
 
-                if curr1.right.is_none() {
-                    curr1.right = curr2.right.clone();
-                } else {
-                    if let Some(x) = &mut curr1.right {
-                        stack1.push(x);
-                    }
-                    stack2.push(curr2.right.as_ref().map(|x| x.as_ref()).unwrap_or(&dn));
+            if curr1.right.is_none() {
+                curr1.right = curr2.right.clone();
+            } else {
+                if let Some(r) = curr1.right.as_mut() {
+                    stack1.push(Some(r));
                 }
+                stack2.push(curr2.right.as_ref());
             }
         }
-
     }
 
-    tree1.take()
+    left.take()
 }
 
 #[cfg(test)]
