@@ -5,7 +5,7 @@ use crate::list::ListNode;
 // O(n) time | O(1) space
 pub fn odd_even_list(root: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
 
-    let mut curr = Some(Rc::clone(root.as_ref()?));
+    let mut curr = root.as_ref().map(Rc::clone);
 
     let even_dummy = ListNode::new(0);
     let mut even_curr = Some(Rc::clone(&even_dummy));
