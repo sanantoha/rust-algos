@@ -1,31 +1,30 @@
-use crate::tree::TreeNode;
 
-pub fn evaluate_expression_tree(root: &Option<Box<TreeNode>>) -> i32 {
-    0
+pub fn largest_range(arr: &[i32]) -> (i32, i32) {
+    (0, 0)
 }
+
+pub fn largest_range1(arr: &[i32]) -> (i32, i32) {
+    (0, 0)
+}
+
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::evaluate_expression_tree;
+    use super::largest_range;
+    use super::largest_range1;
+
+    const ARR: &[i32] = &[1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6];
 
     #[test]
-    fn test_evaluate_expression_tree() {
-
-        let root = Some(Box::new(TreeNode::new(-1,
-                                               Some(Box::new(TreeNode::new(-2,
-                                                                           Some(Box::new(TreeNode::new(-4,
-                                                                                                       Some(Box::new(TreeNode::leaf(3))),
-                                                                                                       Some(Box::new(TreeNode::leaf(2)))
-                                                                           ))),
-                                                                           Some(Box::new(TreeNode::leaf(2)))
-                                               ))),
-                                               Some(Box::new(TreeNode::new(-3,
-                                                                           Some(Box::new(TreeNode::leaf(8))),
-                                                                           Some(Box::new(TreeNode::leaf(3)))
-                                               )))
-        )));
-
-        assert_eq!(evaluate_expression_tree(&root), 6);
+    fn it_largest_range() {
+        assert_eq!(largest_range(ARR), (0, 7));
     }
+
+    #[test]
+    fn it_largest_range1() {
+        let res = largest_range1(ARR);
+        println!("{res:?}");
+        assert_eq!(res, (0, 7));
+    }
+
 }
