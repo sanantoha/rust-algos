@@ -1,30 +1,37 @@
+use std::cell::RefCell;
+use std::rc::Rc;
+use crate::list::ListNode;
 
-pub fn largest_range(arr: &[i32]) -> (i32, i32) {
-    (0, 0)
+pub fn merge(l: &Option<Rc<RefCell<ListNode>>>, r: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
+    None
 }
-
-pub fn largest_range1(arr: &[i32]) -> (i32, i32) {
-    (0, 0)
-}
-
 
 #[cfg(test)]
 mod tests {
-    use super::largest_range;
-    use super::largest_range1;
 
-    const ARR: &[i32] = &[1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6];
-
-    #[test]
-    fn it_largest_range() {
-        assert_eq!(largest_range(ARR), (0, 7));
-    }
+    use crate::list::Displayable;
+    use crate::list::ListNode;
+    use super::merge;
 
     #[test]
-    fn it_largest_range1() {
-        let res = largest_range1(ARR);
-        println!("{res:?}");
-        assert_eq!(res, (0, 7));
-    }
+    pub fn test_merge() {
 
+        let head1 = Some(ListNode::with_next(4, Some(ListNode::with_next(8, Some(ListNode::with_next(15, Some(ListNode::new(19))))))));
+        let head2 = Some(ListNode::with_next(7, Some(ListNode::with_next(9, Some(ListNode::with_next(10, Some(ListNode::new(16))))))));
+
+        let exp = Some(ListNode::with_next(4,
+                                           Some(ListNode::with_next(7,
+                                                                    Some(ListNode::with_next(8,
+                                                                                             Some(ListNode::with_next(9,
+                                                                                                                      Some(ListNode::with_next(10,
+                                                                                                                                               Some(ListNode::with_next(15,
+                                                                                                                                                                        Some(ListNode::with_next(16,
+                                                                                                                                                                                                 Some(ListNode::new(19))))))))))))))));
+
+        let res = merge(&head1, &head2);
+        if let Some(display_res) = Displayable::from_option(res.clone()) {
+            println!("{}", display_res);
+        }
+        assert_eq!(res, exp);
+    }
 }
