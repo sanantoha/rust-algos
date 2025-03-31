@@ -2,34 +2,34 @@ use std::cell::RefCell;
 use std::rc::Rc;
 use crate::list::ListNode;
 
-// O(l1 + l2) time | O(1) space
-pub fn merge(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
+// O(l + r) time | O(1) space
+pub fn merge(l: &Option<Rc<RefCell<ListNode>>>, r: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
 
-    let mut c1 = l1.as_ref().map(Rc::clone);
-    let mut c2 = l2.as_ref().map(Rc::clone);
+    let dummy = ListNode::new(-1);
+    let mut curr_opt = Some(Rc::clone(&dummy));
 
-    let dummy = ListNode::new(0);
-    let mut curr = Rc::clone(&dummy);
+    let mut curr_l_opt = l.as_ref().map(Rc::clone);
+    let mut curr_r_opt = r.as_ref().map(Rc::clone);
 
-    while c1.is_some() && c2.is_some() {
-        if c1.as_ref().unwrap().borrow().val <= c2.as_ref().unwrap().borrow().val {
-            let new_node = c1.as_ref().unwrap();
-            curr.as_ref().borrow_mut().next = Some(Rc::clone(new_node));
-
-            curr = Rc::clone(new_node);
-            c1 = c1.and_then(|x| x.borrow().next.as_ref().map(Rc::clone))
-        } else {
-            let new_node = c2.as_ref().unwrap();
-            curr.as_ref().borrow_mut().next = Some(Rc::clone(new_node));
-
-            curr = Rc::clone(new_node);
-            c2 = c2.and_then(|x| x.borrow().next.as_ref().map(Rc::clone))
+    while let (Some(curr_l), Some(curr_r)) = (curr_l_opt.as_ref().map(Rc::clone), curr_r_opt.as_ref().map(Rc::clone)) {
+        if let Some(curr) = curr_opt.take() {
+            if curr_l.borrow().val <= curr_r.borrow().val {
+                curr.borrow_mut().next = Some(Rc::clone(&curr_l));
+                curr_l_opt = curr_l.borrow().next.as_ref().map(Rc::clone);
+            } else {
+                curr.borrow_mut().next = Some(Rc::clone(&curr_r));
+                curr_r_opt = curr_r.borrow().next.as_ref().map(Rc::clone);
+            }
+            curr_opt = curr.borrow().next.as_ref().map(Rc::clone)
         }
     }
 
-    curr.as_ref().borrow_mut().next = c1.or(c2).as_ref().map(Rc::clone);
+    if let Some(curr) = curr_opt.take() {
+        curr.borrow_mut().next = curr_l_opt.or(curr_r_opt)
+    }
 
-    return dummy.borrow().next.as_ref().map(Rc::clone);
+    let res = dummy.borrow().next.as_ref().map(Rc::clone);
+    res
 }
 
 

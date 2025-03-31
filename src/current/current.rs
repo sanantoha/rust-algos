@@ -1,37 +1,39 @@
-use std::cell::RefCell;
-use std::rc::Rc;
-use crate::list::ListNode;
+use crate::tree::TreeNode;
 
-pub fn merge(l: &Option<Rc<RefCell<ListNode>>>, r: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
+pub fn build_tree(preorder: &[i32], inorder: &[i32]) -> Option<Box<TreeNode>> {
     None
 }
 
 #[cfg(test)]
 mod tests {
-
-    use crate::list::Displayable;
-    use crate::list::ListNode;
-    use super::merge;
+    use crate::tree::TreeNode;
+    use super::build_tree;
 
     #[test]
-    pub fn test_merge() {
+    fn test_build_tree() {
+        let preorder: &[i32] = &[3, 9, 20, 15, 7];
+        let inorder: &[i32] = &[9, 3, 15, 20, 7];
 
-        let head1 = Some(ListNode::with_next(4, Some(ListNode::with_next(8, Some(ListNode::with_next(15, Some(ListNode::new(19))))))));
-        let head2 = Some(ListNode::with_next(7, Some(ListNode::with_next(9, Some(ListNode::with_next(10, Some(ListNode::new(16))))))));
+        let tree = build_tree(preorder, inorder);
 
-        let exp = Some(ListNode::with_next(4,
-                                           Some(ListNode::with_next(7,
-                                                                    Some(ListNode::with_next(8,
-                                                                                             Some(ListNode::with_next(9,
-                                                                                                                      Some(ListNode::with_next(10,
-                                                                                                                                               Some(ListNode::with_next(15,
-                                                                                                                                                                        Some(ListNode::with_next(16,
-                                                                                                                                                                                                 Some(ListNode::new(19))))))))))))))));
+        /*
+                     3
+                  /    \
+                9      20
+                     /   \
+                   15     7
+         */
 
-        let res = merge(&head1, &head2);
-        if let Some(display_res) = Displayable::from_option(res.clone()) {
-            println!("{}", display_res);
-        }
-        assert_eq!(res, exp);
+        let exp_tree = Some(
+            Box::new(TreeNode::new(3,
+                                   Some(Box::new(TreeNode::leaf(9))),
+                                   Some(Box::new(TreeNode::new(20,
+                                                               Some(Box::new(TreeNode::leaf(15))),
+                                                               Some(Box::new(TreeNode::leaf(7))),
+                                   ))),
+            ))
+        );
+
+        assert_eq!(tree, exp_tree);
     }
 }
