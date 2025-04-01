@@ -1,39 +1,42 @@
-use crate::tree::TreeNode;
 
-pub fn build_tree(preorder: &[i32], inorder: &[i32]) -> Option<Box<TreeNode>> {
-    None
+pub fn a_star_algorithm(start_row: usize, start_col: usize, end_row: usize, end_col: usize, graph: &[&[i32]]) -> Vec<Vec<usize>> {
+    vec![]
 }
+
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::build_tree;
+    use super::a_star_algorithm;
 
     #[test]
-    fn test_build_tree() {
-        let preorder: &[i32] = &[3, 9, 20, 15, 7];
-        let inorder: &[i32] = &[9, 3, 15, 20, 7];
+    fn test_a_star_algorithm() {
+        let start_row = 0;
+        let start_col = 1;
+        let end_row = 4;
+        let end_col = 3;
 
-        let tree = build_tree(preorder, inorder);
+        let graph: &[&[i32]] = &[
+            &[0, 0, 0, 0, 0],
+            &[0, 1, 1, 1, 0],
+            &[0, 0, 0, 0, 0],
+            &[1, 0, 1, 1, 1],
+            &[0, 0, 0, 0, 0],
+        ];
 
-        /*
-                     3
-                  /    \
-                9      20
-                     /   \
-                   15     7
-         */
+        let expected = vec![
+            vec![0, 1],
+            vec![0, 0],
+            vec![1, 0],
+            vec![2, 0],
+            vec![2, 1],
+            vec![3, 1],
+            vec![4, 1],
+            vec![4, 2],
+            vec![4, 3],
+        ];
 
-        let exp_tree = Some(
-            Box::new(TreeNode::new(3,
-                                   Some(Box::new(TreeNode::leaf(9))),
-                                   Some(Box::new(TreeNode::new(20,
-                                                               Some(Box::new(TreeNode::leaf(15))),
-                                                               Some(Box::new(TreeNode::leaf(7))),
-                                   ))),
-            ))
-        );
-
-        assert_eq!(tree, exp_tree);
+        let res = a_star_algorithm(start_row, start_col, end_row, end_col, graph);
+        println!("{:?}", res);
+        assert_eq!(res, expected);
     }
 }
