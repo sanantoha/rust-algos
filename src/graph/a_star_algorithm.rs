@@ -9,7 +9,7 @@ pub fn a_star_algorithm(start_row: usize, start_col: usize, end_row: usize, end_
     let end_node = Rc::clone(&nodes[end_row][end_col]);
     let start_node = Rc::clone(&nodes[start_row][start_col]);
     start_node.borrow_mut().distance_from_start = 0;
-    start_node.borrow_mut().distance_from_end = calculate_manhattan_distance(Rc::clone(&start_node), Rc::clone(&end_node));
+    start_node.borrow_mut().distance_to_end = calculate_manhattan_distance(Rc::clone(&start_node), Rc::clone(&end_node));
 
     let mut heap = BinaryHeap::new();
     heap.push(Reverse(Rc::clone(&start_node)));
@@ -29,7 +29,7 @@ pub fn a_star_algorithm(start_row: usize, start_col: usize, end_row: usize, end_
                 continue;
             }
             neighbor.borrow_mut().distance_from_start = tentative_distance;
-            neighbor.borrow_mut().distance_from_end = tentative_distance + calculate_manhattan_distance(Rc::clone(&neighbor), Rc::clone(&end_node));
+            neighbor.borrow_mut().distance_to_end = tentative_distance + calculate_manhattan_distance(Rc::clone(&neighbor), Rc::clone(&end_node));
             neighbor.borrow_mut().came_from = Some(Rc::clone(&node));
 
             remove(&mut heap, Rc::clone(&neighbor));
@@ -114,7 +114,7 @@ struct Node {
     col: usize,
     val: i32,
     distance_from_start: usize,
-    distance_from_end: usize,
+    distance_to_end: usize,
     came_from: Option<Rc<RefCell<Node>>>
 }
 
@@ -125,7 +125,7 @@ impl Node {
             col,
             val,
             distance_from_start: usize::MAX,
-            distance_from_end: usize::MAX,
+            distance_to_end: usize::MAX,
             came_from: None
         }
     }
@@ -133,7 +133,7 @@ impl Node {
 
 impl Ord for Node {
     fn cmp(&self, other: &Self) -> Ordering {
-        self.distance_from_end.cmp(&other.distance_from_end)
+        self.distance_to_end.cmp(&other.distance_to_end)
     }
 }
 
