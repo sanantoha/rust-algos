@@ -1,27 +1,72 @@
+use std::collections::HashMap;
 
-pub fn ladder_length(begin_word: &str, end_word: &str, word_list: &[&str]) -> i32 {
-    0
+pub fn sort_rec(graph: &HashMap<String, Vec<String>>) -> Result<Vec<&str>, String> {
+    Err("".to_string())
 }
+
+pub fn sort_iter(graph: &HashMap<String, Vec<String>>) -> Result<Vec<&str>, String> {
+    Err("".to_string())
+}
+
 
 #[cfg(test)]
 mod tests {
-
-    use super::ladder_length;
+    use std::collections::HashMap;
+    use super::{sort_rec, sort_iter};
 
     #[test]
-    pub fn test_ladder_length() {
+    fn test_sort_rec() {
+        let mut graph = HashMap::new();
+        graph.insert("A".to_string(), vec!["B".to_string(), "C".to_string(), "D".to_string()]);
+        graph.insert("B".to_string(), vec!["C".to_string()]);
+        graph.insert("C".to_string(), vec!["D".to_string()]);
+        graph.insert("D".to_string(), vec![]);
 
-        assert_eq!(ladder_length("hit", "cog", &["hot","dot","dog","lot","log","cog"]), 5);
+        let res = sort_rec(&graph);
+
+        assert_eq!(res, Ok(vec!["A", "B", "C", "D"]));
     }
 
     #[test]
-    pub fn test_ladder_length_without_end_word() {
-        assert_eq!(ladder_length("hit", "cog", &["hot","dot","dog","lot","log"]), 0);
+    fn test_sort_rec_case1() {
+        let mut graph = HashMap::new();
+        graph.insert("A".to_string(), vec!["B".to_string(), "C".to_string(), "D".to_string()]);
+        graph.insert("B".to_string(), vec!["C".to_string()]);
+        graph.insert("C".to_string(), vec!["D".to_string()]);
+        graph.insert("D".to_string(), vec!["A".to_string()]);
+
+        let res = sort_rec(&graph);
+
+        println!("{:?}", res);
+        assert!(res.is_err());
+        if let Err(msg) = res {
+            assert!(msg.contains("circle in the graph "));
+        }
     }
 
     #[test]
-    pub fn test_ladder_length_mama() {
+    fn test_sort_iter() {
+        let mut graph = HashMap::new();
+        graph.insert("A".to_string(), vec!["B".to_string(), "C".to_string(), "D".to_string()]);
+        graph.insert("B".to_string(), vec!["C".to_string()]);
+        graph.insert("C".to_string(), vec!["D".to_string()]);
+        graph.insert("D".to_string(), vec![]);
 
-        assert_eq!(ladder_length("MAMA", "SIRI", &["SAMA", "SIMA", "SIRA", "SIRI", "MISA", "DISA"]), 5);
+        let res = sort_iter(&graph);
+
+        assert_eq!(res, Ok(vec!["A", "B", "C", "D"]));
+    }
+
+    #[test]
+    fn test_sort_iter_case1() {
+        let mut graph = HashMap::new();
+        graph.insert("A".to_string(), vec!["B".to_string(), "C".to_string(), "D".to_string()]);
+        graph.insert("B".to_string(), vec!["C".to_string()]);
+        graph.insert("C".to_string(), vec!["D".to_string()]);
+        graph.insert("D".to_string(), vec!["B".to_string()]);
+
+        let res = sort_iter(&graph);
+
+        assert_eq!(res, Err("circle in the graph".to_string()));
     }
 }
