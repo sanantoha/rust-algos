@@ -1,72 +1,67 @@
-use std::collections::HashMap;
+use crate::graph::Digraph;
 
-pub fn sort_rec(graph: &HashMap<String, Vec<String>>) -> Result<Vec<&str>, String> {
-    Err("".to_string())
+pub fn sort_rec(graph: &Digraph) -> Result<Vec<usize>, String> {
+
+    Err("Not implemented".to_owned())
 }
 
-pub fn sort_iter(graph: &HashMap<String, Vec<String>>) -> Result<Vec<&str>, String> {
-    Err("".to_string())
+pub fn sort_iter(graph: &Digraph) -> Result<Vec<usize>, String> {
+    Err("Not implemented".to_owned())
 }
 
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashMap;
-    use super::{sort_rec, sort_iter};
+    use super::{sort_iter, sort_rec};
+    use crate::graph::Digraph;
 
     #[test]
     fn test_sort_rec() {
-        let mut graph = HashMap::new();
-        graph.insert("A".to_string(), vec!["B".to_string(), "C".to_string(), "D".to_string()]);
-        graph.insert("B".to_string(), vec!["C".to_string()]);
-        graph.insert("C".to_string(), vec!["D".to_string()]);
-        graph.insert("D".to_string(), vec![]);
+        let mut graph = Digraph::new(5);
+        graph.add_edge(0, 1);
+        graph.add_edge(1, 2);
+        graph.add_edge(2, 4);
+        graph.add_edge(2, 3);
+        graph.add_edge(3, 4);
+        graph.add_edge(4, 0);
 
-        let res = sort_rec(&graph);
-
-        assert_eq!(res, Ok(vec!["A", "B", "C", "D"]));
+        assert_eq!(sort_rec(&graph), Err("circle in the graph 4".to_owned()));
     }
 
     #[test]
     fn test_sort_rec_case1() {
-        let mut graph = HashMap::new();
-        graph.insert("A".to_string(), vec!["B".to_string(), "C".to_string(), "D".to_string()]);
-        graph.insert("B".to_string(), vec!["C".to_string()]);
-        graph.insert("C".to_string(), vec!["D".to_string()]);
-        graph.insert("D".to_string(), vec!["A".to_string()]);
+        let mut graph = Digraph::new(5);
+        graph.add_edge(0, 1);
+        graph.add_edge(1, 2);
+        graph.add_edge(2, 4);
+        graph.add_edge(2, 3);
+        graph.add_edge(3, 4);
 
-        let res = sort_rec(&graph);
-
-        println!("{:?}", res);
-        assert!(res.is_err());
-        if let Err(msg) = res {
-            assert!(msg.contains("circle in the graph "));
-        }
+        assert_eq!(sort_rec(&graph), Ok(vec![0, 1, 2, 3, 4]));
     }
 
     #[test]
     fn test_sort_iter() {
-        let mut graph = HashMap::new();
-        graph.insert("A".to_string(), vec!["B".to_string(), "C".to_string(), "D".to_string()]);
-        graph.insert("B".to_string(), vec!["C".to_string()]);
-        graph.insert("C".to_string(), vec!["D".to_string()]);
-        graph.insert("D".to_string(), vec![]);
+        let mut graph = Digraph::new(5);
+        graph.add_edge(0, 1);
+        graph.add_edge(1, 2);
+        graph.add_edge(2, 4);
+        graph.add_edge(2, 3);
+        graph.add_edge(3, 4);
+        graph.add_edge(4, 0);
 
-        let res = sort_iter(&graph);
-
-        assert_eq!(res, Ok(vec!["A", "B", "C", "D"]));
+        assert_eq!(sort_iter(&graph), Err("circle in the graph".to_owned()));
     }
 
     #[test]
     fn test_sort_iter_case1() {
-        let mut graph = HashMap::new();
-        graph.insert("A".to_string(), vec!["B".to_string(), "C".to_string(), "D".to_string()]);
-        graph.insert("B".to_string(), vec!["C".to_string()]);
-        graph.insert("C".to_string(), vec!["D".to_string()]);
-        graph.insert("D".to_string(), vec!["B".to_string()]);
+        let mut graph = Digraph::new(5);
+        graph.add_edge(0, 1);
+        graph.add_edge(1, 2);
+        graph.add_edge(2, 4);
+        graph.add_edge(2, 3);
+        graph.add_edge(3, 4);
 
-        let res = sort_iter(&graph);
-
-        assert_eq!(res, Err("circle in the graph".to_string()));
+        assert_eq!(sort_iter(&graph), Ok(vec![0, 1, 2, 3, 4]));
     }
 }
