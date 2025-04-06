@@ -1,67 +1,40 @@
-use crate::graph::Digraph;
 
-pub fn sort_rec(graph: &Digraph) -> Result<Vec<usize>, String> {
 
-    Err("Not implemented".to_owned())
-}
+pub fn counting_sort(arr: &mut [i32]) {
 
-pub fn sort_iter(graph: &Digraph) -> Result<Vec<usize>, String> {
-    Err("Not implemented".to_owned())
 }
 
 
 #[cfg(test)]
 mod tests {
-    use super::{sort_iter, sort_rec};
-    use crate::graph::Digraph;
+    use rand::{thread_rng, Rng};
+    use super::*;
 
     #[test]
-    fn test_sort_rec() {
-        let mut graph = Digraph::new(5);
-        graph.add_edge(0, 1);
-        graph.add_edge(1, 2);
-        graph.add_edge(2, 4);
-        graph.add_edge(2, 3);
-        graph.add_edge(3, 4);
-        graph.add_edge(4, 0);
+    fn test_counting_sort() {
+        let mut arr = vec![5, 2, 4, 6, 1, 3];
 
-        assert_eq!(sort_rec(&graph), Err("circle in the graph 4".to_owned()));
+        counting_sort(&mut arr);
+
+        assert_eq!(arr, [1, 2, 3, 4, 5, 6]);
     }
 
     #[test]
-    fn test_sort_rec_case1() {
-        let mut graph = Digraph::new(5);
-        graph.add_edge(0, 1);
-        graph.add_edge(1, 2);
-        graph.add_edge(2, 4);
-        graph.add_edge(2, 3);
-        graph.add_edge(3, 4);
+    fn test_counting_sort_case1() {
+        let mut arr = vec![0; 30];
 
-        assert_eq!(sort_rec(&graph), Ok(vec![0, 1, 2, 3, 4]));
-    }
+        let mut rand = thread_rng();
 
-    #[test]
-    fn test_sort_iter() {
-        let mut graph = Digraph::new(5);
-        graph.add_edge(0, 1);
-        graph.add_edge(1, 2);
-        graph.add_edge(2, 4);
-        graph.add_edge(2, 3);
-        graph.add_edge(3, 4);
-        graph.add_edge(4, 0);
+        for i in 0..arr.len() {
+            arr[i] = rand.gen_range(0..100)
+        }
 
-        assert_eq!(sort_iter(&graph), Err("circle in the graph".to_owned()));
-    }
+        counting_sort(&mut arr);
 
-    #[test]
-    fn test_sort_iter_case1() {
-        let mut graph = Digraph::new(5);
-        graph.add_edge(0, 1);
-        graph.add_edge(1, 2);
-        graph.add_edge(2, 4);
-        graph.add_edge(2, 3);
-        graph.add_edge(3, 4);
+        println!("{:?}", arr);
 
-        assert_eq!(sort_iter(&graph), Ok(vec![0, 1, 2, 3, 4]));
+        for i in 1..arr.len() {
+            assert!(arr[i - 1] <= arr[i]);
+        }
     }
 }
