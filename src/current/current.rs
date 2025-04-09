@@ -1,28 +1,32 @@
-use std::collections::HashMap;
+use crate::tree::TreeNode;
 
-
-pub fn optimal_freelancing(jobs: &mut Vec<HashMap<&str, i32>>) -> i32 {
-    0
+pub fn level_order(root: &Option<Box<TreeNode>>) -> Vec<Vec<i32>> {
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
-    use super::optimal_freelancing;
-    use std::collections::HashMap;
+    use crate::tree::TreeNode;
+    use super::level_order;
+    use super::TreeNode;
 
     #[test]
-    fn it_optimal_freelancing() {
+    fn it_level_order() {
+        let root = Box::new(TreeNode::new(5,
+                                          Some(Box::new(TreeNode::new(2,
+                                                                      Some(Box::new(TreeNode::leaf(1))),
+                                                                      Some(Box::new(TreeNode::leaf(3)))))),
+                                          Some(Box::new(TreeNode::new(10,
+                                                                      Some(Box::new(TreeNode::new(7,
+                                                                                                  Some(Box::new(TreeNode::leaf(6))),
+                                                                                                  Some(Box::new(TreeNode::leaf(8)))))),
+                                                                      Some(Box::new(TreeNode::new(15,
+                                                                                                  Some(Box::new(TreeNode::leaf(14))),
+                                                                                                  Some(Box::new(TreeNode::leaf(17)))))))))),
+        );
 
-        let mut jobs: Vec<HashMap<&str, i32>> = vec![
-            HashMap::from([("deadline", 2), ("payment", 2)]),
-            HashMap::from([("deadline", 4), ("payment", 3)]),
-            HashMap::from([("deadline", 5), ("payment", 1)]),
-            HashMap::from([("deadline", 7), ("payment", 2)]),
-            HashMap::from([("deadline", 3), ("payment", 1)]),
-            HashMap::from([("deadline", 3), ("payment", 2)]),
-            HashMap::from([("deadline", 1), ("payment", 3)]),
-        ];
-
-        assert_eq!(optimal_freelancing(&mut jobs), 13);
+        let res = level_order(root);
+        println!("{res:?}");
+        assert_eq!(res, vec![vec![5], vec![2, 10], vec![1, 3, 7, 15], vec![6, 8, 14, 17]]);
     }
 }
