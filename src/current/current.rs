@@ -1,32 +1,56 @@
 use crate::tree::TreeNode;
 
-pub fn level_order(root: &Option<Box<TreeNode>>) -> Vec<Vec<i32>> {
-    vec![]
+pub fn find_closest_value_in_bst_rec(root: &Option<Box<TreeNode>>, target: i32) -> Option<i32> {
+    return None
 }
+
+pub fn find_closest_value_in_bst(root: &Option<Box<TreeNode>>, target: i32) -> Option<i32> {
+    return None
+}
+
 
 #[cfg(test)]
 mod tests {
     use crate::tree::TreeNode;
-    use super::level_order;
-    use super::TreeNode;
+    use super::{find_closest_value_in_bst_rec, find_closest_value_in_bst};
 
     #[test]
-    fn it_level_order() {
-        let root = Box::new(TreeNode::new(5,
-                                          Some(Box::new(TreeNode::new(2,
-                                                                      Some(Box::new(TreeNode::leaf(1))),
-                                                                      Some(Box::new(TreeNode::leaf(3)))))),
-                                          Some(Box::new(TreeNode::new(10,
-                                                                      Some(Box::new(TreeNode::new(7,
-                                                                                                  Some(Box::new(TreeNode::leaf(6))),
-                                                                                                  Some(Box::new(TreeNode::leaf(8)))))),
-                                                                      Some(Box::new(TreeNode::new(15,
-                                                                                                  Some(Box::new(TreeNode::leaf(14))),
-                                                                                                  Some(Box::new(TreeNode::leaf(17)))))))))),
+    fn test_find_closest_value_in_bst_rec() {
+        let root = create_tree();
+
+        assert_eq!(find_closest_value_in_bst_rec(&root, 12), Some(13));
+    }
+
+    #[test]
+    fn test_find_closest_value_in_bst() {
+        let root = create_tree();
+
+        assert_eq!(find_closest_value_in_bst(&root, 12), Some(13));
+    }
+
+    fn create_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(
+            10,
+            Some(Box::new(TreeNode::new(
+                5,
+                Some(Box::new(TreeNode::new(
+                    2,
+                    Some(Box::new(TreeNode::leaf(1))),
+                    None,
+                ))),
+                Some(Box::new(TreeNode::leaf(5))),
+            ))),
+            Some(Box::new(TreeNode::new(
+                15,
+                Some(Box::new(TreeNode::new(
+                    13,
+                    None,
+                    Some(Box::new(TreeNode::leaf(14))),
+                ))),
+                Some(Box::new(TreeNode::leaf(22))),
+            ))),
         );
 
-        let res = level_order(root);
-        println!("{res:?}");
-        assert_eq!(res, vec![vec![5], vec![2, 10], vec![1, 3, 7, 15], vec![6, 8, 14, 17]]);
+        Some(Box::new(root))
     }
 }
