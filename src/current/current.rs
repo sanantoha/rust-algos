@@ -1,56 +1,25 @@
-use crate::tree::TreeNode;
 
-pub fn find_closest_value_in_bst_rec(root: &Option<Box<TreeNode>>, target: i32) -> Option<i32> {
-    return None
+pub fn longest_common_subsequence(str1: &str, str2: &str) -> Vec<char> {
+    vec![]
 }
 
-pub fn find_closest_value_in_bst(root: &Option<Box<TreeNode>>, target: i32) -> Option<i32> {
-    return None
+
+pub fn longest_common_subsequence1(str1: &str, str2: &str) -> Vec<char> {
+    vec![]
 }
 
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::{find_closest_value_in_bst_rec, find_closest_value_in_bst};
+    use super::{longest_common_subsequence, longest_common_subsequence1};
 
     #[test]
-    fn test_find_closest_value_in_bst_rec() {
-        let root = create_tree();
-
-        assert_eq!(find_closest_value_in_bst_rec(&root, 12), Some(13));
+    fn test_longest_common_subsequence() {
+        assert_eq!(longest_common_subsequence("ZXVVYZW", "XKYKZPW"), vec!['X', 'Y', 'Z', 'W']);
     }
 
     #[test]
-    fn test_find_closest_value_in_bst() {
-        let root = create_tree();
-
-        assert_eq!(find_closest_value_in_bst(&root, 12), Some(13));
-    }
-
-    fn create_tree() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(
-            10,
-            Some(Box::new(TreeNode::new(
-                5,
-                Some(Box::new(TreeNode::new(
-                    2,
-                    Some(Box::new(TreeNode::leaf(1))),
-                    None,
-                ))),
-                Some(Box::new(TreeNode::leaf(5))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                15,
-                Some(Box::new(TreeNode::new(
-                    13,
-                    None,
-                    Some(Box::new(TreeNode::leaf(14))),
-                ))),
-                Some(Box::new(TreeNode::leaf(22))),
-            ))),
-        );
-
-        Some(Box::new(root))
+    fn test_longest_common_subsequence1() {
+        assert_eq!(longest_common_subsequence1("ZXVVYZW", "XKYKZPW"), vec!['X', 'Y', 'Z', 'W']);
     }
 }
