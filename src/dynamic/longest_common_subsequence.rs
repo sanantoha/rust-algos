@@ -44,7 +44,7 @@ pub fn longest_common_subsequence1(str1: &str, str2: &str) -> Vec<char> {
                 lcs[i][j] = Info {
                     prev_x: Some(i - 1),
                     prev_y: Some(j - 1),
-                    l: lcs[i][j].l + 1,
+                    l: lcs[i - 1][j - 1].l + 1,
                     c: str1.chars().nth(i - 1).unwrap(),
                 }
             } else {
