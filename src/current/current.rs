@@ -1,31 +1,26 @@
 
-pub fn min_number_of_jumps(arr: &[i32]) -> i32 {
-    0
+pub fn same_bsts(arr1: &[i32], arr2: &[i32]) -> bool {
+    false
 }
 
-pub fn min_number_of_jumps1(arr: &[i32]) -> i32 {
-    0
+pub fn same_bsts1(arr1: &[i32], arr2: &[i32]) -> bool {
+    false
 }
-
 
 #[cfg(test)]
 mod tests {
-    use super::{min_number_of_jumps, min_number_of_jumps1};
+    use super::{same_bsts, same_bsts1};
 
-    const ARR: &[i32] = &[3, 4, 2, 1, 2, 3, 7, 1, 1, 1, 3];
+    const ARR_ONE: &[i32] = &[10, 15, 8, 12, 94, 81, 5, 2, 11];
+    const ARR_TWO: &[i32] = &[10, 8, 5, 15, 2, 12, 11, 94, 81];
 
     #[test]
-    fn test_min_number_of_jumps() {
-
-        let res = min_number_of_jumps(ARR);
-        println!("{}", res);
-        assert_eq!(res, 4);
+    fn test_same_bsts() {
+        assert!(same_bsts(ARR_ONE, ARR_TWO));
     }
 
     #[test]
-    fn test_min_number_of_jumps1() {
-        let res = min_number_of_jumps1(ARR);
-        println!("{}", res);
-        assert_eq!(res, 4);
+    fn test_same_bsts1() {
+        assert!(same_bsts1(ARR_ONE, ARR_TWO));
     }
 }
