@@ -56,7 +56,7 @@ mod tests {
     }
 
     #[test]
-    pub fn test_is_cycle_() {
+    pub fn test_is_not_cycle() {
         let root = Some(create_list());
         assert!(!is_cycle(&root));
     }
