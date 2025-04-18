@@ -1,66 +1,61 @@
-use std::collections::HashMap;
-use std::rc::Rc;
-use crate::graph::EdgeT;
 
-pub fn mst(graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>) -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
-
-    HashMap::default()
+pub fn staircase_traversal_rec(height: usize, max_steps: usize) -> i32 {
+    0
 }
 
+pub fn staircase_traversal_rec_memoization(height: usize, max_steps: usize) -> i32 {
+    0
+}
+
+pub fn staircase_traversal_iter(height: usize, max_steps: usize) -> i32 {
+    0
+}
+
+pub fn staircase_traversal_sliding_window(height: usize, max_steps: usize) -> i32 {
+    0
+}
 
 #[cfg(test)]
 mod tests {
-    use crate::graph::{compare_as_map, create_graph, create_graph1, exp_graph, exp_graph1, graph_to_string};
-    use super::mst;
-    /*
-            6 5
-            0: 0-1 7.0
-            1: 1-2 3.0  0-1 7.0
-            2: 1-2 3.0  2-4 3.0
-            3: 3-4 2.0
-            4: 3-4 2.0  4-5 2.0  2-4 3.0
-            5: 4-5 2.0
-         */
+    use super::{staircase_traversal_iter, staircase_traversal_rec, staircase_traversal_rec_memoization, staircase_traversal_sliding_window};
+
     #[test]
-    fn test_mst() {
-        let graph = create_graph();
-        let graph_str = graph_to_string(&graph);
-        println!("{}", graph_str);
-
-        let exp_graph = exp_graph();
-
-        let res = mst(&graph);
-        println!("{}", graph_to_string(&exp_graph));
-        println!("{}", graph_to_string(&res));
-
-        // assert_eq!(res, exp_graph)
-        assert!(compare_as_map(&res, &exp_graph));
+    fn test_staircase_traversal_rec() {
+        assert_eq!(staircase_traversal_rec(4, 2), 5);
     }
 
-    /*
-            7 6
-            0: 0-1 2.0  0-2 3.0
-            1: 0-1 2.0  1-6 3.0
-            2: 2-4 1.0  0-2 3.0
-            3: 3-4 5.0
-            4: 2-4 1.0  3-4 5.0
-            5: 5-6 2.0
-            6: 5-6 2.0  1-6 3.0
-         */
     #[test]
-    fn test_mst1() {
-        let graph = create_graph1();
-        let graph_str = graph_to_string(&graph);
-        println!("{}", graph_str);
-
-        let exp_graph = exp_graph1();
-
-        let res = mst(&graph);
-        println!("{}", graph_to_string(&exp_graph));
-        println!("{}", graph_to_string(&res));
-
-        // assert_eq!(res, exp_graph);
-        assert!(compare_as_map(&res, &exp_graph));
+    fn test_staircase_traversal_rec_case1() {
+        assert_eq!(staircase_traversal_rec(4, 3), 7);
     }
 
+    #[test]
+    fn test_staircase_traversal_rec_memoization() {
+        assert_eq!(staircase_traversal_rec_memoization(4, 2), 5);
+    }
+
+    #[test]
+    fn test_staircase_traversal_rec_memoization_case1() {
+        assert_eq!(staircase_traversal_rec_memoization(4, 3), 7);
+    }
+
+    #[test]
+    fn test_staircase_traversal_iter() {
+        assert_eq!(staircase_traversal_iter(4, 2), 5);
+    }
+
+    #[test]
+    fn test_staircase_traversal_iter_case1() {
+        assert_eq!(staircase_traversal_iter(4, 3), 7);
+    }
+
+    #[test]
+    fn test_staircase_traversal_sliding_window() {
+        assert_eq!(staircase_traversal_sliding_window(4, 2), 5);
+    }
+
+    #[test]
+    fn test_staircase_traversal_sliding_window_case1() {
+        assert_eq!(staircase_traversal_sliding_window(4, 3), 7);
+    }
 }
