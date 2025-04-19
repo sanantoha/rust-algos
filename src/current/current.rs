@@ -1,61 +1,23 @@
 
-pub fn staircase_traversal_rec(height: usize, max_steps: usize) -> i32 {
-    0
+pub fn find_ladders<'a>(begin_word: &'a str, end_word: &'a str, word_list: Vec<&'a str>) -> Vec<Vec<&'a str>> {
+
+    vec![]
 }
 
-pub fn staircase_traversal_rec_memoization(height: usize, max_steps: usize) -> i32 {
-    0
-}
-
-pub fn staircase_traversal_iter(height: usize, max_steps: usize) -> i32 {
-    0
-}
-
-pub fn staircase_traversal_sliding_window(height: usize, max_steps: usize) -> i32 {
-    0
-}
 
 #[cfg(test)]
 mod tests {
-    use super::{staircase_traversal_iter, staircase_traversal_rec, staircase_traversal_rec_memoization, staircase_traversal_sliding_window};
+    use super::find_ladders;
 
     #[test]
-    fn test_staircase_traversal_rec() {
-        assert_eq!(staircase_traversal_rec(4, 2), 5);
-    }
+    fn test_find_ladders() {
+        let begin_word = "hit";
+        let end_word = "cog";
+        let word_list = vec!["hot", "dot", "dog", "lot", "log", "cog"];
 
-    #[test]
-    fn test_staircase_traversal_rec_case1() {
-        assert_eq!(staircase_traversal_rec(4, 3), 7);
-    }
+        let res = find_ladders(begin_word, end_word, word_list);
+        println!("{:?}", res);
 
-    #[test]
-    fn test_staircase_traversal_rec_memoization() {
-        assert_eq!(staircase_traversal_rec_memoization(4, 2), 5);
-    }
-
-    #[test]
-    fn test_staircase_traversal_rec_memoization_case1() {
-        assert_eq!(staircase_traversal_rec_memoization(4, 3), 7);
-    }
-
-    #[test]
-    fn test_staircase_traversal_iter() {
-        assert_eq!(staircase_traversal_iter(4, 2), 5);
-    }
-
-    #[test]
-    fn test_staircase_traversal_iter_case1() {
-        assert_eq!(staircase_traversal_iter(4, 3), 7);
-    }
-
-    #[test]
-    fn test_staircase_traversal_sliding_window() {
-        assert_eq!(staircase_traversal_sliding_window(4, 2), 5);
-    }
-
-    #[test]
-    fn test_staircase_traversal_sliding_window_case1() {
-        assert_eq!(staircase_traversal_sliding_window(4, 3), 7);
+        assert_eq!(res, vec![vec!["hit", "hot", "dot", "dog", "cog"], vec!["hit", "hot", "lot", "log", "cog"]]);
     }
 }
