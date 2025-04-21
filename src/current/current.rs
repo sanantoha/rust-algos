@@ -10,8 +10,8 @@ pub fn powerset_rec(arr: &[i32]) -> Vec<Vec<i32>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::backtracking::powerset::powerset;
-    use crate::backtracking::powerset::powerset_rec;
+    use super::powerset;
+    use super::powerset_rec;
 
     #[test]
     fn it_powerset() {
