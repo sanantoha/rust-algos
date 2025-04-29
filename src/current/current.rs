@@ -1,128 +1,43 @@
-use crate::tree::TreeNode;
 
-pub fn is_same_tree(t1: &Option<Box<TreeNode>>, t2: &Option<Box<TreeNode>>) -> bool {
-    false
+pub fn lnds(arr: &[i32]) -> i32 {
+    0
 }
 
-pub fn is_same_tree_iter(t1: &Option<Box<TreeNode>>, t2: &Option<Box<TreeNode>>) -> bool {
-    false
+pub fn lnds1(arr: &[i32]) -> i32 {
+    0
+}
+
+pub fn lnds_list(arr: &[i32]) -> Vec<i32> {
+    vec![]
+}
+
+pub fn lnds_list1(arr: &[i32]) -> Vec<i32> {
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::{is_same_tree, is_same_tree_iter};
 
-    #[test]
-    fn test_is_same_tree() {
-        let t1 = create_tree1();
-        let t2 = create_tree1();
-        assert!(is_same_tree(&t1, &t2));
-    }
+    use super::{lnds, lnds1, lnds_list, lnds_list1};
 
+    const ARR: &[i32] = &[-2, -1, 2, 3, 4, 5, 2, 2, 2, 2, 3];
     #[test]
-    fn test_is_same_tree_iter() {
-        let t1 = create_tree1();
-        let t2 = create_tree1();
-        assert!(is_same_tree_iter(&t1, &t2));
+    fn test_lnds() {
+        assert_eq!(lnds(ARR), 8);
     }
 
     #[test]
-    fn test_is_same_tree_neg() {
-        let t1 = create_tree1();
-        let t2 = create_tree2();
-        assert!(!is_same_tree(&t1, &t2));
+    fn test_lnds1() {
+        assert_eq!(lnds1(ARR), 8);
     }
 
     #[test]
-    fn test_is_same_tree_iter_neg() {
-        let t1 = create_tree1();
-        let t2 = create_tree2();
-        assert!(!is_same_tree_iter(&t1, &t2));
+    fn test_lnds_list() {
+        assert_eq!(lnds_list(ARR), vec![-2, -1, 2, 2, 2, 2, 2, 3]);
     }
 
     #[test]
-    fn test_is_same_tree_case1() {
-        let t1 = create_tree3();
-        let t2 = create_tree31();
-
-        assert!(!is_same_tree(&t1, &t2));
-    }
-
-    #[test]
-    fn test_is_same_tree_iter_case1() {
-        let t1 = create_tree3();
-        let t2 = create_tree31();
-        assert!(!is_same_tree_iter(&t1, &t2));
-    }
-
-    fn create_tree1() -> Option<Box<TreeNode>> {
-        let tree = TreeNode::new(
-            5,
-            Some(Box::new(TreeNode::new(
-                2,
-                Some(Box::new(TreeNode::leaf(1))),
-                Some(Box::new(TreeNode::leaf(3))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                10,
-                Some(Box::new(TreeNode::leaf(7))),
-                Some(Box::new(TreeNode::leaf(15))),
-            ))),
-        );
-
-        Some(Box::new(tree))
-    }
-
-    fn create_tree2() -> Option<Box<TreeNode>> {
-        let tree = TreeNode::new(
-            5,
-            Some(Box::new(TreeNode::new(
-                2,
-                Some(Box::new(TreeNode::leaf(1))),
-                Some(Box::new(TreeNode::leaf(444444444))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                10,
-                Some(Box::new(TreeNode::leaf(7))),
-                Some(Box::new(TreeNode::leaf(15))),
-            ))),
-        );
-
-        Some(Box::new(tree))
-    }
-
-    fn create_tree3() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(
-            1,
-            Some(Box::new(TreeNode::new(
-                2,
-                None,
-                Some(Box::new(TreeNode::leaf(3))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                2,
-                None,
-                Some(Box::new(TreeNode::leaf(3))),
-            ))),
-        );
-        Some(Box::new(root))
-    }
-
-    fn create_tree31() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(
-            1,
-            Some(Box::new(TreeNode::new(
-                2,
-                Some(Box::new(TreeNode::leaf(3))),
-                None,
-            ))),
-            Some(Box::new(TreeNode::new(
-                2,
-                None,
-                Some(Box::new(TreeNode::leaf(3))),
-            ))),
-        );
-        Some(Box::new(root))
+    fn test_lnds_list1() {
+        assert_eq!(lnds_list1(ARR), vec![-2, -1, 2, 2, 2, 2, 2, 3]);
     }
 }
