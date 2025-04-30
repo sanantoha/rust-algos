@@ -1,43 +1,41 @@
 
-pub fn lnds(arr: &[i32]) -> i32 {
-    0
+fn median(arr1: &[i32], arr2: &[i32]) -> f64 {
+    0.0
 }
 
-pub fn lnds1(arr: &[i32]) -> i32 {
-    0
+fn median1(arr1: &[i32], arr2: &[i32]) -> f64 {
+    0.0
 }
 
-pub fn lnds_list(arr: &[i32]) -> Vec<i32> {
-    vec![]
-}
-
-pub fn lnds_list1(arr: &[i32]) -> Vec<i32> {
-    vec![]
-}
 
 #[cfg(test)]
 mod tests {
+    use super::{median, median1};
 
-    use super::{lnds, lnds1, lnds_list, lnds_list1};
+    const ARR1: &[i32] = &[1,2,3,4,5,6];
+    const ARR2: &[i32] = &[7,8,9,10,11,12];
+    const ARR3: &[i32] = &[1,2,3,4,5,6,13];
 
-    const ARR: &[i32] = &[-2, -1, 2, 3, 4, 5, 2, 2, 2, 2, 3];
+    const EXP_RES: f64 = 6.5;
+    const EXP_RES1: f64 = 7.0;
+
     #[test]
-    fn test_lnds() {
-        assert_eq!(lnds(ARR), 8);
+    fn it_median() {
+        assert_eq!(median(ARR1, ARR2), EXP_RES);
     }
 
     #[test]
-    fn test_lnds1() {
-        assert_eq!(lnds1(ARR), 8);
+    fn it_median_one() {
+        assert_eq!(median(ARR3, ARR2), EXP_RES1);
     }
 
     #[test]
-    fn test_lnds_list() {
-        assert_eq!(lnds_list(ARR), vec![-2, -1, 2, 2, 2, 2, 2, 3]);
+    fn it_median1() {
+        assert_eq!(median1(ARR1, ARR2), EXP_RES);
     }
 
     #[test]
-    fn test_lnds_list1() {
-        assert_eq!(lnds_list1(ARR), vec![-2, -1, 2, 2, 2, 2, 2, 3]);
+    fn it_median1_one() {
+        assert_eq!(median(ARR3, ARR2), EXP_RES1);
     }
 }
