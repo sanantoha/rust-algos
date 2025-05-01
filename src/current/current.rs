@@ -1,41 +1,40 @@
+use crate::graph::EdgeWeightedDigraph;
 
-fn median(arr1: &[i32], arr2: &[i32]) -> f64 {
-    0.0
+pub fn dfs_rec(graph: &EdgeWeightedDigraph, start: usize) -> Vec<usize> {
+    vec![]
 }
 
-fn median1(arr1: &[i32], arr2: &[i32]) -> f64 {
-    0.0
+pub fn dfs(graph: &EdgeWeightedDigraph, start: usize) -> Vec<usize> {
+    vec![]
 }
-
 
 #[cfg(test)]
 mod tests {
-    use super::{median, median1};
+    use std::path::PathBuf;
+    use super::{dfs_rec, dfs};
+    use crate::graph::EdgeWeightedDigraph;
 
-    const ARR1: &[i32] = &[1,2,3,4,5,6];
-    const ARR2: &[i32] = &[7,8,9,10,11,12];
-    const ARR3: &[i32] = &[1,2,3,4,5,6,13];
-
-    const EXP_RES: f64 = 6.5;
-    const EXP_RES1: f64 = 7.0;
+    const PATH: &str = "src/graph/dfs.txt";
 
     #[test]
-    fn it_median() {
-        assert_eq!(median(ARR1, ARR2), EXP_RES);
+    fn it_dfs_rec() {
+        if let Ok(graph) = EdgeWeightedDigraph::from_file(PathBuf::from(PATH)) {
+            println!("{}", graph);
+
+            let res = dfs_rec(&graph, 0);
+            println!("{:?}", res);
+            assert_eq!(res, vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
+        }
     }
 
     #[test]
-    fn it_median_one() {
-        assert_eq!(median(ARR3, ARR2), EXP_RES1);
-    }
+    fn it_dfs() {
+        if let Ok(graph) = EdgeWeightedDigraph::from_file(PathBuf::from(PATH)) {
+            println!("{}", graph);
 
-    #[test]
-    fn it_median1() {
-        assert_eq!(median1(ARR1, ARR2), EXP_RES);
-    }
-
-    #[test]
-    fn it_median1_one() {
-        assert_eq!(median(ARR3, ARR2), EXP_RES1);
+            let res = dfs(&graph, 0);
+            println!("{:?}", res);
+            assert_eq!(res, vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
+        }
     }
 }

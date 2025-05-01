@@ -128,6 +128,6 @@ mod tests {
 
     #[test]
     fn it_median1_one() {
-        assert_eq!(median(ARR3, ARR2), EXP_RES1);
+        assert_eq!(median1(ARR3, ARR2), EXP_RES1);
     }
 }
