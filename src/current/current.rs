@@ -1,40 +1,66 @@
-use crate::graph::EdgeWeightedDigraph;
 
-pub fn dfs_rec(graph: &EdgeWeightedDigraph, start: usize) -> Vec<usize> {
+pub fn lds(arr: &[i32]) -> i32 {
+    0
+}
+
+pub fn lds1(arr: &[i32]) -> i32 {
+    0
+}
+
+pub fn lds_list(arr: &[i32]) -> Vec<i32> {
     vec![]
 }
 
-pub fn dfs(graph: &EdgeWeightedDigraph, start: usize) -> Vec<usize> {
+pub fn lds_list1(arr: &[i32]) -> Vec<i32> {
     vec![]
 }
+
 
 #[cfg(test)]
 mod tests {
-    use std::path::PathBuf;
-    use super::{dfs_rec, dfs};
-    use crate::graph::EdgeWeightedDigraph;
+    use super::{lds, lds1, lds_list, lds_list1};
 
-    const PATH: &str = "src/graph/dfs.txt";
+    const ARR0: &[i32] = &[5,6,7,6,5,4,3,10,14,12];
+
+    const ARR1: &[i32] = &[100, 10, 9, 8, 7, 6, 5, 90, 80, 70, 60, 50, 40, 30, 20];
 
     #[test]
-    fn it_dfs_rec() {
-        if let Ok(graph) = EdgeWeightedDigraph::from_file(PathBuf::from(PATH)) {
-            println!("{}", graph);
-
-            let res = dfs_rec(&graph, 0);
-            println!("{:?}", res);
-            assert_eq!(res, vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
-        }
+    fn test_lds_case0() {
+        assert_eq!(lds(ARR0), 5);
     }
 
     #[test]
-    fn it_dfs() {
-        if let Ok(graph) = EdgeWeightedDigraph::from_file(PathBuf::from(PATH)) {
-            println!("{}", graph);
+    fn test_lds_case1() {
+        assert_eq!(lds(ARR1), 9);
+    }
 
-            let res = dfs(&graph, 0);
-            println!("{:?}", res);
-            assert_eq!(res, vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
-        }
+    #[test]
+    fn test_lds1_case0() {
+        assert_eq!(lds1(ARR0), 5);
+    }
+
+    #[test]
+    fn test_lds1_case1() {
+        assert_eq!(lds1(ARR1), 9);
+    }
+
+    #[test]
+    fn test_lds_list_case0() {
+        assert_eq!(lds_list(ARR0), vec![7, 6, 5, 4, 3]);
+    }
+
+    #[test]
+    fn test_lds_list_case1() {
+        assert_eq!(lds_list(ARR1), vec![100, 90, 80, 70, 60, 50, 40, 30, 20]);
+    }
+
+    #[test]
+    fn test_lds_list1_case0() {
+        assert_eq!(lds_list1(ARR0), vec![7, 6, 5, 4, 3]);
+    }
+
+    #[test]
+    fn test_lds_list1_case1() {
+        assert_eq!(lds_list1(ARR1), vec![100, 90, 80, 70, 60, 50, 40, 30, 20]);
     }
 }
