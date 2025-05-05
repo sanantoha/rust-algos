@@ -1,12 +1,11 @@
 
-pub fn stable_internships(interns: &[&[i32]], teams: &[&[i32]]) -> Vec<(usize, usize)> {
+pub fn stable_internships(interns: &[&[usize]], teams: &[&[usize]]) -> Vec<(usize, usize)> {
     vec![]
 }
 
 
 #[cfg(test)]
 mod tests {
-    use crate::arrays::stable_internships::stable_internships;
     use super::stable_internships;
 
     #[test]
