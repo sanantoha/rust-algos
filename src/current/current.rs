@@ -1,47 +1,34 @@
-use crate::tree::TreeNode;
 
-pub fn pre_order(root: &Option<Box<TreeNode>>) -> Vec<i32> {
+pub fn stable_internships(interns: &[&[i32]], teams: &[&[i32]]) -> Vec<(usize, usize)> {
     vec![]
 }
 
-pub fn in_order(root: &Option<Box<TreeNode>>) -> Vec<i32> {
-    vec![]
-}
-
-pub fn post_order(root: &Option<Box<TreeNode>>) -> Vec<i32> {
-    vec![]
-}
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::{pre_order, in_order, post_order};
+    use crate::arrays::stable_internships::stable_internships;
+    use super::stable_internships;
 
     #[test]
-    pub fn test_dfs_pre_order() {
-        assert_eq!(pre_order(&create_tree()), vec![5, 2, 1, 3, 8, 7, 9]);
-    }
+    fn it_stable_internships() {
 
-    #[test]
-    pub fn test_dfs_in_order() {
-        assert_eq!(in_order(&create_tree()), vec![1, 2, 3, 5, 7, 8, 9]);
-    }
+        let interns: &[&[usize]] = &[
+            &[0, 1, 2],
+            &[0, 2, 1],
+            &[1, 2, 0],
+        ];
 
-    #[test]
-    pub fn test_dfs_post_order() {
-        assert_eq!(post_order(&create_tree()), vec![1, 3, 2, 7, 9, 8, 5]);
-    }
+        let teams: &[&[usize]] = &[
+            &[2, 1, 0],
+            &[0, 1, 2],
+            &[0, 1, 2]
+        ];
 
-    fn create_tree() -> Option<Box<TreeNode>> {
-        Some(
-            Box::new(TreeNode::new(5,
-                                   Some(Box::new(TreeNode::new(2,
-                                                               Some(Box::new(TreeNode::leaf(1))),
-                                                               Some(Box::new(TreeNode::leaf(3)))))),
-                                   Some(Box::new(TreeNode::new(8,
-                                                               Some(Box::new(TreeNode::leaf(7))),
-                                                               Some(Box::new(TreeNode::leaf(9)))))),
-            ))
-        )
+        let mut res = stable_internships(interns, teams);
+        res.sort_by_key(|x| x.0);
+
+        println!("{:?}", res);
+
+        assert_eq!(res, vec![(0, 1), (1, 0), (2, 2)])
     }
 }

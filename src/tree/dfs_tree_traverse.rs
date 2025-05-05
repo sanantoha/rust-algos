@@ -1,92 +1,69 @@
-use std::collections::LinkedList;
 use crate::tree::TreeNode;
 
 // O(n) time | O(h) space
 pub fn pre_order(root: &Option<Box<TreeNode>>) -> Vec<i32> {
-    if let Some(node) = root {
-        let mut stack = LinkedList::new();
-        stack.push_back(node);
 
-        let mut res = vec![];
+    let mut stack = vec![root];
+    let mut res = vec![];
 
-        while !stack.is_empty() {
-            if let Some(curr) = stack.pop_back() {
+    while let Some(node_opt) = stack.pop() {
+        if let Some(node) = node_opt {
+            res.push(node.val);
 
-                res.push(curr.val);
-
-                if let Some(right) = &curr.right {
-                    stack.push_back(right);
-                }
-                if let Some(left) = &curr.left {
-                    stack.push_back(left);
-                }
-            }
+            stack.push(&node.right);
+            stack.push(&node.left);
         }
-
-        return res;
     }
 
-    vec![]
+    res
 }
 
 // O(n) time | O(h) space
 pub fn in_order(root: &Option<Box<TreeNode>>) -> Vec<i32> {
-    if let Some(node) = root {
-        let mut stack = LinkedList::new();
-        let mut curr = Some(node);
 
-        let mut res = vec![];
+    let mut stack = vec![];
+    let mut res = vec![];
 
-        while !stack.is_empty() || curr.is_some() {
-            while let Some(node) = curr {
-                stack.push_back(node);
-                curr = node.left.as_ref();
-            }
+    let mut curr = root;
 
-            if let Some(node) = stack.pop_back() {
-                res.push(node.val);
-
-                curr = node.right.as_ref();
-            }
+    while !stack.is_empty() || curr.is_some() {
+        while let Some(node) = curr {
+            stack.push(node);
+            curr = &node.left;
         }
 
-        return res;
+        if let Some(node) = stack.pop() {
+            res.push(node.val);
+
+            curr = &node.right;
+        }
     }
 
-    vec![]
+    res
 }
 
 // O(n) time | O(h) space
 pub fn post_order(root: &Option<Box<TreeNode>>) -> Vec<i32> {
-    if let Some(node) = root {
-        let mut stack1 = LinkedList::new();
-        let mut stack2 = LinkedList::new();
 
-        stack1.push_back(node);
+    let mut fst = vec![root];
+    let mut snd = vec![];
 
-        while !stack1.is_empty() {
-            if let Some(curr) = stack1.pop_back() {
-                stack2.push_back(curr);
+    let mut res = vec![];
 
-                if let Some(left) = &curr.left {
-                    stack1.push_back(left);
-                }
-                if let Some(right) = &curr.right {
-                    stack1.push_back(right);
-                }
-            }
+    while let Some(node_opt) = fst.pop() {
+        if let Some(node) = node_opt {
+            snd.push(node);
+
+            fst.push(&node.left);
+            fst.push(&node.right);
         }
-
-        let mut res = vec![];
-
-        while !stack2.is_empty() {
-            if let Some(node) = stack2.pop_back() {
-                res.push(node.val);
-            }
-        }
-        return res;
     }
-    vec![]
+
+    while let Some(node) = snd.pop() {
+        res.push(node.val);
+    }
+
+    res
 }
 
 
