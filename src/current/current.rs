@@ -2,153 +2,74 @@ use std::cell::RefCell;
 use std::rc::Rc;
 use crate::list::ListNode;
 
-pub fn remove_nth_from_end(head: Option<Rc<RefCell<ListNode>>>, n: i32) -> Option<Rc<RefCell<ListNode>>> {
+pub fn get_intersection_node(l: &Option<Rc<RefCell<ListNode>>>, r: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
     None
 }
 
+pub fn get_intersection_node1(l: &Option<Rc<RefCell<ListNode>>>, r: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
+    None
+}
 
 #[cfg(test)]
 mod tests {
+
+    use super::get_intersection_node;
+    use super::get_intersection_node1;
+    use crate::list::ListNode;
+    use crate::list::Displayable;
+    use std::cell::RefCell;
     use std::rc::Rc;
-    use crate::list::{Displayable, ListNode};
-    use super::remove_nth_from_end;
 
     #[test]
-    fn test_remove_nth_from_end_case1() {
-        let head = ListNode::with_next(1,
-                                       Some(ListNode::with_next(2,
-                                                                Some(ListNode::with_next(3,
-                                                                                         Some(ListNode::with_next(4,
-                                                                                                                  Some(ListNode::new(5)))))))));
+    fn it_get_intersection_node() {
+        let (l, r) = create_lists();
+        let exp_common = create_common();
 
+        let res = get_intersection_node(&Some(l), &Some(r));
 
-        let exp_list = ListNode::with_next(1,
-                                           Some(ListNode::with_next(2,
-                                                                    Some(ListNode::with_next(3,
-                                                                                             Some(ListNode::new(4)))))));
-
-        let res = remove_nth_from_end(Some(head), 1);
-
-        if let Some(display) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
-            println!("{}", display);
+        if let Some(disp) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
+            println!("{}", disp);
         }
 
-        assert_eq!(res, Some(exp_list));
+        assert_eq!(res, Some(exp_common));
     }
 
     #[test]
-    fn test_remove_nth_from_end_case2() {
-        let head = ListNode::with_next(1,
-                                       Some(ListNode::with_next(2,
-                                                                Some(ListNode::with_next(3,
-                                                                                         Some(ListNode::with_next(4,
-                                                                                                                  Some(ListNode::new(5)))))))));
+    fn it_get_intersection_node1() {
+        let (l, r) = create_lists();
+        let exp_common = create_common();
 
+        let res = get_intersection_node1(&Some(l), &Some(r));
 
-        let exp_list = ListNode::with_next(1,
-                                           Some(ListNode::with_next(2,
-                                                                    Some(ListNode::with_next(3,
-                                                                                             Some(ListNode::new(5)))))));
-
-        let res = remove_nth_from_end(Some(head), 2);
-
-        if let Some(display) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
-            println!("{}", display);
+        if let Some(disp) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
+            println!("{}", disp);
         }
 
-        assert_eq!(res, Some(exp_list));
+        assert_eq!(res, Some(exp_common));
     }
 
     #[test]
-    fn test_remove_nth_from_end_case3() {
-        let head = ListNode::with_next(1,
-                                       Some(ListNode::with_next(2,
-                                                                Some(ListNode::with_next(3,
-                                                                                         Some(ListNode::with_next(4,
-                                                                                                                  Some(ListNode::new(5)))))))));
+    fn it_get_intersection_node2() {
+        let l = ListNode::with_next(1, Some(ListNode::new(2)));
+        let r = ListNode::with_next(4, Some(ListNode::new(5)));
 
+        let res = get_intersection_node1(&Some(l), &Some(r));
 
-        let exp_list = ListNode::with_next(1,
-                                           Some(ListNode::with_next(2,
-                                                                    Some(ListNode::with_next(4,
-                                                                                             Some(ListNode::new(5)))))));
-
-        let res = remove_nth_from_end(Some(head), 3);
-
-        if let Some(display) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
-            println!("{}", display);
+        if let Some(disp) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
+            println!("{}", disp);
         }
 
-        assert_eq!(res, Some(exp_list));
+        assert_eq!(res, None);
     }
 
-    #[test]
-    fn test_remove_nth_from_end_case4() {
-        let head = ListNode::with_next(1,
-                                       Some(ListNode::with_next(2,
-                                                                Some(ListNode::with_next(3,
-                                                                                         Some(ListNode::with_next(4,
-                                                                                                                  Some(ListNode::new(5)))))))));
-
-
-        let exp_list = ListNode::with_next(1,
-                                           Some(ListNode::with_next(3,
-                                                                    Some(ListNode::with_next(4,
-                                                                                             Some(ListNode::new(5)))))));
-
-        let res = remove_nth_from_end(Some(head), 4);
-
-        if let Some(display) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
-            println!("{}", display);
-        }
-
-        assert_eq!(res, Some(exp_list));
+    fn create_lists() -> (Rc<RefCell<ListNode>>, Rc<RefCell<ListNode>>) {
+        let common = create_common();
+        let l = ListNode::with_next(4, Some(ListNode::with_next(1, Some(common.clone()))));
+        let r = ListNode::with_next(5, Some(ListNode::with_next(6, Some(ListNode::with_next(1, Some(common.clone()))))));
+        (l, r)
     }
 
-    #[test]
-    fn test_remove_nth_from_end_case5() {
-        let head = ListNode::with_next(1,
-                                       Some(ListNode::with_next(2,
-                                                                Some(ListNode::with_next(3,
-                                                                                         Some(ListNode::with_next(4,
-                                                                                                                  Some(ListNode::new(5)))))))));
-
-
-        let exp_list = ListNode::with_next(2,
-                                           Some(ListNode::with_next(3,
-                                                                    Some(ListNode::with_next(4,
-                                                                                             Some(ListNode::new(5)))))));
-
-        let res = remove_nth_from_end(Some(head), 5);
-
-        if let Some(display) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
-            println!("{}", display);
-        }
-
-        assert_eq!(res, Some(exp_list));
-    }
-
-    #[test]
-    fn test_remove_nth_from_end_case6() {
-        let head = ListNode::with_next(1,
-                                       Some(ListNode::with_next(2,
-                                                                Some(ListNode::with_next(3,
-                                                                                         Some(ListNode::with_next(4,
-                                                                                                                  Some(ListNode::new(5)))))))));
-
-
-        let exp_list = ListNode::with_next(1,
-                                           Some(ListNode::with_next(2,
-                                                                    Some(ListNode::with_next(3,
-                                                                                             Some(ListNode::with_next(4,
-                                                                                                                      Some(ListNode::new(5)))))))));
-
-        let res = remove_nth_from_end(Some(head), 6);
-
-        if let Some(display) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
-            println!("{}", display);
-        }
-
-        assert_eq!(res, Some(exp_list));
+    fn create_common() -> Rc<RefCell<ListNode>> {
+        ListNode::with_next(8, Some(ListNode::with_next(4, Some(ListNode::new(5)))))
     }
 }
