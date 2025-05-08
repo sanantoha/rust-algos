@@ -1,75 +1,48 @@
-use std::cell::RefCell;
+use std::collections::HashMap;
 use std::rc::Rc;
-use crate::list::ListNode;
+use crate::graph::EdgeT;
 
-pub fn get_intersection_node(l: &Option<Rc<RefCell<ListNode>>>, r: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
-    None
+pub fn dfs_rec<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
+    return vec![]
 }
 
-pub fn get_intersection_node1(l: &Option<Rc<RefCell<ListNode>>>, r: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
-    None
+pub fn dfs<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
+    return vec![]
 }
 
 #[cfg(test)]
 mod tests {
+    use std::path::PathBuf;
 
-    use super::get_intersection_node;
-    use super::get_intersection_node1;
-    use crate::list::ListNode;
-    use crate::list::Displayable;
-    use std::cell::RefCell;
-    use std::rc::Rc;
+    use super::dfs_rec;
+    use super::dfs;
+    use crate::graph::{graph_from_file, graph_to_string};
 
-    #[test]
-    fn it_get_intersection_node() {
-        let (l, r) = create_lists();
-        let exp_common = create_common();
+    const PATH: &str = "src/graph/dfs.txt";
 
-        let res = get_intersection_node(&Some(l), &Some(r));
-
-        if let Some(disp) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
-            println!("{}", disp);
-        }
-
-        assert_eq!(res, Some(exp_common));
-    }
+    const EXP: &[&str] = &["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"];
 
     #[test]
-    fn it_get_intersection_node1() {
-        let (l, r) = create_lists();
-        let exp_common = create_common();
+    fn it_dfs_rec() {
+        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
+            let graph_str = graph_to_string(&graph);
+            println!("{}", graph_str);
 
-        let res = get_intersection_node1(&Some(l), &Some(r));
-
-        if let Some(disp) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
-            println!("{}", disp);
+            let res = dfs_rec(&graph, "0");
+            println!("{:?}", res);
+            assert_eq!(res, EXP)
         }
-
-        assert_eq!(res, Some(exp_common));
     }
 
     #[test]
-    fn it_get_intersection_node2() {
-        let l = ListNode::with_next(1, Some(ListNode::new(2)));
-        let r = ListNode::with_next(4, Some(ListNode::new(5)));
+    fn it_dfs() {
+        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
+            let graph_str = graph_to_string(&graph);
+            println!("{}", graph_str);
 
-        let res = get_intersection_node1(&Some(l), &Some(r));
-
-        if let Some(disp) = Displayable::from_option(res.as_ref().map(Rc::clone)) {
-            println!("{}", disp);
+            let res = dfs(&graph, "0");
+            println!("{:?}", res);
+            assert_eq!(res, EXP)
         }
-
-        assert_eq!(res, None);
-    }
-
-    fn create_lists() -> (Rc<RefCell<ListNode>>, Rc<RefCell<ListNode>>) {
-        let common = create_common();
-        let l = ListNode::with_next(4, Some(ListNode::with_next(1, Some(common.clone()))));
-        let r = ListNode::with_next(5, Some(ListNode::with_next(6, Some(ListNode::with_next(1, Some(common.clone()))))));
-        (l, r)
-    }
-
-    fn create_common() -> Rc<RefCell<ListNode>> {
-        ListNode::with_next(8, Some(ListNode::with_next(4, Some(ListNode::new(5)))))
     }
 }
