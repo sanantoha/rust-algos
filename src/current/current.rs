@@ -1,23 +1,18 @@
 
-pub fn longest_common_subsequence(s1: &str, s2: &str) -> Vec<char> {
-    vec![]
-}
-
-pub fn longest_common_subsequence1(s1: &str, s2: &str) -> Vec<char> {
-    vec![]
+pub fn first_duplicate_value(arr: &mut [i32]) -> i32 {
+    -1
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{longest_common_subsequence, longest_common_subsequence1};
+    use crate::arrays::first_duplicate_value::first_duplicate_value;
+    use super::first_duplicate_value;
 
     #[test]
-    fn test_longest_common_subsequence() {
-        assert_eq!(longest_common_subsequence("ZXVVYZW", "XKYKZPW"), vec!['X', 'Y', 'Z', 'W']);
-    }
+    pub fn test_first_duplicate_value() {
 
-    #[test]
-    fn test_longest_common_subsequence1() {
-        assert_eq!(longest_common_subsequence1("ZXVVYZW", "XKYKZPW"), vec!['X', 'Y', 'Z', 'W']);
+        let mut arr = [2,1,3,4,5,6,2,7,8,9];
+
+        assert_eq!(first_duplicate_value(&mut arr), 2);
     }
 }
