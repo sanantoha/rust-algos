@@ -1,36 +1,39 @@
 
-pub fn search(arr: &[i32], target: i32) -> Result<usize, usize> {
-    Err(0)
+pub fn merge_sort(arr: &[i32]) -> Vec<i32> {
+    vec![]
 }
 
-pub fn search1(arr: &[i32], target: i32) -> Result<usize, usize> {
-    Err(0)
-}
 
 #[cfg(test)]
 mod tests {
-    use super::{search, search1};
 
-    const ARR: &[i32] = &[40, 50, 60, 70, 80, 90, 0, 10, 20, 30, 31, 32, 33, 34, 35];
-    const TARGET: i32 = 90;
+    use super::merge_sort;
+    use rand::Rng;
 
     #[test]
-    fn test_search() {
-        assert_eq!(search(ARR, TARGET), Ok(5));
+    fn it_merge_sort() {
+        let res = merge_sort(&[8, 3, 6, 8, 3, 1, 5, 7, 8, 9]);
+        println!("{res:?}");
+        assert_eq!(res, vec![1, 3, 3, 5, 6, 7, 8, 8, 8, 9]);
     }
 
     #[test]
-    fn test_search_case1() {
-        assert_eq!(search(ARR, 11), Err(8));
-    }
+    fn it_merge_sort1() {
+        let mut arr = [0; 30];
 
-    #[test]
-    fn test_search1() {
-        assert_eq!(search1(ARR, TARGET), Ok(5));
-    }
+        let mut rng = rand::thread_rng();
 
-    #[test]
-    fn test_search1_case1() {
-        assert_eq!(search1(ARR, 11), Err(8));
+        for v in &mut arr {
+            *v = rng.gen_range(1..101);
+        }
+
+        let res = merge_sort(&arr);
+
+        println!("{:?}", res);
+
+        for i in 1..arr.len() {
+            let s = format!("{} > {}", res[i - 1], res[i]);
+            assert!(res[i - 1] <= res[i], "{}", &s);
+        }
     }
 }
