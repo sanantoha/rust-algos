@@ -1,22 +1,32 @@
 
-pub fn zig_zag_traverse(matrix: &[&[i32]]) -> Vec<i32> {
-    vec![]
+pub fn search_matrix(matrix: &[&[i32]], target: i32) -> bool {
+    false
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::arrays::zig_zag_traverse::zig_zag_traverse;
-    use super::zig_zag_traverse;
+    use super::search_matrix;
 
     #[test]
-    fn it_zig_zag_traverse() {
+    fn test_search_matrix() {
         let matrix: &[&[i32]] = &[
-            &[1, 3, 4, 10],
-            &[2, 5, 9, 11],
-            &[6, 8, 12, 15],
-            &[7, 13, 14, 16]
+            &[1, 4, 7, 11, 15],
+            &[2, 5, 8, 12, 19],
+            &[3, 6, 9, 16, 22],
+            &[10,13,14, 17, 24],
+            &[18,21,23, 26, 30],
         ];
 
-        assert_eq!(zig_zag_traverse(matrix), vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+        assert!(search_matrix(matrix, 21));
+    }
+
+    #[test]
+    fn test_search_matrix_case1() {
+        let matrix: &[&[i32]] = &[
+            &[1, 4],
+            &[2, 5],
+        ];
+
+        assert!(search_matrix(matrix, 5));
     }
 }
