@@ -50,37 +50,26 @@ pub fn max_depth_bfs(root: &Option<Box<TreeNode>>) -> i32 {
 
 // O(n) time | O(h) space
 pub fn max_depth_dfs_iter(root: &Option<Box<TreeNode>>) -> i32 {
-    let mut depth = 0;
+
+    let mut max_depth = 0;
 
     if let Some(node) = root {
+        let mut stack = vec![(node, 0)];
 
-        let mut stack = vec![];
-        stack.push(node);
+        while let Some((node, depth)) = stack.pop() {
 
-        let mut value = vec![1];
+            max_depth = max_depth.max(depth);
 
-
-        while let Some(curr) = stack.pop() {
-
-            if let Some(tmp) = value.pop() {
-
-                depth = depth.max(tmp);
-
-                if let Some(left) = &curr.left {
-                    stack.push(left);
-                    value.push(tmp + 1);
-                }
-
-                if let Some(right) = &curr.right {
-                    stack.push(right);
-                    value.push(tmp + 1);
-                }
+            if let Some(left) = &node.left {
+                stack.push((left, depth + 1));
             }
-
+            if let Some(right) = &node.right {
+                stack.push((right, depth + 1));
+            }
         }
     }
 
-    depth
+    max_depth + 1
 }
 
 #[cfg(test)]
