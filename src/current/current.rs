@@ -1,43 +1,34 @@
-use std::cell::RefCell;
-use std::rc::Rc;
-use crate::list::ListNode;
+use crate::tree::TreeNode;
 
-pub fn is_palindrome(root: Option<Rc<RefCell<ListNode>>>) -> bool {
-    false
+pub fn zig_zag(root: &Option<Box<TreeNode>>) -> Vec<Vec<i32>> {
+    vec![]
 }
+
 
 #[cfg(test)]
 mod tests {
-    use super::is_palindrome;
-    use crate::list::ListNode;
+    use crate::tree::TreeNode;
+    use super::zig_zag;
 
     #[test]
-    fn test_is_palindrome() {
+    fn test_zig_zag() {
 
-        let head = ListNode::with_next(1,
-                                       Some(ListNode::with_next(2,
-                                                                Some(ListNode::with_next(3,
-                                                                                         Some(ListNode::with_next(3,
-                                                                                                                  Some(ListNode::with_next(2,
-                                                                                                                                           Some(ListNode::new(1)))))))))));
+        let root = Some(
+            Box::new(TreeNode::new(5,
+                                   Some(Box::new(TreeNode::new(2,
+                                                               Some(Box::new(TreeNode::leaf(1))),
+                                                               Some(Box::new(TreeNode::leaf(3)))
+                                   ))),
+                                   Some(Box::new(TreeNode::new(10,
+                                                               Some(Box::new(TreeNode::leaf(7))),
+                                                               Some(Box::new(TreeNode::new(15,
+                                                                                           Some(Box::new(TreeNode::leaf(14))),
+                                                                                           Some(Box::new(TreeNode::leaf(17)))
+                                                               )))
+                                   )))
+            ))
+        );
 
-        assert!(is_palindrome(Some(head)));
-    }
-
-    #[test]
-    fn test_is_palindrome_case1() {
-
-        let head = ListNode::with_next(1,
-                                       Some(ListNode::with_next(2,
-                                                                Some(ListNode::with_next(3,
-                                                                                         Some(ListNode::with_next(2,
-                                                                                                                  Some(ListNode::new(1)))))))));
-
-        assert!(is_palindrome(Some(head)));
-    }
-
-    #[test]
-    fn test_is_palindrome_case2() {
-        assert!(!is_palindrome(None))
+        assert_eq!(zig_zag(&root), vec![vec![5], vec![10, 2], vec![1, 3, 7, 15], vec![17, 14]]);
     }
 }
