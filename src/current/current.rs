@@ -1,28 +1,42 @@
-use std::collections::HashMap;
+use crate::tree::TreeNode;
 
-pub fn optimal_freelancing(jobs: &mut Vec<HashMap<&str, i32>>) -> i32 {
-    return 0
+pub fn get_minimum_difference(root: &Option<Box<TreeNode>>) -> i32 {
+    0
 }
+
 
 #[cfg(test)]
 mod tests {
-
-    use super::optimal_freelancing;
-    use std::collections::HashMap;
+    use super::get_minimum_difference;
+    use crate::tree::TreeNode;
 
     #[test]
-    fn it_optimal_freelancing() {
+    fn test_get_minimum_difference() {
+        let root = Some(Box::new(TreeNode::new(
+            4,
+            Some(Box::new(TreeNode::new(
+                2,
+                Some(Box::new(TreeNode::leaf(1))),
+                Some(Box::new(TreeNode::leaf(3))),
+            ))),
+            Some(Box::new(TreeNode::leaf(6))),
+        )));
 
-        let mut jobs: Vec<HashMap<&str, i32>> = vec![
-            HashMap::from([("deadline", 2), ("payment", 2)]),
-            HashMap::from([("deadline", 4), ("payment", 3)]),
-            HashMap::from([("deadline", 5), ("payment", 1)]),
-            HashMap::from([("deadline", 7), ("payment", 2)]),
-            HashMap::from([("deadline", 3), ("payment", 1)]),
-            HashMap::from([("deadline", 3), ("payment", 2)]),
-            HashMap::from([("deadline", 1), ("payment", 3)]),
-        ];
+        assert_eq!(get_minimum_difference(&root), 1);
+    }
 
-        assert_eq!(optimal_freelancing(&mut jobs), 13);
+    #[test]
+    fn test_minimum_absolute_difference_case1() {
+        let root = Some(Box::new(TreeNode::new(
+            5,
+            Some(Box::new(TreeNode::leaf(0))),
+            Some(Box::new(TreeNode::new(
+                48,
+                Some(Box::new(TreeNode::leaf(12))),
+                Some(Box::new(TreeNode::leaf(50))),
+            ))),
+        )));
+
+        assert_eq!(get_minimum_difference(&root), 2);
     }
 }
