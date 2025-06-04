@@ -1,27 +1,29 @@
-use crate::tree::TreeNode;
+use std::cell::RefCell;
+use std::rc::Rc;
+use crate::list::ListNode;
 
-pub fn permute(arr: &mut [i32]) -> Vec<Vec<i32>> {
-    vec![]
+pub fn reverse(root: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
+    None
 }
-
 
 #[cfg(test)]
 mod tests {
 
-    use super::permute;
+    use crate::list::Displayable;
+    use crate::list::ListNode;
+    use super::reverse;
 
     #[test]
-    fn it_permute() {
-        let mut arr = vec![1, 2, 3];
-        let exp_res = vec![
-            vec![1, 2, 3],
-            vec![1, 3, 2],
-            vec![2, 1, 3],
-            vec![2, 3, 1],
-            vec![3, 2, 1],
-            vec![3, 1, 2]
-        ];
+    fn test_reverse() {
+        let head = ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5)))))))));
 
-        assert_eq!(permute(&mut arr), exp_res);
+
+        let exp_list = ListNode::with_next(5, Some(ListNode::with_next(4, Some(ListNode::with_next(3, Some(ListNode::with_next(2, Some(ListNode::new(1)))))))));
+
+        let res = reverse(Some(head));
+        if let Some(disp_list_node) = Displayable::from_option(res.clone()) {
+            println!("{}", disp_list_node);
+        }
+        assert_eq!(res, Some(exp_list));
     }
 }
