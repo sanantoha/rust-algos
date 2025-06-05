@@ -1,29 +1,30 @@
-use std::cell::RefCell;
-use std::rc::Rc;
-use crate::list::ListNode;
 
-pub fn reverse(root: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
-    None
+pub fn powerset(arr: &[i32]) -> Vec<Vec<i32>> {
+    vec![]
+}
+
+pub fn powerset_rec(arr: &[i32]) -> Vec<Vec<i32>> {
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
-
-    use crate::list::Displayable;
-    use crate::list::ListNode;
-    use super::reverse;
+    use super::powerset;
+    use super::powerset_rec;
 
     #[test]
-    fn test_reverse() {
-        let head = ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5)))))))));
+    fn it_powerset() {
+        let res = powerset(&[1, 2, 3]);
+        println!("{:?}", res);
 
+        assert_eq!(res, vec![vec![], vec![1], vec![2], vec![1, 2], vec![3], vec![1, 3], vec![2, 3], vec![1, 2, 3]]);
+    }
 
-        let exp_list = ListNode::with_next(5, Some(ListNode::with_next(4, Some(ListNode::with_next(3, Some(ListNode::with_next(2, Some(ListNode::new(1)))))))));
+    #[test]
+    fn it_powerset_rec() {
+        let res = powerset_rec(&[1, 2, 3]);
+        println!("{:?}", res);
 
-        let res = reverse(Some(head));
-        if let Some(disp_list_node) = Displayable::from_option(res.clone()) {
-            println!("{}", disp_list_node);
-        }
-        assert_eq!(res, Some(exp_list));
+        assert_eq!(res, vec![vec![], vec![1], vec![2], vec![1, 2], vec![3], vec![1, 3], vec![2, 3], vec![1, 2, 3]]);
     }
 }
