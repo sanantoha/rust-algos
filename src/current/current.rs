@@ -1,30 +1,27 @@
 
-pub fn powerset(arr: &[i32]) -> Vec<Vec<i32>> {
-    vec![]
-}
-
-pub fn powerset_rec(arr: &[i32]) -> Vec<Vec<i32>> {
-    vec![]
+pub fn ladder_length(begin_word: &str, end_word: &str, word_list: &[&str]) -> i32 {
+    0
 }
 
 #[cfg(test)]
 mod tests {
-    use super::powerset;
-    use super::powerset_rec;
+
+    use super::ladder_length;
 
     #[test]
-    fn it_powerset() {
-        let res = powerset(&[1, 2, 3]);
-        println!("{:?}", res);
+    pub fn test_ladder_length() {
 
-        assert_eq!(res, vec![vec![], vec![1], vec![2], vec![1, 2], vec![3], vec![1, 3], vec![2, 3], vec![1, 2, 3]]);
+        assert_eq!(ladder_length("hit", "cog", &["hot","dot","dog","lot","log","cog"]), 5);
     }
 
     #[test]
-    fn it_powerset_rec() {
-        let res = powerset_rec(&[1, 2, 3]);
-        println!("{:?}", res);
+    pub fn test_ladder_length_without_end_word() {
+        assert_eq!(ladder_length("hit", "cog", &["hot","dot","dog","lot","log"]), 0);
+    }
 
-        assert_eq!(res, vec![vec![], vec![1], vec![2], vec![1, 2], vec![3], vec![1, 3], vec![2, 3], vec![1, 2, 3]]);
+    #[test]
+    pub fn test_ladder_length_mama() {
+
+        assert_eq!(ladder_length("MAMA", "SIRI", &["SAMA", "SIMA", "SIRA", "SIRI", "MISA", "DISA"]), 5);
     }
 }
