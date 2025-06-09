@@ -1,25 +1,31 @@
+use std::cell::RefCell;
+use std::rc::Rc;
+use crate::list::ListNode;
 
-pub fn product(arr: &[i32]) -> Vec<i32> {
-    vec![]
+pub fn add_two_numbers(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
+    None
 }
-
 
 #[cfg(test)]
 mod tests {
-    use super::product;
+
+    use crate::list::Displayable;
+    use crate::list::ListNode;
+    use super::add_two_numbers;
 
     #[test]
-    fn it_product() {
-        assert_eq!(product(&[1, 2, 3, 4]), vec![24, 12, 8, 6]);
-    }
+    pub fn test_add_two_numbers() {
 
-    #[test]
-    fn it_product_if_one_zero() {
-        assert_eq!(product(&[1, 2, 0, 4]), vec![0, 0, 8, 0]);
-    }
 
-    #[test]
-    fn it_product_if_two_zero() {
-        assert_eq!(product(&[0, 2, 0, 4]), vec![0, 0, 0, 0]);
+        let l1 = Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::with_next(9, Some(ListNode::new(9))))))));
+        let l2 = Some(ListNode::with_next(7, Some(ListNode::with_next(3, Some(ListNode::new(2))))));
+
+        let exp = Some(ListNode::with_next(8, Some(ListNode::with_next(3, Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::new(1))))))))));
+
+        let res = add_two_numbers(&l1, &l2);
+        if let Some(disp_list_node) = Displayable::from_option(res.clone()) {
+            println!("{}", disp_list_node);
+        }
+        assert_eq!(res, exp);
     }
 }
