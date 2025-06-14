@@ -1,23 +1,16 @@
 
 
-pub fn reverse(source: &str) -> String {
-    "".to_owned()
+pub fn numbers_of_ways_to_make_change(n: usize, denoms: &[usize]) -> i32 {
+    0
 }
-
 
 #[cfg(test)]
 mod tests {
-    use super::reverse;
+    use super::numbers_of_ways_to_make_change;
 
     #[test]
-    fn test_reverse() {
-        let exp = "     example   good a ".to_string();
-        assert_eq!(reverse(" a good   example     "), exp);
-    }
+    fn test_numbers_of_ways_to_make_change() {
 
-    #[test]
-    fn test_reverse_case1() {
-        let exp = "whitespace   of lot     a has     string      this".to_string();
-        assert_eq!(reverse("this      string     has a     lot of   whitespace"), exp);
+        assert_eq!(numbers_of_ways_to_make_change(6, &[1, 5]), 2);
     }
 }
