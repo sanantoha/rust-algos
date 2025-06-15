@@ -1,16 +1,27 @@
 
-
-pub fn numbers_of_ways_to_make_change(n: usize, denoms: &[usize]) -> i32 {
-    0
+pub fn min_swaps_required(src: &str) -> Option<i32> {
+    None
 }
+
 
 #[cfg(test)]
 mod tests {
-    use super::numbers_of_ways_to_make_change;
+    use super::min_swaps_required;
 
     #[test]
-    fn test_numbers_of_ways_to_make_change() {
+    fn it_min_swaps_required() {
 
-        assert_eq!(numbers_of_ways_to_make_change(6, &[1, 5]), 2);
+        assert_eq!(min_swaps_required("0100101"), Some(2));
+    }
+
+    #[test]
+    fn it_no_way_to_make_palindrom() {
+
+        assert_eq!(min_swaps_required("1110"), None);
+    }
+
+    #[test]
+    fn it_one_swap() {
+        assert_eq!(min_swaps_required("11101"), Some(1));
     }
 }
