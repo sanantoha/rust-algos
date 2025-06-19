@@ -1,32 +1,31 @@
-use crate::tree::TreeNode;
+use crate::list::ListNode;
+use std::cell::RefCell;
+use std::rc::Rc;
 
-pub fn level_order(root: Box<TreeNode>) -> Vec<Vec<i32>> {
-    vec![]
+
+pub fn delete_node(node: Rc<RefCell<ListNode>>) {
+
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::level_order;
-
+    use crate::list::ListNode;
+    use crate::list::{Displayable};
+    use super::delete_node;
 
     #[test]
-    fn it_level_order() {
-        let root = Box::new(TreeNode::new(5,
-                                          Some(Box::new(TreeNode::new(2,
-                                                                      Some(Box::new(TreeNode::leaf(1))),
-                                                                      Some(Box::new(TreeNode::leaf(3)))))),
-                                          Some(Box::new(TreeNode::new(10,
-                                                                      Some(Box::new(TreeNode::new(7,
-                                                                                                  Some(Box::new(TreeNode::leaf(6))),
-                                                                                                  Some(Box::new(TreeNode::leaf(8)))))),
-                                                                      Some(Box::new(TreeNode::new(15,
-                                                                                                  Some(Box::new(TreeNode::leaf(14))),
-                                                                                                  Some(Box::new(TreeNode::leaf(17)))))))))),
-        );
+    fn it_delete_node() {
 
-        let res = level_order(root);
-        println!("{res:?}");
-        assert_eq!(res, vec![vec![5], vec![2, 10], vec![1, 3, 7, 15], vec![6, 8, 14, 17]]);
+        let node0 = ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5)))));
+        let node1 = ListNode::with_next(2, Some(node0.clone()));
+        let lst = ListNode::with_next(1, Some(node1));
+
+        let exp_lst = ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(4, Some(ListNode::new(5)))))));
+
+        println!("{}", Displayable::new(lst.clone()));
+        delete_node(node0.clone());
+        println!("{}", Displayable::new(lst.clone()));
+
+        assert_eq!(lst, exp_lst);
     }
 }
