@@ -1,31 +1,51 @@
-use crate::list::ListNode;
-use std::cell::RefCell;
-use std::rc::Rc;
+use crate::tree::TreeNode;
 
-
-pub fn delete_node(node: Rc<RefCell<ListNode>>) {
-
+pub fn find_mode(root: &Option<Box<TreeNode>>) -> Vec<i32> {
+    vec![]
 }
+
 
 #[cfg(test)]
 mod tests {
-    use crate::list::ListNode;
-    use crate::list::{Displayable};
-    use super::delete_node;
+    use crate::tree::TreeNode;
+    use super::find_mode;
 
     #[test]
-    fn it_delete_node() {
+    fn test_find_mode() {
 
-        let node0 = ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5)))));
-        let node1 = ListNode::with_next(2, Some(node0.clone()));
-        let lst = ListNode::with_next(1, Some(node1));
+        let root = Some(Box::new(TreeNode::new(1,
+                                               None,
+                                               Some(Box::new(TreeNode::new(2,
+                                                                           Some(Box::new(TreeNode::leaf(2))),
+                                                                           None
+                                               )))
+        )));
 
-        let exp_lst = ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(4, Some(ListNode::new(5)))))));
+        assert_eq!(find_mode(&root), vec![2]);
+    }
 
-        println!("{}", Displayable::new(lst.clone()));
-        delete_node(node0.clone());
-        println!("{}", Displayable::new(lst.clone()));
+    #[test]
+    fn test_find_mode_case1() {
 
-        assert_eq!(lst, exp_lst);
+        let root = Some(Box::new(TreeNode::leaf(0)));
+
+        assert_eq!(find_mode(&root), vec![0]);
+    }
+
+    #[test]
+    fn test_find_mode_case2() {
+
+        let root = Some(Box::new(TreeNode::new(5,
+                                               Some(Box::new(TreeNode::new(3,
+                                                                           Some(Box::new(TreeNode::leaf(1))),
+                                                                           Some(Box::new(TreeNode::leaf(3)))
+                                               ))),
+                                               Some(Box::new(TreeNode::new(7,
+                                                                           Some(Box::new(TreeNode::leaf(5))),
+                                                                           Some(Box::new(TreeNode::leaf(7)))
+                                               )))
+        )));
+
+        assert_eq!(find_mode(&root), vec![3, 5, 7]);
     }
 }
