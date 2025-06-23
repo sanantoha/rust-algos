@@ -1,51 +1,33 @@
-use crate::tree::TreeNode;
 
-pub fn find_mode(root: &Option<Box<TreeNode>>) -> Vec<i32> {
-    vec![]
+pub fn longest_increasing_path_in_matrix(matrix: &[&[i32]]) -> i32 {
+    0
 }
+
 
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::find_mode;
+    use super::longest_increasing_path_in_matrix;
 
     #[test]
-    fn test_find_mode() {
+    fn test_largest_increasing_path_in_matrix() {
+        let matrix: &[&[i32]] = &[
+            &[9,9,4],
+            &[6,6,8],
+            &[2,1,1],
+        ];
 
-        let root = Some(Box::new(TreeNode::new(1,
-                                               None,
-                                               Some(Box::new(TreeNode::new(2,
-                                                                           Some(Box::new(TreeNode::leaf(2))),
-                                                                           None
-                                               )))
-        )));
-
-        assert_eq!(find_mode(&root), vec![2]);
+        assert_eq!(longest_increasing_path_in_matrix(matrix), 4);
     }
 
     #[test]
-    fn test_find_mode_case1() {
+    fn test_largest_increasing_path_in_matrix_case1() {
+        let matrix: &[&[i32]] = &[
+            &[3,4,5],
+            &[3,2,6],
+            &[2,2,1],
+        ];
 
-        let root = Some(Box::new(TreeNode::leaf(0)));
-
-        assert_eq!(find_mode(&root), vec![0]);
-    }
-
-    #[test]
-    fn test_find_mode_case2() {
-
-        let root = Some(Box::new(TreeNode::new(5,
-                                               Some(Box::new(TreeNode::new(3,
-                                                                           Some(Box::new(TreeNode::leaf(1))),
-                                                                           Some(Box::new(TreeNode::leaf(3)))
-                                               ))),
-                                               Some(Box::new(TreeNode::new(7,
-                                                                           Some(Box::new(TreeNode::leaf(5))),
-                                                                           Some(Box::new(TreeNode::leaf(7)))
-                                               )))
-        )));
-
-        assert_eq!(find_mode(&root), vec![3, 5, 7]);
+        assert_eq!(longest_increasing_path_in_matrix(matrix), 4);
     }
 }
