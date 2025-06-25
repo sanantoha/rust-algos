@@ -1,33 +1,37 @@
+use std::cell::RefCell;
+use std::rc::Rc;
+use crate::list::ListNode;
 
-pub fn longest_increasing_path_in_matrix(matrix: &[&[i32]]) -> i32 {
-    0
+fn insert_greatest_common_divisors(head: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
+    None
 }
-
 
 
 #[cfg(test)]
 mod tests {
-    use super::longest_increasing_path_in_matrix;
+    use crate::list::{Displayable, ListNode};
+    use super::insert_greatest_common_divisors;
 
     #[test]
-    fn test_largest_increasing_path_in_matrix() {
-        let matrix: &[&[i32]] = &[
-            &[9,9,4],
-            &[6,6,8],
-            &[2,1,1],
-        ];
+    fn test_insert_greatest_common_divisors() {
 
-        assert_eq!(longest_increasing_path_in_matrix(matrix), 4);
-    }
+        let head = ListNode::with_next(18, Some(ListNode::with_next(6, Some(ListNode::with_next(10, Some(ListNode::new(3)))))));
+        let exp_head = Some(
+            ListNode::with_next(18,
+                                Some(ListNode::with_next(6,
+                                                         Some(ListNode::with_next(6,
+                                                                                  Some(ListNode::with_next(2,
+                                                                                                           Some(ListNode::with_next(10,
+                                                                                                                                    Some(ListNode::with_next(1,
+                                                                                                                                                             Some(ListNode::new(3)))))))))))))
+        );
 
-    #[test]
-    fn test_largest_increasing_path_in_matrix_case1() {
-        let matrix: &[&[i32]] = &[
-            &[3,4,5],
-            &[3,2,6],
-            &[2,2,1],
-        ];
-
-        assert_eq!(longest_increasing_path_in_matrix(matrix), 4);
+        // println!("{:?}", gcd(6, 10));
+        let res = insert_greatest_common_divisors(Some(head));
+        // 18 -> 6 -> 6 -> 2 -> 10 -> 1 -> 3 -> null
+        if let Some(disp_list_node) = Displayable::from_option(res.clone()) {
+            println!("{}", disp_list_node);
+        }
+        assert_eq!(res, exp_head);
     }
 }
