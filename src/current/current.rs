@@ -2,15 +2,20 @@ use std::cell::RefCell;
 use std::rc::Rc;
 use crate::list::ListNode;
 
+// O(n * log(v)) time | O(1) space
 fn insert_greatest_common_divisors(head: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
     None
+}
+
+fn gcd(x: i32, y: i32) -> i32 {
+    0
 }
 
 
 #[cfg(test)]
 mod tests {
     use crate::list::{Displayable, ListNode};
-    use super::insert_greatest_common_divisors;
+    use super::{gcd, insert_greatest_common_divisors};
 
     #[test]
     fn test_insert_greatest_common_divisors() {
@@ -26,7 +31,7 @@ mod tests {
                                                                                                                                                              Some(ListNode::new(3)))))))))))))
         );
 
-        // println!("{:?}", gcd(6, 10));
+        println!("{:?}", gcd(6, 10));
         let res = insert_greatest_common_divisors(Some(head));
         // 18 -> 6 -> 6 -> 2 -> 10 -> 1 -> 3 -> null
         if let Some(disp_list_node) = Displayable::from_option(res.clone()) {

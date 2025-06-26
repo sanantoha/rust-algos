@@ -16,7 +16,7 @@ pub fn insert_greatest_common_divisors(head: Option<Rc<RefCell<ListNode>>>) -> O
             let node = ListNode::new(new_val);
             curr.borrow_mut().next = Some(Rc::clone(&node));
             node.borrow_mut().next = Some(Rc::clone(&next));
-            curr_opt = node.borrow().next.as_ref().map(Rc::clone);
+            curr_opt = Some(next);
         }
     }
 
