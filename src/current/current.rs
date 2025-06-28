@@ -1,41 +1,25 @@
 
-pub fn string_without_aaa_bbb(a: i32, b: i32) -> String {
+pub fn min_window(s: &str, t: &str) -> String {
     "".to_owned()
 }
 
-
 #[cfg(test)]
 mod tests {
-
-    use super::string_without_aaa_bbb;
+    use crate::arrays::minimum_window_substring::min_window;
+    use super::min_window;
 
     #[test]
-    fn test_string_without_aaa_bbb() {
-        assert_eq!(string_without_aaa_bbb(1, 1), "ab");
+    fn it_min_window() {
+        assert_eq!(min_window("ADOBECODEBANC", "ABC"), "BANC".to_owned());
     }
 
     #[test]
-    fn test_string_without_aaa_bbb_case1() {
-        assert_eq!(string_without_aaa_bbb(3, 3), "abbaab");
+    fn it_min_window_one_letter() {
+        assert_eq!(min_window("a", "a"), "a".to_owned());
     }
 
     #[test]
-    fn test_string_without_aaa_bbb_case2() {
-        assert_eq!(string_without_aaa_bbb(2, 5), "babbabb");
-    }
-
-    #[test]
-    fn test_string_without_aaa_bbb_case3() {
-        assert_eq!(string_without_aaa_bbb(5, 3), "aabaabab");
-    }
-
-    #[test]
-    fn test_string_without_aaa_bbb_case4() {
-        assert_eq!(string_without_aaa_bbb(3, 3), "abbaab");
-    }
-
-    #[test]
-    fn test_string_without_aaa_bbb_case5() {
-        assert_eq!(string_without_aaa_bbb(1, 4), "bbabb");
+    fn it_min_window_imp_result() {
+        assert_eq!(min_window("a", "aa"), "".to_owned());
     }
 }
