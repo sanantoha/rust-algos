@@ -5,7 +5,6 @@ pub fn min_window(s: &str, t: &str) -> String {
 
 #[cfg(test)]
 mod tests {
-    use crate::arrays::minimum_window_substring::min_window;
     use super::min_window;
 
     #[test]
