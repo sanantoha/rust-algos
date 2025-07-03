@@ -1,102 +1,39 @@
 use crate::tree::TreeNode;
 
-pub fn is_symmetric_rec(root: &Option<Box<TreeNode>>) -> bool {
-    false
-}
-
-pub fn is_symmetric(root: &Option<Box<TreeNode>>) -> bool {
-    false
+pub fn build_tree(preorder: &[i32], inorder: &[i32]) -> Option<Box<TreeNode>> {
+    None
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{is_symmetric, is_symmetric_rec};
     use crate::tree::TreeNode;
+    use super::build_tree;
 
     #[test]
-    fn test_is_symmetric() {
-        let root = create_tree();
+    fn test_build_tree() {
+        let preorder: &[i32] = &[3, 9, 20, 15, 7];
+        let inorder: &[i32] = &[9, 3, 15, 20, 7];
 
-        assert!(is_symmetric(&root));
-    }
+        let tree = build_tree(preorder, inorder);
 
-    #[test]
-    fn test_is_symmetric_rec() {
-        let root = create_tree();
+        /*
+                     3
+                  /    \
+                9      20
+                     /   \
+                   15     7
+         */
 
-        assert!(is_symmetric_rec(&root));
-    }
-
-    #[test]
-    fn test_is_symmetric_case1() {
-        let root = create_tree1();
-
-        assert!(!is_symmetric(&root));
-    }
-
-    #[test]
-    fn test_is_symmetric_rec_case1() {
-        let root = create_tree1();
-
-        assert!(!is_symmetric_rec(&root));
-    }
-
-    #[test]
-    fn test_is_symmetric_case2() {
-        let root = create_tree2();
-
-        assert!(!is_symmetric(&root));
-    }
-
-    #[test]
-    fn test_is_symmetric_rec_case2() {
-        let root = create_tree2();
-
-        assert!(!is_symmetric_rec(&root));
-    }
-
-    fn create_tree() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(
-            1,
-            Some(Box::new(TreeNode::new(
-                2,
-                Some(Box::new(TreeNode::leaf(3))),
-                Some(Box::new(TreeNode::leaf(4))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                2,
-                Some(Box::new(TreeNode::leaf(4))),
-                Some(Box::new(TreeNode::leaf(3))),
-            ))),
+        let exp_tree = Some(
+            Box::new(TreeNode::new(3,
+                                   Some(Box::new(TreeNode::leaf(9))),
+                                   Some(Box::new(TreeNode::new(20,
+                                                               Some(Box::new(TreeNode::leaf(15))),
+                                                               Some(Box::new(TreeNode::leaf(7))),
+                                   ))),
+            ))
         );
 
-        Some(Box::new(root))
-    }
-
-    fn create_tree1() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(
-            1,
-            Some(Box::new(TreeNode::new(
-                2,
-                None,
-                Some(Box::new(TreeNode::leaf(3))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                2,
-                None,
-                Some(Box::new(TreeNode::leaf(3))),
-            ))),
-        );
-
-        Some(Box::new(root))
-    }
-
-    fn create_tree2() -> Option<Box<TreeNode>> {
-        // TreeNode root2 = new TreeNode(2, new TreeNode(1), new TreeNode(3));
-        let root = TreeNode::new(2,
-                                 Some(Box::new(TreeNode::leaf(1))),
-                                 Some(Box::new(TreeNode::leaf(3)))
-        );
-        Some(Box::new(root))
+        assert_eq!(tree, exp_tree);
     }
 }
