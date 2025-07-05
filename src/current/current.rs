@@ -1,31 +1,22 @@
 
-pub fn disk_stacking(disks: &[(i32, i32, i32)]) -> Vec<(i32, i32, i32)> {
-    vec![]
+
+fn number_of_islands(grid: &[&[i32]]) -> i32 {
+    0
 }
 
 #[cfg(test)]
-mod tests {
-    use super::disk_stacking;
+mod test {
+    use super::number_of_islands;
 
     #[test]
-    fn test_disk_stacking() {
-        let disks: &[(i32, i32, i32)] = &[
-            (2, 1, 2),
-            (3, 2, 3),
-            (2, 2, 8),
-            (2, 3, 4),
-            (2, 2, 1),
-            (4, 4, 5),
+    fn test_number_of_islands() {
+        let grid: &[&[i32]] = &[
+            &[0, 0, 0, 0, 1],
+            &[1, 1, 0, 0, 0],
+            &[1, 1, 0, 1, 1],
+            &[0, 0, 0, 1, 1],
         ];
 
-        let exp: Vec<(i32, i32, i32)> = vec![
-            (2, 1, 2),
-            (3, 2, 3),
-            (4, 4, 5)
-        ];
-
-        let res = disk_stacking(disks);
-        println!("{:?}", res);
-        assert_eq!(res, exp);
+        assert_eq!(number_of_islands(grid), 3);
     }
 }
