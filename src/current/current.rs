@@ -1,22 +1,25 @@
+use crate::graph::EdgeWeightedDigraph;
 
-
-fn number_of_islands(grid: &[&[i32]]) -> i32 {
-    0
+pub fn shortest_path(graph: &EdgeWeightedDigraph, start: usize) -> (Vec<f64>, Vec<Option<usize>>) {
+    (vec![], vec![])
 }
 
 #[cfg(test)]
-mod test {
-    use super::number_of_islands;
+mod tests {
+    use std::path::PathBuf;
+    use crate::graph::EdgeWeightedDigraph;
+    use super::shortest_path;
 
+    // ShortestPath{shortest=[0.0, 5.0, 8.0, 4.0, 7.0], prev=[-1, 3, 1, 0, 3]}
     #[test]
-    fn test_number_of_islands() {
-        let grid: &[&[i32]] = &[
-            &[0, 0, 0, 0, 1],
-            &[1, 1, 0, 0, 0],
-            &[1, 1, 0, 1, 1],
-            &[0, 0, 0, 1, 1],
-        ];
+    fn test_shortest_path() {
+        if let Ok(graph) = EdgeWeightedDigraph::from_file(PathBuf::from("src/graph/dijkstraShortestPath.txt")) {
+            println!("{}", graph);
 
-        assert_eq!(number_of_islands(grid), 3);
+            let res = shortest_path(&graph, 0);
+            println!("{:?}", res);
+
+            assert_eq!(res, (vec![0.0, 5.0, 8.0, 4.0, 7.0], vec![None, Some(3), Some(1), Some(0), Some(3)]))
+        }
     }
 }
