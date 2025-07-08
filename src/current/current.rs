@@ -1,17 +1,27 @@
 
-pub fn find_peak(arr: &[i32]) -> Option<usize> {
-    None
+
+pub fn minimum_passes_of_matrix(matrix: &mut [&mut [i32]]) -> i32 {
+    println!("{:?}", matrix);
+    0
 }
 
 #[cfg(test)]
 mod tests {
-    use super::find_peak;
+    use super::minimum_passes_of_matrix;
 
     #[test]
-    fn test_find_peak() {
-        let res = find_peak(&[1,2,1,3,4,5,6,5,4,3,2,1]);
-        println!("{:?}", res);
+    fn test_minimum_passes_of_matrix() {
+        let mut matrix = vec![
+            vec![0, -1, -3, 2, 0],
+            vec![1, -2, -5, -1, -3],
+            vec![3, 0, 0, -4, -1]
+        ];
 
-        assert_eq!(res, Some(6));
+        let mut mut_matrix: Vec<&mut [i32]> = matrix.iter_mut().map(|v| v.as_mut_slice()).collect();
+
+        let res = minimum_passes_of_matrix(&mut mut_matrix);
+        println!("{}", res);
+
+        assert_eq!(res, 3);
     }
 }
