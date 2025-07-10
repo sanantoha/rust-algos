@@ -1,29 +1,38 @@
 
-pub fn largest_range(arr: &[i32]) -> (i32, i32) {
-    (0, 0)
-}
+pub fn heap_sort(arr: &mut [i32]) {
 
-pub fn largest_range1(arr: &[i32]) -> (i32, i32) {
-    (0, 0)
 }
 
 #[cfg(test)]
 mod tests {
-    use super::largest_range;
-    use super::largest_range1;
-
-    const ARR: &[i32] = &[1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6];
+    use rand::{thread_rng, Rng};
+    use super::heap_sort;
 
     #[test]
-    fn it_largest_range() {
-        assert_eq!(largest_range(ARR), (0, 7));
+    fn test_heap_sort() {
+        let mut arr = vec![5, 2, 4, 6, 1, 3];
+
+        heap_sort(&mut arr);
+
+        assert_eq!(arr, &[1, 2, 3, 4, 5, 6]);
     }
 
     #[test]
-    fn it_largest_range1() {
-        let res = largest_range1(ARR);
-        println!("{res:?}");
-        assert_eq!(res, (0, 7));
-    }
+    fn test_heap_sort_case1() {
+        let mut arr = vec![0; 30];
 
+        let mut rand = thread_rng();
+
+        for i in 0..arr.len() {
+            arr[i] = rand.gen_range(0..100)
+        }
+
+        heap_sort(&mut arr);
+
+        println!("{:?}", arr);
+
+        for i in 1..arr.len() {
+            assert!(arr[i - 1] <= arr[i]);
+        }
+    }
 }
