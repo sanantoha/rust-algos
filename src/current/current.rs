@@ -1,38 +1,48 @@
+use std::cell::RefCell;
+use std::rc::Rc;
+use crate::tree::BinaryTree;
 
-pub fn heap_sort(arr: &mut [i32]) {
-
+pub fn lowest_common_ancestor(root: &Option<Rc<RefCell<BinaryTree>>>,
+                              p: &Option<Rc<RefCell<BinaryTree>>>,
+                              q: &Option<Rc<RefCell<BinaryTree>>>) -> Option<Rc<RefCell<BinaryTree>>> {
+    None
 }
 
 #[cfg(test)]
 mod tests {
-    use rand::{thread_rng, Rng};
-    use super::heap_sort;
+    use std::cell::RefCell;
+    use std::rc::Rc;
+    use crate::tree::{BinaryTree};
+    use super::lowest_common_ancestor;
 
     #[test]
-    fn test_heap_sort() {
-        let mut arr = vec![5, 2, 4, 6, 1, 3];
+    fn test_lowest_common_ancessor() {
 
-        heap_sort(&mut arr);
+        let node7 = Rc::new(RefCell::new(BinaryTree::leaf(7)));
 
-        assert_eq!(arr, &[1, 2, 3, 4, 5, 6]);
-    }
+        let node5 = Rc::new(RefCell::new(BinaryTree::new(5,
+                                                         Some(Rc::new(RefCell::new(BinaryTree::leaf(6)))),
+                                                         Some(Rc::new(RefCell::new(BinaryTree::new(2,
+                                                                                                   Some(Rc::clone(&node7)),
+                                                                                                   Some(Rc::new(RefCell::new(BinaryTree::leaf(4))))
+                                                         ))
+                                                         ))
+        )));
 
-    #[test]
-    fn test_heap_sort_case1() {
-        let mut arr = vec![0; 30];
+        let node1 = Rc::new(RefCell::new(BinaryTree::new(1,
+                                                         Some(Rc::new(RefCell::new(BinaryTree::leaf(0)))),
+                                                         Some(Rc::new(RefCell::new(BinaryTree::leaf(8)))),
+        )));
 
-        let mut rand = thread_rng();
+        let root = Some(Rc::new(RefCell::new(BinaryTree::new(3,
+                                                             Some(Rc::clone(&node5)),
+                                                             Some(Rc::clone(&node1)),
+        ))));
 
-        for i in 0..arr.len() {
-            arr[i] = rand.gen_range(0..100)
-        }
 
-        heap_sort(&mut arr);
+        let res = lowest_common_ancestor(&root, &Some(Rc::clone(&node7)), &Some(Rc::clone(&node5)));
+        println!("{:?}", res);
 
-        println!("{:?}", arr);
-
-        for i in 1..arr.len() {
-            assert!(arr[i - 1] <= arr[i]);
-        }
+        assert_eq!(res, Some(Rc::clone(&node5)));
     }
 }
