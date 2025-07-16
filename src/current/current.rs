@@ -1,49 +1,31 @@
+use crate::graph::EdgeT;
+use std::collections::HashMap;
+use std::rc::Rc;
 
-pub fn all_paths_source_target_rec(graph: &[&[usize]]) -> Vec<Vec<usize>> {
+pub fn bfs(graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>, start: String) -> Vec<String> {
     vec![]
 }
-
-pub fn all_paths_source_target(graph: &[&[usize]]) -> Vec<Vec<usize>> {
-    vec![]
-}
-
 
 #[cfg(test)]
 mod tests {
-    use super::{all_paths_source_target_rec, all_paths_source_target};
+    use super::bfs;
+    use crate::graph::{graph_from_file, graph_to_string};
+    use std::path::PathBuf;
 
-    const GRAPH: &[&[usize]] = &[
-        &[1, 2],
-        &[3],
-        &[3],
-        &[],
-    ];
-
-    const GRAPH1: &[&[usize]] = &[
-        &[4, 3, 1],
-        &[3, 2, 4],
-        &[3],
-        &[4],
-        &[],
-    ];
 
     #[test]
-    fn test_all_paths_from_source_target_rec() {
-        assert_eq!(all_paths_source_target_rec(GRAPH), vec![vec![0, 1, 3], vec![0, 2, 3]]);
-    }
+    fn it_bfs() {
+        if let Ok(graph) = graph_from_file(PathBuf::from("src/graph/bfs.txt")) {
+            let graph_str = graph_to_string(&graph);
+            println!("{}", graph_str);
 
-    #[test]
-    fn test_all_paths_from_source_target_rec_case1() {
-        assert_eq!(all_paths_source_target_rec(GRAPH1), vec![vec![0, 4], vec![0, 3, 4], vec![0, 1, 3, 4], vec![0, 1, 2, 3, 4], vec![0, 1, 4]]);
-    }
+            let exp: Vec<String> = vec![
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+            ].iter().map(|s| s.to_string()).collect();
 
-    #[test]
-    fn test_all_paths_from_source_target() {
-        assert_eq!(all_paths_source_target(GRAPH), vec![vec![0, 2, 3], vec![0, 1, 3]]);
-    }
-
-    #[test]
-    fn test_all_paths_from_source_target_case1() {
-        assert_eq!(all_paths_source_target(GRAPH1), vec![vec![0, 1, 4], vec![0, 1, 2, 3, 4], vec![0, 1, 3, 4], vec![0, 3, 4], vec![0, 4]]);
+            let res = bfs(&graph, "0".to_owned());
+            println!("{:?}", res);
+            assert_eq!(res, exp);
+        }
     }
 }
