@@ -1,31 +1,64 @@
-use crate::graph::EdgeT;
-use std::collections::HashMap;
-use std::rc::Rc;
+use crate::tree::TreeNode;
 
-pub fn bfs(graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>, start: String) -> Vec<String> {
-    vec![]
+pub fn lower_common_ancestor<'a>(root: &'a Option<Box<TreeNode>>,
+                                 p: &'a Option<Box<TreeNode>>,
+                                 q: &'a Option<Box<TreeNode>>) -> &'a Option<Box<TreeNode>> {
+    &None
 }
 
 #[cfg(test)]
 mod tests {
-    use super::bfs;
-    use crate::graph::{graph_from_file, graph_to_string};
-    use std::path::PathBuf;
-
+    use crate::tree::TreeNode;
+    use super::lower_common_ancestor;
 
     #[test]
-    fn it_bfs() {
-        if let Ok(graph) = graph_from_file(PathBuf::from("src/graph/bfs.txt")) {
-            let graph_str = graph_to_string(&graph);
-            println!("{}", graph_str);
+    fn test_lower_common_ancestor() {
+        let root = Some(Box::new(TreeNode::new(
+            6,
+            Some(Box::new(TreeNode::new(
+                2,
+                Some(Box::new(TreeNode::leaf(0))),
+                Some(Box::new(TreeNode::new(
+                    4,
+                    Some(Box::new(TreeNode::leaf(3))),
+                    Some(Box::new(TreeNode::leaf(5))),
+                ))),
+            ))),
+            Some(Box::new(TreeNode::new(
+                8,
+                Some(Box::new(TreeNode::leaf(7))),
+                Some(Box::new(TreeNode::leaf(9))),
+            ))),
+        )));
 
-            let exp: Vec<String> = vec![
-                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
-            ].iter().map(|s| s.to_string()).collect();
+        let p = Some(Box::new(TreeNode::leaf(0)));
+        let q = Some(Box::new(TreeNode::leaf(5)));
 
-            let res = bfs(&graph, "0".to_owned());
-            println!("{:?}", res);
-            assert_eq!(res, exp);
-        }
+        let exp_tree = Some(Box::new(TreeNode::new(
+            2,
+            Some(Box::new(TreeNode::leaf(0))),
+            Some(Box::new(TreeNode::new(
+                4,
+                Some(Box::new(TreeNode::leaf(3))),
+                Some(Box::new(TreeNode::leaf(5))),
+            ))),
+        )));
+
+        let res = lower_common_ancestor(&root, &p, &q);
+        println!("{:?}", res);
+
+        assert_eq!(res, &exp_tree);
+    }
+
+    #[test]
+    fn test_lower_common_ancestor_case1() {
+        let root = Some(Box::new(TreeNode::new(2, Some(Box::new(TreeNode::leaf(1))), None)));
+        let p = Some(Box::new(TreeNode::leaf(2)));
+        let q = Some(Box::new(TreeNode::leaf(1)));
+
+        let res = lower_common_ancestor(&root, &p, &q);
+        println!("{:?}", res);
+
+        assert_eq!(res, &root);
     }
 }
