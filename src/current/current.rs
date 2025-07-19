@@ -1,91 +1,129 @@
-use std::collections::HashMap;
-use std::rc::Rc;
-use crate::graph::EdgeT;
+use crate::tree::TreeNode;
 
-pub fn mst(graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>) -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
-    HashMap::new()
+pub fn is_same_tree(t1: &Option<Box<TreeNode>>, t2: &Option<Box<TreeNode>>) -> bool {
+    false
 }
 
-pub fn mst1(graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>) -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
-    HashMap::new()
+pub fn is_same_tree_iter(t1: &Option<Box<TreeNode>>, t2: &Option<Box<TreeNode>>) -> bool {
+    false
 }
+
 
 #[cfg(test)]
 mod tests {
-    use super::{mst, mst1};
-    use crate::graph::{compare_as_map, create_graph, create_graph1, exp_graph, exp_graph1, graph_to_string};
+    use crate::tree::TreeNode;
+    use super::{is_same_tree, is_same_tree_iter};
 
-    /*
-        6 5
-        0: 0-1 7.00000
-        1: 1-2 3.00000  0-1 7.00000
-        2: 1-2 3.00000  2-4 3.00000
-        3: 3-4 2.00000
-        4: 3-4 2.00000  4-5 2.00000  2-4 3.00000
-        5: 4-5 2.00000
-    */
     #[test]
-    fn test_mst() {
-        let graph = create_graph();
-        let graph_str = graph_to_string(&graph);
-        println!("{}", graph_str);
-
-        let exp_graph = exp_graph();
-
-        let res = mst(&graph);
-        println!("{}", graph_to_string(&exp_graph));
-        println!("{}", graph_to_string(&res));
-
-        // assert_eq!(res, exp_graph)
-        assert!(compare_as_map(&res, &exp_graph));
+    fn test_is_same_tree() {
+        let t1 = create_tree1();
+        let t2 = create_tree1();
+        assert!(is_same_tree(&t1, &t2));
     }
 
     #[test]
-    fn test_mst_case1() {
-        let graph = create_graph1();
-        let graph_str = graph_to_string(&graph);
-        println!("{}", graph_str);
-
-        let exp_graph = exp_graph1();
-
-        let res = mst(&graph);
-        println!("{}", graph_to_string(&exp_graph));
-        println!("{}", graph_to_string(&res));
-
-        // assert_eq!(res, exp_graph)
-        assert!(compare_as_map(&res, &exp_graph));
+    fn test_is_same_tree_iter() {
+        let t1 = create_tree1();
+        let t2 = create_tree1();
+        assert!(is_same_tree_iter(&t1, &t2));
     }
 
     #[test]
-    fn test_mst1() {
-        let graph = create_graph();
-        let graph_str = graph_to_string(&graph);
-        println!("{}", graph_str);
-
-        let exp_graph = exp_graph();
-
-        let res = mst1(&graph);
-        println!("{}", graph_to_string(&exp_graph));
-        println!("{}", graph_to_string(&res));
-
-        // assert_eq!(res, exp_graph)
-        assert!(compare_as_map(&res, &exp_graph));
+    fn test_is_same_tree_neg() {
+        let t1 = create_tree1();
+        let t2 = create_tree2();
+        assert!(!is_same_tree(&t1, &t2));
     }
 
     #[test]
-    fn test_mst1_case1() {
-        let graph = create_graph1();
-        let graph_str = graph_to_string(&graph);
-        println!("{}", graph_str);
-
-        let exp_graph = exp_graph1();
-
-        let res = mst1(&graph);
-        println!("{}", graph_to_string(&exp_graph));
-        println!("{}", graph_to_string(&res));
-
-        // assert_eq!(res, exp_graph)
-        assert!(compare_as_map(&res, &exp_graph));
+    fn test_is_same_tree_iter_neg() {
+        let t1 = create_tree1();
+        let t2 = create_tree2();
+        assert!(!is_same_tree_iter(&t1, &t2));
     }
 
+    #[test]
+    fn test_is_same_tree_case1() {
+        let t1 = create_tree3();
+        let t2 = create_tree31();
+
+        assert!(!is_same_tree(&t1, &t2));
+    }
+
+    #[test]
+    fn test_is_same_tree_iter_case1() {
+        let t1 = create_tree3();
+        let t2 = create_tree31();
+        assert!(!is_same_tree_iter(&t1, &t2));
+    }
+
+    fn create_tree1() -> Option<Box<TreeNode>> {
+        let tree = TreeNode::new(
+            5,
+            Some(Box::new(TreeNode::new(
+                2,
+                Some(Box::new(TreeNode::leaf(1))),
+                Some(Box::new(TreeNode::leaf(3))),
+            ))),
+            Some(Box::new(TreeNode::new(
+                10,
+                Some(Box::new(TreeNode::leaf(7))),
+                Some(Box::new(TreeNode::leaf(15))),
+            ))),
+        );
+
+        Some(Box::new(tree))
+    }
+
+    fn create_tree2() -> Option<Box<TreeNode>> {
+        let tree = TreeNode::new(
+            5,
+            Some(Box::new(TreeNode::new(
+                2,
+                Some(Box::new(TreeNode::leaf(1))),
+                Some(Box::new(TreeNode::leaf(444444444))),
+            ))),
+            Some(Box::new(TreeNode::new(
+                10,
+                Some(Box::new(TreeNode::leaf(7))),
+                Some(Box::new(TreeNode::leaf(15))),
+            ))),
+        );
+
+        Some(Box::new(tree))
+    }
+
+    fn create_tree3() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(
+            1,
+            Some(Box::new(TreeNode::new(
+                2,
+                None,
+                Some(Box::new(TreeNode::leaf(3))),
+            ))),
+            Some(Box::new(TreeNode::new(
+                2,
+                None,
+                Some(Box::new(TreeNode::leaf(3))),
+            ))),
+        );
+        Some(Box::new(root))
+    }
+
+    fn create_tree31() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(
+            1,
+            Some(Box::new(TreeNode::new(
+                2,
+                Some(Box::new(TreeNode::leaf(3))),
+                None,
+            ))),
+            Some(Box::new(TreeNode::new(
+                2,
+                None,
+                Some(Box::new(TreeNode::leaf(3))),
+            ))),
+        );
+        Some(Box::new(root))
+    }
 }
