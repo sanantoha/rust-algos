@@ -1,39 +1,26 @@
 
-pub fn gcd(mut a: i32, mut b: i32) -> i32 {
-    return -1
+pub fn same_bsts(arr1: &[i32], arr2: &[i32]) -> bool {
+    false
 }
 
+pub fn same_bsts1(arr1: &[i32], arr2: &[i32]) -> bool {
+    false
+}
 
 #[cfg(test)]
 mod tests {
-    use super::gcd;
+    use super::{same_bsts, same_bsts1};
 
+    const ARR_ONE: &[i32] = &[10, 15, 8, 12, 94, 81, 5, 2, 11];
+    const ARR_TWO: &[i32] = &[10, 8, 5, 15, 2, 12, 11, 94, 81];
 
     #[test]
-    fn test_gcd() {
-        let res = gcd(18, 6);
-        println!("{res}");
-        assert_eq!(res, 6);
+    fn test_same_bsts() {
+        assert!(same_bsts(ARR_ONE, ARR_TWO));
     }
 
     #[test]
-    fn test_gcd1() {
-        let res = gcd(18, 10);
-        println!("{res}");
-        assert_eq!(res, 2);
-    }
-
-    #[test]
-    fn test_gcd2() {
-        let res = gcd(17, 11);
-        println!("{res}");
-        assert_eq!(res, 1);
-    }
-
-    #[test]
-    fn test_gcd3() {
-        let res = gcd(5, 15);
-        println!("{res}");
-        assert_eq!(res, 5);
+    fn test_same_bsts1() {
+        assert!(same_bsts1(ARR_ONE, ARR_TWO));
     }
 }
