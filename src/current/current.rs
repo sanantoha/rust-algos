@@ -1,26 +1,25 @@
+use crate::graph::EdgeWeightedDigraph;
 
-pub fn same_bsts(arr1: &[i32], arr2: &[i32]) -> bool {
-    false
+pub fn bfs(graph: &EdgeWeightedDigraph, start: usize) -> Vec<usize> {
+    vec![]
 }
 
-pub fn same_bsts1(arr1: &[i32], arr2: &[i32]) -> bool {
-    false
-}
 
 #[cfg(test)]
 mod tests {
-    use super::{same_bsts, same_bsts1};
+    use std::path::PathBuf;
+    use super::bfs;
+    use crate::graph::EdgeWeightedDigraph;
 
-    const ARR_ONE: &[i32] = &[10, 15, 8, 12, 94, 81, 5, 2, 11];
-    const ARR_TWO: &[i32] = &[10, 8, 5, 15, 2, 12, 11, 94, 81];
-
-    #[test]
-    fn test_same_bsts() {
-        assert!(same_bsts(ARR_ONE, ARR_TWO));
-    }
 
     #[test]
-    fn test_same_bsts1() {
-        assert!(same_bsts1(ARR_ONE, ARR_TWO));
+    fn it_bfs() {
+        if let Ok(graph) = EdgeWeightedDigraph::from_file(PathBuf::from("src/graph/bfs.txt")) {
+            println!("{}", graph);
+
+            let res = bfs(&graph, 0);
+            println!("{:?}", res);
+            assert_eq!(res, vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]);
+        }
     }
 }
