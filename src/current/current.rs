@@ -1,55 +1,43 @@
-use crate::tree::TreeNode;
 
-pub fn find_closest_value_in_bst_rec(root: &Option<Box<TreeNode>>, target: i32) -> Option<i32> {
-    None
+pub fn largest_island(matrix: &[&[i32]]) -> i32 {
+    -1
 }
 
-pub fn find_closest_value_in_bst(root: &Option<Box<TreeNode>>, target: i32) -> Option<i32> {
-    None
+pub fn largest_island1(matrix: &mut [&mut [i32]]) -> i32 {
+    -1
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::{find_closest_value_in_bst_rec, find_closest_value_in_bst};
+    use super::{largest_island, largest_island1};
+
+    const MATRIX: &[&[i32]] = &[
+        &[1, 0, 1, 0, 0],
+        &[0, 0, 1, 1, 0],
+        &[0, 1, 1, 1, 1],
+        &[1, 0, 1, 0, 0],
+    ];
+
+    const EXP: i32 = 8;
 
     #[test]
-    fn test_find_closest_value_in_bst_rec() {
-        let root = create_tree();
+    fn test_largest_island() {
 
-        assert_eq!(find_closest_value_in_bst_rec(&root, 12), Some(13));
+        assert_eq!(largest_island(MATRIX), EXP);
     }
 
     #[test]
-    fn test_find_closest_value_in_bst() {
-        let root = create_tree();
+    fn test_largest_island1() {
+        // let mut matrix: Vec<Vec<i32>> = MATRIX.to_vec().into_iter().map(|v| v.to_vec()).collect();
+        let mut matrix: Vec<Vec<i32>> = vec![
+            vec![1, 0, 1, 0, 0],
+            vec![0, 0, 1, 1, 0],
+            vec![0, 1, 1, 1, 1],
+            vec![1, 0, 1, 0, 0],
+        ];
 
-        assert_eq!(find_closest_value_in_bst(&root, 12), Some(13));
-    }
+        let mut mut_matrix: Vec<&mut [i32]> = matrix.iter_mut().map(|row| row.as_mut_slice()).collect();
 
-    fn create_tree() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(
-            10,
-            Some(Box::new(TreeNode::new(
-                5,
-                Some(Box::new(TreeNode::new(
-                    2,
-                    Some(Box::new(TreeNode::leaf(1))),
-                    None,
-                ))),
-                Some(Box::new(TreeNode::leaf(5))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                15,
-                Some(Box::new(TreeNode::new(
-                    13,
-                    None,
-                    Some(Box::new(TreeNode::leaf(14))),
-                ))),
-                Some(Box::new(TreeNode::leaf(22))),
-            ))),
-        );
-
-        Some(Box::new(root))
+        assert_eq!(largest_island1(&mut mut_matrix), EXP);
     }
 }
