@@ -1,43 +1,62 @@
+use crate::tree::TreeNode;
 
-pub fn largest_island(matrix: &[&[i32]]) -> i32 {
-    -1
+pub fn find_tilt(root: &Option<Box<TreeNode>>) -> i32 {
+    0
 }
 
-pub fn largest_island1(matrix: &mut [&mut [i32]]) -> i32 {
-    -1
-}
 
 #[cfg(test)]
 mod tests {
-    use super::{largest_island, largest_island1};
+    use crate::tree::TreeNode;
+    use super::find_tilt;
 
-    const MATRIX: &[&[i32]] = &[
-        &[1, 0, 1, 0, 0],
-        &[0, 0, 1, 1, 0],
-        &[0, 1, 1, 1, 1],
-        &[1, 0, 1, 0, 0],
-    ];
-
-    const EXP: i32 = 8;
 
     #[test]
-    fn test_largest_island() {
+    fn it_find_tilt() {
+        let root = Some(Box::new(TreeNode::new(1, Some(Box::new(TreeNode::leaf(2))), Some(Box::new(TreeNode::leaf(3))))));
 
-        assert_eq!(largest_island(MATRIX), EXP);
+        assert_eq!(find_tilt(&root), 1);
     }
 
     #[test]
-    fn test_largest_island1() {
-        // let mut matrix: Vec<Vec<i32>> = MATRIX.to_vec().into_iter().map(|v| v.to_vec()).collect();
-        let mut matrix: Vec<Vec<i32>> = vec![
-            vec![1, 0, 1, 0, 0],
-            vec![0, 0, 1, 1, 0],
-            vec![0, 1, 1, 1, 1],
-            vec![1, 0, 1, 0, 0],
-        ];
+    fn it_find_tilt1() {
+        let root = Some(Box::new(TreeNode::new(
+            4,
+            Some(Box::new(TreeNode::new(
+                2,
+                Some(Box::new(TreeNode::leaf(3))),
+                Some(Box::new(TreeNode::leaf(5))),
+            ))),
+            Some(Box::new(TreeNode::new(
+                9,
+                None,
+                Some(Box::new(TreeNode::leaf(7))),
+            ))),
+        )));
 
-        let mut mut_matrix: Vec<&mut [i32]> = matrix.iter_mut().map(|row| row.as_mut_slice()).collect();
+        assert_eq!(find_tilt(&root), 15);
+    }
 
-        assert_eq!(largest_island1(&mut mut_matrix), EXP);
+    #[test]
+    fn it_find_titl2() {
+        let root = Some(Box::new(TreeNode::new(
+            21,
+            Some(Box::new(TreeNode::new(
+                7,
+                Some(Box::new(TreeNode::new(
+                    1,
+                    Some(Box::new(TreeNode::leaf(3))),
+                    Some(Box::new(TreeNode::leaf(3))),
+                ))),
+                Some(Box::new(TreeNode::leaf(1))),
+            ))),
+            Some(Box::new(TreeNode::new(
+                14,
+                Some(Box::new(TreeNode::leaf(2))),
+                Some(Box::new(TreeNode::leaf(2))),
+            ))),
+        )));
+
+        assert_eq!(find_tilt(&root), 9);
     }
 }
