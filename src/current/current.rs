@@ -1,62 +1,76 @@
 use crate::tree::TreeNode;
 
-pub fn find_tilt(root: &Option<Box<TreeNode>>) -> i32 {
-    0
+pub fn merge_binary_trees(left: &mut Option<Box<TreeNode>>, right: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
+    None
 }
 
+pub fn merge_binary_trees_iter(left: &mut Option<Box<TreeNode>>, right: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
+    None
+}
 
 #[cfg(test)]
 mod tests {
+    use itertools::assert_equal;
     use crate::tree::TreeNode;
-    use super::find_tilt;
-
+    use super::{merge_binary_trees, merge_binary_trees_iter};
 
     #[test]
-    fn it_find_tilt() {
-        let root = Some(Box::new(TreeNode::new(1, Some(Box::new(TreeNode::leaf(2))), Some(Box::new(TreeNode::leaf(3))))));
+    fn test_merge_binary_trees() {
+        let mut left = create_left_tree();
+        let right = create_right_tree();
+        let exp_tree = create_exp_tree();
 
-        assert_eq!(find_tilt(&root), 1);
+        assert_equal(merge_binary_trees(&mut left, &right), exp_tree);
     }
 
     #[test]
-    fn it_find_tilt1() {
-        let root = Some(Box::new(TreeNode::new(
-            4,
-            Some(Box::new(TreeNode::new(
-                2,
-                Some(Box::new(TreeNode::leaf(3))),
-                Some(Box::new(TreeNode::leaf(5))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                9,
-                None,
-                Some(Box::new(TreeNode::leaf(7))),
-            ))),
-        )));
+    fn test_merge_binary_trees_iter() {
+        let mut left = create_left_tree();
+        let right = create_right_tree();
+        let exp_tree = create_exp_tree();
 
-        assert_eq!(find_tilt(&root), 15);
+        assert_equal(merge_binary_trees_iter(&mut left, &right), exp_tree);
     }
 
-    #[test]
-    fn it_find_titl2() {
-        let root = Some(Box::new(TreeNode::new(
-            21,
-            Some(Box::new(TreeNode::new(
-                7,
-                Some(Box::new(TreeNode::new(
-                    1,
-                    Some(Box::new(TreeNode::leaf(3))),
-                    Some(Box::new(TreeNode::leaf(3))),
-                ))),
-                Some(Box::new(TreeNode::leaf(1))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                14,
-                Some(Box::new(TreeNode::leaf(2))),
-                Some(Box::new(TreeNode::leaf(2))),
-            ))),
-        )));
+    fn create_left_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(1,
+                                 Some(Box::new(TreeNode::new(3,
+                                                             Some(Box::new(TreeNode::leaf(7))),
+                                                             Some(Box::new(TreeNode::leaf(4)))
+                                 ))),
+                                 Some(Box::new(TreeNode::leaf(2)))
+        );
 
-        assert_eq!(find_tilt(&root), 9);
+        Some(Box::new(root))
+    }
+
+    fn create_right_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(1,
+                                 Some(Box::new(TreeNode::new(5,
+                                                             Some(Box::new(TreeNode::leaf(2))),
+                                                             None
+                                 ))),
+                                 Some(Box::new(TreeNode::new(9,
+                                                             Some(Box::new(TreeNode::leaf(7))),
+                                                             Some(Box::new(TreeNode::leaf(6)))
+                                 )))
+        );
+
+        Some(Box::new(root))
+    }
+
+    fn create_exp_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(2,
+                                 Some(Box::new(TreeNode::new(8,
+                                                             Some(Box::new(TreeNode::leaf(9))),
+                                                             Some(Box::new(TreeNode::leaf(4)))
+                                 ))),
+                                 Some(Box::new(TreeNode::new(11,
+                                                             Some(Box::new(TreeNode::leaf(7))),
+                                                             Some(Box::new(TreeNode::leaf(6)))
+                                 )))
+        );
+
+        Some(Box::new(root))
     }
 }
