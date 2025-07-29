@@ -1,76 +1,30 @@
-use crate::tree::TreeNode;
 
-pub fn merge_binary_trees(left: &mut Option<Box<TreeNode>>, right: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
-    None
+pub fn powerset(arr: &[i32]) -> Vec<Vec<i32>> {
+    vec![]
 }
 
-pub fn merge_binary_trees_iter(left: &mut Option<Box<TreeNode>>, right: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
-    None
+pub fn powerset_rec(arr: &[i32]) -> Vec<Vec<i32>> {
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
-    use itertools::assert_equal;
-    use crate::tree::TreeNode;
-    use super::{merge_binary_trees, merge_binary_trees_iter};
+    use super::powerset;
+    use super::powerset_rec;
 
     #[test]
-    fn test_merge_binary_trees() {
-        let mut left = create_left_tree();
-        let right = create_right_tree();
-        let exp_tree = create_exp_tree();
+    fn it_powerset() {
+        let res = powerset(&[1, 2, 3]);
+        println!("{:?}", res);
 
-        assert_equal(merge_binary_trees(&mut left, &right), exp_tree);
+        assert_eq!(res, vec![vec![], vec![1], vec![2], vec![1, 2], vec![3], vec![1, 3], vec![2, 3], vec![1, 2, 3]]);
     }
 
     #[test]
-    fn test_merge_binary_trees_iter() {
-        let mut left = create_left_tree();
-        let right = create_right_tree();
-        let exp_tree = create_exp_tree();
+    fn it_powerset_rec() {
+        let res = powerset_rec(&[1, 2, 3]);
+        println!("{:?}", res);
 
-        assert_equal(merge_binary_trees_iter(&mut left, &right), exp_tree);
-    }
-
-    fn create_left_tree() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(1,
-                                 Some(Box::new(TreeNode::new(3,
-                                                             Some(Box::new(TreeNode::leaf(7))),
-                                                             Some(Box::new(TreeNode::leaf(4)))
-                                 ))),
-                                 Some(Box::new(TreeNode::leaf(2)))
-        );
-
-        Some(Box::new(root))
-    }
-
-    fn create_right_tree() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(1,
-                                 Some(Box::new(TreeNode::new(5,
-                                                             Some(Box::new(TreeNode::leaf(2))),
-                                                             None
-                                 ))),
-                                 Some(Box::new(TreeNode::new(9,
-                                                             Some(Box::new(TreeNode::leaf(7))),
-                                                             Some(Box::new(TreeNode::leaf(6)))
-                                 )))
-        );
-
-        Some(Box::new(root))
-    }
-
-    fn create_exp_tree() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(2,
-                                 Some(Box::new(TreeNode::new(8,
-                                                             Some(Box::new(TreeNode::leaf(9))),
-                                                             Some(Box::new(TreeNode::leaf(4)))
-                                 ))),
-                                 Some(Box::new(TreeNode::new(11,
-                                                             Some(Box::new(TreeNode::leaf(7))),
-                                                             Some(Box::new(TreeNode::leaf(6)))
-                                 )))
-        );
-
-        Some(Box::new(root))
+        assert_eq!(res, vec![vec![], vec![1], vec![2], vec![1, 2], vec![3], vec![1, 3], vec![2, 3], vec![1, 2, 3]]);
     }
 }
