@@ -1,30 +1,21 @@
 
-pub fn powerset(arr: &[i32]) -> Vec<Vec<i32>> {
-    vec![]
+pub fn unique_path_iii(grid: &mut Vec<Vec<i32>>) -> i32 {
+    0
 }
 
-pub fn powerset_rec(arr: &[i32]) -> Vec<Vec<i32>> {
-    vec![]
-}
 
 #[cfg(test)]
 mod tests {
-    use super::powerset;
-    use super::powerset_rec;
+    use super::unique_path_iii;
 
     #[test]
-    fn it_powerset() {
-        let res = powerset(&[1, 2, 3]);
-        println!("{:?}", res);
+    fn it_unique_path_iii() {
+        let mut grid = vec![
+            vec![1, 0, 0, 0],
+            vec![0, 0, 0, 0],
+            vec![0, 0, 2, -1]
+        ];
 
-        assert_eq!(res, vec![vec![], vec![1], vec![2], vec![1, 2], vec![3], vec![1, 3], vec![2, 3], vec![1, 2, 3]]);
-    }
-
-    #[test]
-    fn it_powerset_rec() {
-        let res = powerset_rec(&[1, 2, 3]);
-        println!("{:?}", res);
-
-        assert_eq!(res, vec![vec![], vec![1], vec![2], vec![1, 2], vec![3], vec![1, 3], vec![2, 3], vec![1, 2, 3]]);
+        assert_eq!(unique_path_iii(&mut grid), 2);
     }
 }
