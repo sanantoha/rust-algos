@@ -68,17 +68,15 @@ pub fn find_negative_weight_circle(graph: &HashMap<String, Vec<Rc<EdgeT<String>>
     let mut res = vec![];
 
     if let Some(vi) = v {
+        res.push(vi.to_owned());
         let mut u = prev.get(&vi);
 
-        let mut history = HashSet::new();
-
         while let Some(ui) = u.take() {
-            if history.contains(&ui) {
+            if vi == ui.to_owned() {
                 break;
             }
             res.push(ui.to_owned());
             u = prev.get(ui);
-            history.insert(ui);
         }
     }
     res
