@@ -1,36 +1,50 @@
 
-pub fn rotate(matrix: &mut Vec<Vec<i32>>) {
-
+pub fn merge(intervals: &mut [(i32, i32)]) -> Vec<(i32, i32)> {
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
-    use super::rotate;
+    use super::merge;
 
     #[test]
-    fn it_rotate() {
-
-        /*
-    1 2 3  =>  1 4 7  => 7 4 1
-    4 5 6  =>  2 5 8  => 8 5 2
-    7 8 9  =>  3 6 9  => 9 6 3
-        */
-
-        let mut matrix = vec![
-            vec![1, 2, 3],
-            vec![4, 5, 6],
-            vec![7, 8, 9]
+    fn test_merge() {
+        let mut intervals: Vec<(i32, i32)> = vec![
+            (1, 5),
+            (3, 7),
+            (4, 6),
+            (6, 8),
         ];
 
-        let exp = vec![
-            vec![7, 4, 1],
-            vec![8, 5, 2],
-            vec![9, 6, 3]
+
+        let res = merge(&mut intervals);
+        println!("{:?}", res);
+        assert_eq!(res, vec![(1, 8)]);
+    }
+
+    #[test]
+    fn test_merge_case1() {
+        let mut intervals: Vec<(i32, i32)> = vec![
+            (1, 3),
+            (2, 6),
+            (8, 10),
+            (15, 18),
         ];
 
-        rotate(&mut matrix);
+        let res = merge(&mut intervals);
+        println!("{:?}", res);
+        assert_eq!(res, vec![(1, 6), (8, 10), (15, 18)]);
+    }
 
-        println!("{:?}", matrix);
-        assert_eq!(matrix, exp)
+    #[test]
+    fn test_merge_case2() {
+        let mut intervals: Vec<(i32, i32)> = vec![
+            (1, 4),
+            (4, 5),
+        ];
+
+        let res = merge(&mut intervals);
+        println!("{:?}", res);
+        assert_eq!(res, vec![(1, 5)]);
     }
 }
