@@ -1,50 +1,33 @@
+use crate::tree::TreeNode;
 
-pub fn merge(intervals: &mut [(i32, i32)]) -> Vec<(i32, i32)> {
-    vec![]
+pub fn validate(root: &Option<Box<TreeNode>>) -> bool {
+    false
 }
+
 
 #[cfg(test)]
 mod tests {
-    use super::merge;
+    use crate::tree::TreeNode;
+    use super::validate;
 
     #[test]
-    fn test_merge() {
-        let mut intervals: Vec<(i32, i32)> = vec![
-            (1, 5),
-            (3, 7),
-            (4, 6),
-            (6, 8),
-        ];
+    fn test_validate() {
+        let root = Some(Box::new(TreeNode::new(
+            5,
+            Some(Box::new(TreeNode::new(
+                2,
+                Some(Box::new(TreeNode::leaf(1))),
+                Some(Box::new(TreeNode::leaf(3))),
+            ))),
+            Some(Box::new(TreeNode::new(
+                10,
+                Some(Box::new(TreeNode::leaf(7))),
+                Some(Box::new(TreeNode::leaf(15))),
+            ))),
+        )));
 
-
-        let res = merge(&mut intervals);
-        println!("{:?}", res);
-        assert_eq!(res, vec![(1, 8)]);
+        assert!(validate(&root));
     }
 
-    #[test]
-    fn test_merge_case1() {
-        let mut intervals: Vec<(i32, i32)> = vec![
-            (1, 3),
-            (2, 6),
-            (8, 10),
-            (15, 18),
-        ];
 
-        let res = merge(&mut intervals);
-        println!("{:?}", res);
-        assert_eq!(res, vec![(1, 6), (8, 10), (15, 18)]);
-    }
-
-    #[test]
-    fn test_merge_case2() {
-        let mut intervals: Vec<(i32, i32)> = vec![
-            (1, 4),
-            (4, 5),
-        ];
-
-        let res = merge(&mut intervals);
-        println!("{:?}", res);
-        assert_eq!(res, vec![(1, 5)]);
-    }
 }
