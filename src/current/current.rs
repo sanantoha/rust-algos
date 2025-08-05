@@ -1,33 +1,25 @@
-use crate::tree::TreeNode;
 
-pub fn validate(root: &Option<Box<TreeNode>>) -> bool {
-    false
+pub fn spiral(matrix: &[&[i32]]) -> Vec<i32> {
+    vec![]
 }
+
 
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::validate;
+    use super::spiral;
 
     #[test]
-    fn test_validate() {
-        let root = Some(Box::new(TreeNode::new(
-            5,
-            Some(Box::new(TreeNode::new(
-                2,
-                Some(Box::new(TreeNode::leaf(1))),
-                Some(Box::new(TreeNode::leaf(3))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                10,
-                Some(Box::new(TreeNode::leaf(7))),
-                Some(Box::new(TreeNode::leaf(15))),
-            ))),
-        )));
+    fn it_spiral() {
+        let matrix: &[&[i32]] = &[
+            &[ 1,  2,  3,  5,  6,  7],
+            &[19, 20, 21, 22, 23,  8],
+            &[18, 29, 30, 31, 24,  9],
+            &[17, 28, 27, 26, 25, 10],
+            &[16, 15, 14, 13, 12, 11],
+        ];
 
-        assert!(validate(&root));
+        assert_eq!(spiral(matrix), vec![1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+                                        16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]);
     }
-
-
 }
