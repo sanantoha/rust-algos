@@ -1,25 +1,77 @@
 
-pub fn spiral(matrix: &[&[i32]]) -> Vec<i32> {
-    vec![]
+pub fn rotate(arr: &mut [i32], k: i32) {
+
 }
 
+pub fn rotate1(arr: &mut [i32], k: i32) {
+
+}
 
 
 #[cfg(test)]
 mod tests {
-    use super::spiral;
+    use super::rotate;
+    use super::rotate1;
 
     #[test]
-    fn it_spiral() {
-        let matrix: &[&[i32]] = &[
-            &[ 1,  2,  3,  5,  6,  7],
-            &[19, 20, 21, 22, 23,  8],
-            &[18, 29, 30, 31, 24,  9],
-            &[17, 28, 27, 26, 25, 10],
-            &[16, 15, 14, 13, 12, 11],
-        ];
+    fn it_rotate_arr() {
+        let mut arr = [1, 2, 3, 4, 5, 6, 7];
 
-        assert_eq!(spiral(matrix), vec![1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-                                        16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]);
+        rotate(&mut arr, 3);
+
+        println!("{arr:?}");
+        assert_eq!(arr, [5, 6, 7, 1, 2, 3, 4])
     }
+
+    #[test]
+    fn it_rotate_arr1() {
+        let mut arr = [-1,-100,3,99];
+
+        rotate(&mut arr, 2);
+
+        println!("{arr:?}");
+        assert_eq!(arr, [3, 99, -1, -100])
+    }
+
+    #[test]
+    fn it_rotate_arr2() {
+        let mut arr = [1, 2, 3];
+
+        rotate(&mut arr, 2);
+
+        println!("{arr:?}");
+        assert_eq!(arr, [2, 3, 1])
+    }
+
+    #[test]
+    fn it_rotate1_arr() {
+        let mut arr = [1, 2, 3, 4, 5, 6, 7];
+
+        rotate1(&mut arr, 3);
+
+        println!("{arr:?}");
+        assert_eq!(arr, [5, 6, 7, 1, 2, 3, 4])
+    }
+
+    #[test]
+    fn it_rotate1_arr1() {
+        let mut arr = [-1,-100,3,99];
+
+        rotate1(&mut arr, 2);
+
+        println!("{arr:?}");
+        assert_eq!(arr, [3, 99, -1, -100])
+    }
+
+    #[test]
+    fn it_rotate1_arr2() {
+        let mut arr = [1, 2, 3];
+
+        rotate1(&mut arr, 2);
+
+        println!("{arr:?}");
+        assert_eq!(arr, [2, 3, 1])
+    }
+
+
 }
