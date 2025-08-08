@@ -1,26 +1,50 @@
+use crate::tree::TreeNode;
 
-pub fn one_edit(s1: &str, s2: &str) -> bool {
-    false
+pub fn find_node_distance_k(root: &Option<Box<TreeNode>>, target: i32, k: i32) -> Vec<i32> {
+    vec![]
 }
 
+pub fn find_node_distance_k_rec(root: &Option<Box<TreeNode>>, target: i32, k: i32) -> Vec<i32> {
+    vec![]
+}
 
 #[cfg(test)]
 mod tests {
-    use super::one_edit;
+    use crate::tree::TreeNode;
+    use super::*;
 
     #[test]
-    fn test_one_edit() {
-        let s1 = String::from("hello");
-        let s2 = String::from("helo");
+    fn test_find_node_distance_k() {
+        let root = create_tree();
 
-        assert!(one_edit(&s1, &s2));
+        let mut res = find_node_distance_k(&root, 3, 2);
+        res.sort();
+        assert_eq!(res, vec![2, 7, 8]);
     }
 
     #[test]
-    fn test_one_edit_case1() {
-        let s1 = String::from("hello");
-        let s2 = String::from("hdlo");
+    fn test_find_node_distance_k_rec() {
+        let root = create_tree();
 
-        assert!(!one_edit(&s1, &s2));
+        let mut res = find_node_distance_k_rec(&root, 3, 2);
+        res.sort();
+        assert_eq!(res, vec![2, 7, 8]);
+    }
+
+    fn create_tree() -> Option<Box<TreeNode>> {
+        let root = Some(Box::new(TreeNode::new(1,
+                                               Some(Box::new(TreeNode::new(2,
+                                                                           Some(Box::new(TreeNode::leaf(4))),
+                                                                           Some(Box::new(TreeNode::leaf(5)))
+                                               ))),
+                                               Some(Box::new(TreeNode::new(3,
+                                                                           None,
+                                                                           Some(Box::new(TreeNode::new(6,
+                                                                                                       Some(Box::new(TreeNode::leaf(7))),
+                                                                                                       Some(Box::new(TreeNode::leaf(8)))
+                                                                           )))
+                                               )))
+        )));
+        root
     }
 }
