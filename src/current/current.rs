@@ -1,21 +1,20 @@
 
-pub fn find_ladders<'a>(begin_word: &'a str, end_word: &'a str, word_list: Vec<&'a str>) -> Vec<Vec<&'a str>> {
-    vec![]
+pub fn subarray_sum(arr: &[i32], k: i32) -> i32 {
+    0
 }
 
 #[cfg(test)]
 mod tests {
-    use super::find_ladders;
+    use crate::arrays::subarray_sum::subarray_sum;
+    use super::subarray_sum;
 
     #[test]
-    fn test_find_ladders() {
-        let begin_word = "hit";
-        let end_word = "cog";
-        let word_list = vec!["hot", "dot", "dog", "lot", "log", "cog"];
+    fn it_subarray_sum() {
+        assert_eq!(subarray_sum(&[1, 1, 1], 2), 2);
+    }
 
-        let res = find_ladders(begin_word, end_word, word_list);
-        println!("{:?}", res);
-
-        assert_eq!(res, vec![vec!["hit", "hot", "dot", "dog", "cog"], vec!["hit", "hot", "lot", "log", "cog"]]);
+    #[test]
+    fn it_subarray_sum_case2() {
+        assert_eq!(subarray_sum(&[1, 2, 3], 3), 2);
     }
 }
