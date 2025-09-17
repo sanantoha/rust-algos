@@ -64,10 +64,10 @@ mod tests {
     fn it_merge_sort1() {
         let mut arr = [0; 30];
 
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
 
         for v in &mut arr {
-            *v = rng.gen_range(1..101);
+            *v = rng.random_range(1..101);
         }
 
         let res = merge_sort(&arr);

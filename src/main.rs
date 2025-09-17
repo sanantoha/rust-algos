@@ -13,7 +13,7 @@ fn main() {
     let base_path = "./src/";
     let completed_path = "./completed.txt";
 
-    let mut rnd = rand::thread_rng();
+    let mut rnd = rand::rng();
 
     if let (Ok(mut source), Ok(completed)) = (get_all_files(base_path), read_completed(completed_path)) {
         source.retain(|path| {

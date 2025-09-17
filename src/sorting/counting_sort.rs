@@ -26,7 +26,7 @@ pub fn counting_sort(arr: &mut [i32]) {
 
 #[cfg(test)]
 mod tests {
-    use rand::{thread_rng, Rng};
+    use rand::Rng;
     use super::*;
 
     #[test]
@@ -42,10 +42,10 @@ mod tests {
     fn test_counting_sort_case1() {
         let mut arr = vec![0; 30];
 
-        let mut rand = thread_rng();
+        let mut rand = rand::rng();
 
         for i in 0..arr.len() {
-            arr[i] = rand.gen_range(0..100)
+            arr[i] = rand.random_range(0..100)
         }
 
         counting_sort(&mut arr);

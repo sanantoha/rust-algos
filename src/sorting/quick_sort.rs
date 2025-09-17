@@ -3,7 +3,7 @@ use rand::rngs::ThreadRng;
 
 // O(n * log(n)) time | O(log(n)) space
 pub fn quick_sort(arr: &mut [i32]) {
-    let mut rand = rand::thread_rng();
+    let mut rand = rand::rng();
     sort(arr, 0, arr.len() - 1, &mut rand);
 }
 
@@ -21,7 +21,7 @@ fn sort(arr: &mut [i32], l: usize, r: usize, rand: &mut ThreadRng) {
 }
 
 fn partition(arr: &mut [i32], l: usize, r: usize, rand: &mut ThreadRng) -> usize {
-    let p = rand.gen_range(l..=r);
+    let p = rand.random_range(l..=r);
 
     let mut j = l;
     arr.swap(r, p);
@@ -40,7 +40,6 @@ fn partition(arr: &mut [i32], l: usize, r: usize, rand: &mut ThreadRng) -> usize
 
 #[cfg(test)]
 mod tests {
-    use rand::thread_rng;
     use super::*;
 
     #[test]
@@ -56,10 +55,10 @@ mod tests {
     fn test_quick_sort_case1() {
         let mut arr = vec![0; 30];
 
-        let mut rand = thread_rng();
+        let mut rand = rand::rng();
 
         for i in 0..arr.len() {
-            arr[i] = rand.gen_range(0..100)
+            arr[i] = rand.random_range(0..100)
         }
 
         quick_sort(&mut arr);

@@ -37,10 +37,10 @@ mod tests {
 
         let mut arr = [0; 30];
 
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
 
         for v in &mut arr {
-            *v = rng.gen_range(1..101);
+            *v = rng.random_range(1..101);
         }
 
         insert_sort(&mut arr);

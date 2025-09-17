@@ -50,7 +50,7 @@ fn right(i: usize) -> usize {
 
 #[cfg(test)]
 mod tests {
-    use rand::{thread_rng, Rng};
+    use rand::Rng;
     use super::heap_sort;
 
     #[test]
@@ -66,10 +66,10 @@ mod tests {
     fn test_heap_sort_case1() {
         let mut arr = vec![0; 30];
 
-        let mut rand = thread_rng();
+        let mut rand = rand::rng();
 
         for i in 0..arr.len() {
-            arr[i] = rand.gen_range(0..100)
+            arr[i] = rand.random_range(0..100)
         }
 
         heap_sort(&mut arr);
