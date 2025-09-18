@@ -15,7 +15,7 @@ pub fn apartment_hunting(blocks: Vec<HashMap<String, bool>>, reqs: Vec<String>) 
                 if blocks[i].get(req).copied().unwrap_or_default() {
                     d = 0;
                 } else {
-                    let mut prev_distance = if i > 0 {
+                    let prev_distance = if i > 0 {
                         distances[i - 1].get(req).copied().unwrap_or(i32::MAX)
                     } else {
                         i32::MAX
@@ -52,7 +52,7 @@ pub fn apartment_hunting(blocks: Vec<HashMap<String, bool>>, reqs: Vec<String>) 
     for i in 0..distances.len() {
         let distance = &distances[i];
         let mut max_distance = i32::MIN;
-        for (k, v) in distance {
+        for (_, v) in distance {
             max_distance = max_distance.max(*v);
         }
         if min_distance_value > max_distance {
