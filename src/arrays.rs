@@ -22,3 +22,4 @@ pub mod subarray_sum;
 pub mod rotate_image;
 pub mod validate_starting_city;
 pub mod zig_zag_traverse;
+pub mod apartment_hunting;
