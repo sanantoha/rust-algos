@@ -1,24 +1,35 @@
 
-pub fn top_k_frequent<'a>(words: &[&'a str], k: i32) -> Vec<&'a str> {
-    vec![]
+pub fn climb_stairs_dp(n: usize) -> usize {
+    0
+}
+
+pub fn climb_stairs(n: usize) -> usize {
+    0
 }
 
 
 #[cfg(test)]
 mod tests {
-    use super::top_k_frequent;
+    use super::climb_stairs_dp;
+    use super::climb_stairs;
 
     #[test]
-    pub fn test_top_k_frequent() {
-        let words = vec!["i","love","leetcode","i","love","coding"];
-
-        assert_eq!(top_k_frequent(&words, 2), vec!["i", "love"]);
+    fn it_climb_stairs_dp() {
+        assert_eq!(climb_stairs_dp(0), 0);
+        assert_eq!(climb_stairs_dp(1), 1);
+        assert_eq!(climb_stairs_dp(2), 2);
+        assert_eq!(climb_stairs_dp(3), 3);
+        assert_eq!(climb_stairs_dp(4), 5);
+        assert_eq!(climb_stairs_dp(5), 8);
     }
 
     #[test]
-    pub fn test_top_k_frequent_for_4() {
-        let words = vec!["the","day","is","sunny","the","the","the","sunny","is","is"];
-
-        assert_eq!(top_k_frequent(&words, 4), vec!["the","is","sunny","day"]);
+    fn it_climb_stairs() {
+        assert_eq!(climb_stairs(0), 0);
+        assert_eq!(climb_stairs(1), 1);
+        assert_eq!(climb_stairs(2), 2);
+        assert_eq!(climb_stairs(3), 3);
+        assert_eq!(climb_stairs(4), 5);
+        assert_eq!(climb_stairs(5), 8);
     }
 }

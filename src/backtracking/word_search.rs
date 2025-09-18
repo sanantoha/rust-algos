@@ -3,8 +3,8 @@
 pub fn exists(board: &mut Vec<Vec<char>>, word: &str) -> bool {
 
     for row in 0..board.len() {
-        for col in 0..board[0].len() {
-            if let Some(c) = word.chars().nth(row) {
+        for col in 0..board[row].len() {
+            if let Some(c) = word.chars().nth(0) {
                 if c == board[row][col] && dfs(board, row, col, 0, word) {
                     return true;
                 }
