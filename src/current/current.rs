@@ -1,131 +1,37 @@
+use std::cell::RefCell;
+use std::rc::Rc;
+use crate::list::ListNode;
 
-pub fn lis0(arr: &[i32]) -> i32 {
-    0
-}
-
-pub fn lis(arr: &[i32]) -> i32 {
-    0
-}
-
-pub fn lis_list0(arr: &[i32]) -> Vec<i32> {
-    vec![]
-}
-
-pub fn lis_list(arr: &[i32]) -> Vec<i32> {
-    vec![]
+pub fn merge(head1: &Option<Rc<RefCell<ListNode>>>, head2: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
+    None
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{lis0, lis, lis_list0, lis_list};
 
-    const ARR0: &[i32] = &[1, 2, 3, 6, -100, -90, -80, -70, -60, 7, 8, 9, 10, -50, -40];
-
-    const ARR1: &[i32] = &[10, 22, 9, 33, 21, 50, 41, 60, 80];
-
-    const ARR2: &[i32] = &[4,10,4,3,8,9];
-
-    const ARR3: &[i32] = &[10,9,2,5,3,7,101,18];
-
-    const ARR4: &[i32] = &[1, -10, 20, 30, 2, 3, 4, 5];
+    use crate::list::Displayable;
+    use crate::list::ListNode;
+    use super::merge;
 
     #[test]
-    fn test_lis0_case0() {
-        assert_eq!(lis0(ARR0), 9);
-    }
+    pub fn test_merge() {
 
-    #[test]
-    fn test_lis0_case1() {
-        assert_eq!(lis0(ARR1), 6);
-    }
+        let head1 = Some(ListNode::with_next(4, Some(ListNode::with_next(8, Some(ListNode::with_next(15, Some(ListNode::new(19))))))));
+        let head2 = Some(ListNode::with_next(7, Some(ListNode::with_next(9, Some(ListNode::with_next(10, Some(ListNode::new(16))))))));
 
-    #[test]
-    fn test_lis0_case2() {
-        assert_eq!(lis0(ARR2), 3);
-    }
+        let exp = Some(ListNode::with_next(4,
+                                           Some(ListNode::with_next(7,
+                                                                    Some(ListNode::with_next(8,
+                                                                                             Some(ListNode::with_next(9,
+                                                                                                                      Some(ListNode::with_next(10,
+                                                                                                                                               Some(ListNode::with_next(15,
+                                                                                                                                                                        Some(ListNode::with_next(16,
+                                                                                                                                                                                                 Some(ListNode::new(19))))))))))))))));
 
-    #[test]
-    fn test_lis0_case3() {
-        assert_eq!(lis0(ARR3), 4);
-    }
-
-    #[test]
-    fn test_lis0_case4() {
-        assert_eq!(lis0(ARR4), 5);
-    }
-
-    #[test]
-    fn test_lis_case0() {
-        assert_eq!(lis(ARR0), 9);
-    }
-
-    #[test]
-    fn test_lis_case1() {
-        assert_eq!(lis(ARR1), 6);
-    }
-
-    #[test]
-    fn test_lis_case2() {
-        assert_eq!(lis(ARR2), 3);
-    }
-
-    #[test]
-    fn test_lis_case3() {
-        assert_eq!(lis(ARR3), 4);
-    }
-
-    #[test]
-    fn test_lis_case4() {
-        assert_eq!(lis(ARR4), 5);
-    }
-
-    #[test]
-    fn test_lis_list0_case0() {
-        assert_eq!(lis_list0(ARR0), vec![-100, -90, -80, -70, -60, 7, 8, 9, 10]);
-    }
-
-    #[test]
-    fn test_lis_list0_case1() {
-        assert_eq!(lis_list0(ARR1), vec![10, 22, 33, 50, 60, 80]);
-    }
-
-    #[test]
-    fn test_lis_list0_case2() {
-        assert_eq!(lis_list0(ARR2), vec![4, 8, 9]);
-    }
-
-    #[test]
-    fn test_lis_list0_case3() {
-        assert_eq!(lis_list0(ARR3), vec![2, 5, 7, 101]);
-    }
-
-    #[test]
-    fn test_lis_list0_case4() {
-        assert_eq!(lis_list0(ARR4), vec![1, 2, 3, 4, 5]);
-    }
-
-    #[test]
-    fn test_lis_list_case0() {
-        assert_eq!(lis_list(ARR0), vec![-100, -90, -80, -70, -60, 7, 8, 9, 10]);
-    }
-
-    #[test]
-    fn test_lis_list_case1() {
-        assert_eq!(lis_list(ARR1), vec![10, 22, 33, 41, 60, 80]);
-    }
-
-    #[test]
-    fn test_lis_list_case2() {
-        assert_eq!(lis_list(ARR2), vec![3, 8, 9]);
-    }
-
-    #[test]
-    fn test_lis_list_case3() {
-        assert_eq!(lis_list(ARR3), vec![2, 3, 7, 18]);
-    }
-
-    #[test]
-    fn test_lis_list_case4() {
-        assert_eq!(lis_list(ARR4), vec![-10, 2, 3, 4, 5]);
+        let res = merge(&head1, &head2);
+        if let Some(display_res) = Displayable::from_option(res.clone()) {
+            println!("{}", display_res);
+        }
+        assert_eq!(res, exp);
     }
 }
