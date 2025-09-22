@@ -1,47 +1,131 @@
-use crate::tree::TreeNode;
 
-pub fn pre_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
+pub fn lis0(arr: &[i32]) -> i32 {
+    0
+}
+
+pub fn lis(arr: &[i32]) -> i32 {
+    0
+}
+
+pub fn lis_list0(arr: &[i32]) -> Vec<i32> {
     vec![]
 }
 
-pub fn in_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
-    vec![]
-}
-
-pub fn post_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
+pub fn lis_list(arr: &[i32]) -> Vec<i32> {
     vec![]
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{pre_order_rec, in_order_rec, post_order_rec};
-    use crate::tree::TreeNode;
+    use super::{lis0, lis, lis_list0, lis_list};
+
+    const ARR0: &[i32] = &[1, 2, 3, 6, -100, -90, -80, -70, -60, 7, 8, 9, 10, -50, -40];
+
+    const ARR1: &[i32] = &[10, 22, 9, 33, 21, 50, 41, 60, 80];
+
+    const ARR2: &[i32] = &[4,10,4,3,8,9];
+
+    const ARR3: &[i32] = &[10,9,2,5,3,7,101,18];
+
+    const ARR4: &[i32] = &[1, -10, 20, 30, 2, 3, 4, 5];
 
     #[test]
-    pub fn test_dfs_pre_order_rec() {
-        assert_eq!(pre_order_rec(&create_tree()), vec![5, 2, 1, 3, 8, 7, 9]);
+    fn test_lis0_case0() {
+        assert_eq!(lis0(ARR0), 9);
     }
 
     #[test]
-    pub fn test_dfs_in_order_rec() {
-        assert_eq!(in_order_rec(&create_tree()), vec![1, 2, 3, 5, 7, 8, 9]);
+    fn test_lis0_case1() {
+        assert_eq!(lis0(ARR1), 6);
     }
 
     #[test]
-    pub fn test_dfs_post_order_rec() {
-        assert_eq!(post_order_rec(&create_tree()), vec![1, 3, 2, 7, 9, 8, 5]);
+    fn test_lis0_case2() {
+        assert_eq!(lis0(ARR2), 3);
     }
 
-    fn create_tree() -> Option<Box<TreeNode>> {
-        Some(
-            Box::new(TreeNode::new(5,
-                                   Some(Box::new(TreeNode::new(2,
-                                                               Some(Box::new(TreeNode::leaf(1))),
-                                                               Some(Box::new(TreeNode::leaf(3)))))),
-                                   Some(Box::new(TreeNode::new(8,
-                                                                              Some(Box::new(TreeNode::leaf(7))),
-                                                                              Some(Box::new(TreeNode::leaf(9)))))),
-            ))
-        )
+    #[test]
+    fn test_lis0_case3() {
+        assert_eq!(lis0(ARR3), 4);
+    }
+
+    #[test]
+    fn test_lis0_case4() {
+        assert_eq!(lis0(ARR4), 5);
+    }
+
+    #[test]
+    fn test_lis_case0() {
+        assert_eq!(lis(ARR0), 9);
+    }
+
+    #[test]
+    fn test_lis_case1() {
+        assert_eq!(lis(ARR1), 6);
+    }
+
+    #[test]
+    fn test_lis_case2() {
+        assert_eq!(lis(ARR2), 3);
+    }
+
+    #[test]
+    fn test_lis_case3() {
+        assert_eq!(lis(ARR3), 4);
+    }
+
+    #[test]
+    fn test_lis_case4() {
+        assert_eq!(lis(ARR4), 5);
+    }
+
+    #[test]
+    fn test_lis_list0_case0() {
+        assert_eq!(lis_list0(ARR0), vec![-100, -90, -80, -70, -60, 7, 8, 9, 10]);
+    }
+
+    #[test]
+    fn test_lis_list0_case1() {
+        assert_eq!(lis_list0(ARR1), vec![10, 22, 33, 50, 60, 80]);
+    }
+
+    #[test]
+    fn test_lis_list0_case2() {
+        assert_eq!(lis_list0(ARR2), vec![4, 8, 9]);
+    }
+
+    #[test]
+    fn test_lis_list0_case3() {
+        assert_eq!(lis_list0(ARR3), vec![2, 5, 7, 101]);
+    }
+
+    #[test]
+    fn test_lis_list0_case4() {
+        assert_eq!(lis_list0(ARR4), vec![1, 2, 3, 4, 5]);
+    }
+
+    #[test]
+    fn test_lis_list_case0() {
+        assert_eq!(lis_list(ARR0), vec![-100, -90, -80, -70, -60, 7, 8, 9, 10]);
+    }
+
+    #[test]
+    fn test_lis_list_case1() {
+        assert_eq!(lis_list(ARR1), vec![10, 22, 33, 41, 60, 80]);
+    }
+
+    #[test]
+    fn test_lis_list_case2() {
+        assert_eq!(lis_list(ARR2), vec![3, 8, 9]);
+    }
+
+    #[test]
+    fn test_lis_list_case3() {
+        assert_eq!(lis_list(ARR3), vec![2, 3, 7, 18]);
+    }
+
+    #[test]
+    fn test_lis_list_case4() {
+        assert_eq!(lis_list(ARR4), vec![-10, 2, 3, 4, 5]);
     }
 }
