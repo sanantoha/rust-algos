@@ -1,37 +1,64 @@
-use std::cell::RefCell;
-use std::rc::Rc;
-use crate::list::ListNode;
 
-pub fn merge(head1: &Option<Rc<RefCell<ListNode>>>, head2: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
-    None
+pub fn is_match(s: &str, p: &str) -> bool {
+    false
 }
+
+pub fn is_match_iter(s: &str, t: &str) -> bool {
+    false
+}
+
 
 #[cfg(test)]
 mod tests {
-
-    use crate::list::Displayable;
-    use crate::list::ListNode;
-    use super::merge;
+    use super::{is_match, is_match_iter};
 
     #[test]
-    pub fn test_merge() {
+    fn test_is_match() {
+        assert!(!is_match("aa", "a"));
+    }
 
-        let head1 = Some(ListNode::with_next(4, Some(ListNode::with_next(8, Some(ListNode::with_next(15, Some(ListNode::new(19))))))));
-        let head2 = Some(ListNode::with_next(7, Some(ListNode::with_next(9, Some(ListNode::with_next(10, Some(ListNode::new(16))))))));
+    #[test]
+    fn test_is_match_case1() {
+        assert!(is_match("aa", "a*"));
+    }
 
-        let exp = Some(ListNode::with_next(4,
-                                           Some(ListNode::with_next(7,
-                                                                    Some(ListNode::with_next(8,
-                                                                                             Some(ListNode::with_next(9,
-                                                                                                                      Some(ListNode::with_next(10,
-                                                                                                                                               Some(ListNode::with_next(15,
-                                                                                                                                                                        Some(ListNode::with_next(16,
-                                                                                                                                                                                                 Some(ListNode::new(19))))))))))))))));
+    #[test]
+    fn test_is_match_case2() {
+        assert!(is_match("abcde", ".*"));
+    }
 
-        let res = merge(&head1, &head2);
-        if let Some(display_res) = Displayable::from_option(res.clone()) {
-            println!("{}", display_res);
-        }
-        assert_eq!(res, exp);
+    #[test]
+    fn test_is_match_case3() {
+        assert!(is_match("abcde", ".*de"));
+    }
+
+    #[test]
+    fn test_is_match_case4() {
+        assert!(!is_match("abcde", ".*dk"));
+    }
+
+    #[test]
+    fn test_is_match_iter() {
+        assert!(!is_match_iter("aa", "a"));
+    }
+
+    #[test]
+    fn test_is_match_iter_case1() {
+        assert!(is_match_iter("aa", "a*"));
+    }
+
+    #[test]
+    fn test_is_match_iter_case2() {
+        assert!(is_match_iter("abcde", ".*"));
+    }
+
+    #[test]
+    fn test_is_match_iter_case3() {
+        assert!(is_match_iter("abcde", ".*de"));
+    }
+
+    #[test]
+    fn test_is_match_iter_case4() {
+        assert!(!is_match_iter("abcde", ".*dk"));
     }
 }
