@@ -1,64 +1,19 @@
 
-pub fn is_match(s: &str, p: &str) -> bool {
-    false
-}
-
-pub fn is_match_iter(s: &str, t: &str) -> bool {
-    false
+pub fn max_sum_increasing_subsequence(arr: &[i32]) -> Vec<Vec<i32>> {
+    vec![]
 }
 
 
 #[cfg(test)]
 mod tests {
-    use super::{is_match, is_match_iter};
+    use super::max_sum_increasing_subsequence;
 
     #[test]
-    fn test_is_match() {
-        assert!(!is_match("aa", "a"));
-    }
+    fn test_max_sum_increasing_subsequence() {
+        let input: &[i32] = &[10, 70, 20, 30, 50, 11, 30];
 
-    #[test]
-    fn test_is_match_case1() {
-        assert!(is_match("aa", "a*"));
-    }
-
-    #[test]
-    fn test_is_match_case2() {
-        assert!(is_match("abcde", ".*"));
-    }
-
-    #[test]
-    fn test_is_match_case3() {
-        assert!(is_match("abcde", ".*de"));
-    }
-
-    #[test]
-    fn test_is_match_case4() {
-        assert!(!is_match("abcde", ".*dk"));
-    }
-
-    #[test]
-    fn test_is_match_iter() {
-        assert!(!is_match_iter("aa", "a"));
-    }
-
-    #[test]
-    fn test_is_match_iter_case1() {
-        assert!(is_match_iter("aa", "a*"));
-    }
-
-    #[test]
-    fn test_is_match_iter_case2() {
-        assert!(is_match_iter("abcde", ".*"));
-    }
-
-    #[test]
-    fn test_is_match_iter_case3() {
-        assert!(is_match_iter("abcde", ".*de"));
-    }
-
-    #[test]
-    fn test_is_match_iter_case4() {
-        assert!(!is_match_iter("abcde", ".*dk"));
+        let res = max_sum_increasing_subsequence(input);
+        println!("{:?}", res);
+        assert_eq!(res, vec![vec![110], vec![10, 20, 30, 50]]);
     }
 }
