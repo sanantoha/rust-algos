@@ -1,19 +1,40 @@
+use crate::tree::TreeNode;
 
-pub fn max_sum_increasing_subsequence(arr: &[i32]) -> Vec<Vec<i32>> {
-    vec![]
+pub fn binary_tree_diameter(root: &Option<Box<TreeNode>>) -> i32 {
+    0
 }
-
 
 #[cfg(test)]
 mod tests {
-    use super::max_sum_increasing_subsequence;
+    use crate::tree::TreeNode;
+    use super::binary_tree_diameter;
 
     #[test]
-    fn test_max_sum_increasing_subsequence() {
-        let input: &[i32] = &[10, 70, 20, 30, 50, 11, 30];
+    fn test_binary_tree_diameter() {
 
-        let res = max_sum_increasing_subsequence(input);
-        println!("{:?}", res);
-        assert_eq!(res, vec![vec![110], vec![10, 20, 30, 50]]);
+        let root = Some(
+            Box::new(TreeNode::new(
+                1,
+                Some(Box::new(TreeNode::new(3,
+                                            Some(Box::new(TreeNode::new(7,
+                                                                        Some(Box::new(TreeNode::new(8,
+                                                                                                    Some(Box::new(TreeNode::leaf(9))),
+                                                                                                    None
+                                                                        ))),
+                                                                        None
+                                            ))),
+                                            Some(Box::new(TreeNode::new(4,
+                                                                        None,
+                                                                        Some(Box::new(TreeNode::new(5,
+                                                                                                    None,
+                                                                                                    Some(Box::new(TreeNode::leaf(6)))
+                                                                        )))
+                                            )))
+                ))),
+                Some(Box::new(TreeNode::leaf(2))),
+            ))
+        );
+
+        assert_eq!(binary_tree_diameter(&root), 6);
     }
 }
