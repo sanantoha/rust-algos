@@ -1,40 +1,47 @@
-use crate::tree::TreeNode;
+use crate::graph::EdgeWeightedDigraph;
 
-pub fn binary_tree_diameter(root: &Option<Box<TreeNode>>) -> i32 {
-    0
+pub fn shortest_path(graph: EdgeWeightedDigraph, start: usize) -> (Vec<f64>, Vec<Option<usize>>) {
+    (vec![], vec![])
 }
+
+pub fn find_negative_weight_circle(graph: EdgeWeightedDigraph, shortest: Vec<f64>, prev: Vec<Option<usize>>) -> Vec<Option<usize>> {
+    vec![]
+}
+
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::binary_tree_diameter;
+    use std::io::Error;
+    use std::path::PathBuf;
+    use crate::graph::EdgeWeightedDigraph;
+    use super::{find_negative_weight_circle, shortest_path};
 
     #[test]
-    fn test_binary_tree_diameter() {
+    fn test_shortest_path() {
+        if let Ok(graph) = get_graph() {
+            println!("{}", graph);
 
-        let root = Some(
-            Box::new(TreeNode::new(
-                1,
-                Some(Box::new(TreeNode::new(3,
-                                            Some(Box::new(TreeNode::new(7,
-                                                                        Some(Box::new(TreeNode::new(8,
-                                                                                                    Some(Box::new(TreeNode::leaf(9))),
-                                                                                                    None
-                                                                        ))),
-                                                                        None
-                                            ))),
-                                            Some(Box::new(TreeNode::new(4,
-                                                                        None,
-                                                                        Some(Box::new(TreeNode::new(5,
-                                                                                                    None,
-                                                                                                    Some(Box::new(TreeNode::leaf(6)))
-                                                                        )))
-                                            )))
-                ))),
-                Some(Box::new(TreeNode::leaf(2))),
-            ))
-        );
+            let res = shortest_path(graph, 0);
+            println!("{:?}", res);
+            assert_eq!(res, (vec![-9.0, -20.0, -18.0, -2.0, -11.0], vec![Some(4), Some(2), Some(4), Some(0), Some(1)]));
+        }
+    }
 
-        assert_eq!(binary_tree_diameter(&root), 6);
+    #[test]
+    fn test_find_negative_weight_circle() {
+        if let Ok(graph) = get_graph() {
+            println!("{}", graph);
+
+            let shortest = vec![-9.0, -20.0, -18.0, -2.0, -11.0];
+            let prev = vec![Some(4), Some(2), Some(4), Some(0), Some(1)];
+
+            let res = find_negative_weight_circle(graph, shortest, prev);
+            println!("{:?}", res);
+            assert_eq!(res, vec![Some(1), Some(2), Some(4)]);
+        }
+    }
+
+    fn get_graph() -> Result<EdgeWeightedDigraph, Error> {
+        EdgeWeightedDigraph::from_file(PathBuf::from("src/graph/bellmanFord.txt"))
     }
 }
