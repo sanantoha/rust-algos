@@ -1,47 +1,41 @@
-use crate::graph::EdgeWeightedDigraph;
 
-pub fn shortest_path(graph: EdgeWeightedDigraph, start: usize) -> (Vec<f64>, Vec<Option<usize>>) {
-    (vec![], vec![])
-}
-
-pub fn find_negative_weight_circle(graph: EdgeWeightedDigraph, shortest: Vec<f64>, prev: Vec<Option<usize>>) -> Vec<Option<usize>> {
+pub fn a_star_algorithm(start_row: usize, start_col: usize, end_row: usize, end_col: usize, graph: &[&[i32]]) -> Vec<Vec<i32>> {
     vec![]
 }
 
-
 #[cfg(test)]
 mod tests {
-    use std::io::Error;
-    use std::path::PathBuf;
-    use crate::graph::EdgeWeightedDigraph;
-    use super::{find_negative_weight_circle, shortest_path};
+    use super::a_star_algorithm;
 
     #[test]
-    fn test_shortest_path() {
-        if let Ok(graph) = get_graph() {
-            println!("{}", graph);
+    fn test_a_star_algorithm() {
+        let start_row = 0;
+        let start_col = 1;
+        let end_row = 4;
+        let end_col = 3;
 
-            let res = shortest_path(graph, 0);
-            println!("{:?}", res);
-            assert_eq!(res, (vec![-9.0, -20.0, -18.0, -2.0, -11.0], vec![Some(4), Some(2), Some(4), Some(0), Some(1)]));
-        }
-    }
+        let graph: &[&[i32]] = &[
+            &[0, 0, 0, 0, 0],
+            &[0, 1, 1, 1, 0],
+            &[0, 0, 0, 0, 0],
+            &[1, 0, 1, 1, 1],
+            &[0, 0, 0, 0, 0],
+        ];
 
-    #[test]
-    fn test_find_negative_weight_circle() {
-        if let Ok(graph) = get_graph() {
-            println!("{}", graph);
+        let expected = vec![
+            vec![0, 1],
+            vec![0, 0],
+            vec![1, 0],
+            vec![2, 0],
+            vec![2, 1],
+            vec![3, 1],
+            vec![4, 1],
+            vec![4, 2],
+            vec![4, 3],
+        ];
 
-            let shortest = vec![-9.0, -20.0, -18.0, -2.0, -11.0];
-            let prev = vec![Some(4), Some(2), Some(4), Some(0), Some(1)];
-
-            let res = find_negative_weight_circle(graph, shortest, prev);
-            println!("{:?}", res);
-            assert_eq!(res, vec![Some(1), Some(2), Some(4)]);
-        }
-    }
-
-    fn get_graph() -> Result<EdgeWeightedDigraph, Error> {
-        EdgeWeightedDigraph::from_file(PathBuf::from("src/graph/bellmanFord.txt"))
+        let res = a_star_algorithm(start_row, start_col, end_row, end_col, graph);
+        println!("{:?}", res);
+        assert_eq!(res, expected);
     }
 }
