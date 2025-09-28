@@ -1,41 +1,70 @@
 
-pub fn a_star_algorithm(start_row: usize, start_col: usize, end_row: usize, end_col: usize, graph: &[&[i32]]) -> Vec<Vec<i32>> {
-    vec![]
+pub fn solve(board: &mut [&mut [char]]) {
+
 }
 
 #[cfg(test)]
 mod tests {
-    use super::a_star_algorithm;
+    use super::solve;
 
     #[test]
-    fn test_a_star_algorithm() {
-        let start_row = 0;
-        let start_col = 1;
-        let end_row = 4;
-        let end_col = 3;
-
-        let graph: &[&[i32]] = &[
-            &[0, 0, 0, 0, 0],
-            &[0, 1, 1, 1, 0],
-            &[0, 0, 0, 0, 0],
-            &[1, 0, 1, 1, 1],
-            &[0, 0, 0, 0, 0],
+    fn test_solve() {
+        let board: &mut [&mut [char]] = &mut[
+            &mut ['X','X','X','X'],
+            &mut ['X','O','O','X'],
+            &mut ['X','X','O','X'],
+            &mut ['X','O','X','X'],
         ];
 
-        let expected = vec![
-            vec![0, 1],
-            vec![0, 0],
-            vec![1, 0],
-            vec![2, 0],
-            vec![2, 1],
-            vec![3, 1],
-            vec![4, 1],
-            vec![4, 2],
-            vec![4, 3],
+        let exp: &[&[char]] = &[
+            &['X','X','X','X'],
+            &['X','X','X','X'],
+            &['X','X','X','X'],
+            &['X','O','X','X'],
         ];
 
-        let res = a_star_algorithm(start_row, start_col, end_row, end_col, graph);
-        println!("{:?}", res);
-        assert_eq!(res, expected);
+        solve(board);
+
+        assert_eq!(board, exp);
+    }
+
+    #[test]
+    fn test_solve_case1() {
+        let board: &mut [&mut [char]] = &mut[
+            &mut ['O', 'O', 'O'],
+            &mut ['O', 'O', 'O'],
+            &mut ['O', 'O', 'O'],
+        ];
+
+        let exp: &[&[char]] = &[
+            &['O', 'O', 'O'],
+            &['O', 'O', 'O'],
+            &['O', 'O', 'O'],
+        ];
+
+        solve(board);
+
+        assert_eq!(board, exp);
+    }
+
+    #[test]
+    fn test_solve_case2() {
+        let board: &mut [&mut [char]] = &mut [
+            &mut ['X','O','X','O','X','O'],
+            &mut ['O','X','O','X','O','X'],
+            &mut ['X','O','X','O','X','O'],
+            &mut ['O','X','O','X','O','X'],
+        ];
+
+        let exp: &[&[char]] = &[
+            &['X','O','X','O','X','O'],
+            &['O','X','X','X','X','X'],
+            &['X','X','X','X','X','O'],
+            &['O','X','O','X','O','X'],
+        ];
+
+        solve(board);
+
+        assert_eq!(board, exp);
     }
 }
