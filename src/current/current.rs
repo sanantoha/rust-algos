@@ -1,70 +1,38 @@
+use crate::tree::TreeNode;
 
-pub fn solve(board: &mut [&mut [char]]) {
-
+pub fn get_all_elements(root1: &Option<Box<TreeNode>>, root2: &Option<Box<TreeNode>>) -> Vec<i32> {
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
-    use super::solve;
+    use crate::tree::TreeNode;
+    use super::get_all_elements;
 
     #[test]
-    fn test_solve() {
-        let board: &mut [&mut [char]] = &mut[
-            &mut ['X','X','X','X'],
-            &mut ['X','O','O','X'],
-            &mut ['X','X','O','X'],
-            &mut ['X','O','X','X'],
-        ];
+    fn test_get_all_elements() {
+        let root1 = Some(
+            Box::new(TreeNode::new(9,
+                                   Some(Box::new(TreeNode::leaf(2))),
+                                   Some(Box::new(TreeNode::new(12,
+                                                               Some(Box::new(TreeNode::leaf(11))),
+                                                               Some(Box::new(TreeNode::leaf(15)))))),
+            ))
+        );
 
-        let exp: &[&[char]] = &[
-            &['X','X','X','X'],
-            &['X','X','X','X'],
-            &['X','X','X','X'],
-            &['X','O','X','X'],
-        ];
+        let root2 = Some(
+            Box::new(TreeNode::new(10,
+                                   Some(Box::new(TreeNode::new(5,
+                                                               Some(Box::new(TreeNode::new(3,
+                                                                                           Some(Box::new(TreeNode::leaf(1))),
+                                                                                           Some(Box::new(TreeNode::leaf(4)))
+                                                               ))),
+                                                               Some(Box::new(TreeNode::leaf(6))))
+                                   )),
+                                   Some(Box::new(TreeNode::leaf(16))))
+            )
+        );
 
-        solve(board);
-
-        assert_eq!(board, exp);
-    }
-
-    #[test]
-    fn test_solve_case1() {
-        let board: &mut [&mut [char]] = &mut[
-            &mut ['O', 'O', 'O'],
-            &mut ['O', 'O', 'O'],
-            &mut ['O', 'O', 'O'],
-        ];
-
-        let exp: &[&[char]] = &[
-            &['O', 'O', 'O'],
-            &['O', 'O', 'O'],
-            &['O', 'O', 'O'],
-        ];
-
-        solve(board);
-
-        assert_eq!(board, exp);
-    }
-
-    #[test]
-    fn test_solve_case2() {
-        let board: &mut [&mut [char]] = &mut [
-            &mut ['X','O','X','O','X','O'],
-            &mut ['O','X','O','X','O','X'],
-            &mut ['X','O','X','O','X','O'],
-            &mut ['O','X','O','X','O','X'],
-        ];
-
-        let exp: &[&[char]] = &[
-            &['X','O','X','O','X','O'],
-            &['O','X','X','X','X','X'],
-            &['X','X','X','X','X','O'],
-            &['O','X','O','X','O','X'],
-        ];
-
-        solve(board);
-
-        assert_eq!(board, exp);
+        assert_eq!(get_all_elements(&root1, &root2), vec![1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 15, 16]);
     }
 }
