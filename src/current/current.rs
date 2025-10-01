@@ -1,44 +1,48 @@
+use crate::tree::TreeNode;
 
-
-pub fn multiply(mat1: &[&[i32]], mat2: &[&[i32]]) -> Vec<Vec<i32>> {
+pub fn post_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
     vec![]
 }
 
-pub fn multiply1(mat1: &[&[i32]], mat2: &[&[i32]]) -> Vec<Vec<i32>> {
+pub fn in_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
+    vec![]
+}
+
+pub fn pre_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
     vec![]
 }
 
 
 #[cfg(test)]
 mod tests {
-    use super::multiply;
-    use super::multiply1;
-
-    const MAT1: &[&[i32]] = &[
-        &[1, 0, 0],
-        &[-1, 0, 3]
-    ];
-
-    const MAT2: &[&[i32]] = &[
-        &[7, 0, 0],
-        &[0, 0, 0],
-        &[0, 0, 1]
-    ];
-
-    const EXP_RES: &[&[i32]] = &[
-        &[7,0,0],
-        &[-7,0,3]
-    ];
+    use super::{pre_order_rec, in_order_rec, post_order_rec};
+    use crate::tree::TreeNode;
 
     #[test]
-    fn it_multiply() {
-
-        assert_eq!(multiply(MAT1, MAT2), EXP_RES);
+    pub fn test_dfs_pre_order_rec() {
+        assert_eq!(pre_order_rec(&create_tree()), vec![5, 2, 1, 3, 8, 7, 9]);
     }
 
     #[test]
-    fn it_multiply1() {
+    pub fn test_dfs_in_order_rec() {
+        assert_eq!(in_order_rec(&create_tree()), vec![1, 2, 3, 5, 7, 8, 9]);
+    }
 
-        assert_eq!(multiply1(MAT1, MAT2), EXP_RES);
+    #[test]
+    pub fn test_dfs_post_order_rec() {
+        assert_eq!(post_order_rec(&create_tree()), vec![1, 3, 2, 7, 9, 8, 5]);
+    }
+
+    fn create_tree() -> Option<Box<TreeNode>> {
+        Some(
+            Box::new(TreeNode::new(5,
+                                   Some(Box::new(TreeNode::new(2,
+                                                               Some(Box::new(TreeNode::leaf(1))),
+                                                               Some(Box::new(TreeNode::leaf(3)))))),
+                                   Some(Box::new(TreeNode::new(8,
+                                                                              Some(Box::new(TreeNode::leaf(7))),
+                                                                              Some(Box::new(TreeNode::leaf(9)))))),
+            ))
+        )
     }
 }
