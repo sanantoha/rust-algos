@@ -1,38 +1,27 @@
-use crate::tree::TreeNode;
 
-pub fn get_all_elements(root1: &Option<Box<TreeNode>>, root2: &Option<Box<TreeNode>>) -> Vec<i32> {
+
+pub fn next_greater_element(arr: &[i32]) -> Vec<i32> {
+    vec![]
+}
+
+pub fn next_greater_element1(arr: &[i32]) -> Vec<i32> {
     vec![]
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::get_all_elements;
+
+    use super::{next_greater_element, next_greater_element1};
+
+    const ARR: &[i32] = &[2, 5, -3, -4, 6, 7, 2];
 
     #[test]
-    fn test_get_all_elements() {
-        let root1 = Some(
-            Box::new(TreeNode::new(9,
-                                   Some(Box::new(TreeNode::leaf(2))),
-                                   Some(Box::new(TreeNode::new(12,
-                                                               Some(Box::new(TreeNode::leaf(11))),
-                                                               Some(Box::new(TreeNode::leaf(15)))))),
-            ))
-        );
+    fn test_next_greater_element() {
+        assert_eq!(next_greater_element(ARR), vec![5, 6, 6, 6, 7, -1, 5])
+    }
 
-        let root2 = Some(
-            Box::new(TreeNode::new(10,
-                                   Some(Box::new(TreeNode::new(5,
-                                                               Some(Box::new(TreeNode::new(3,
-                                                                                           Some(Box::new(TreeNode::leaf(1))),
-                                                                                           Some(Box::new(TreeNode::leaf(4)))
-                                                               ))),
-                                                               Some(Box::new(TreeNode::leaf(6))))
-                                   )),
-                                   Some(Box::new(TreeNode::leaf(16))))
-            )
-        );
-
-        assert_eq!(get_all_elements(&root1, &root2), vec![1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 15, 16]);
+    #[test]
+    fn test_next_greater_element1() {
+        assert_eq!(next_greater_element1(ARR), vec![5, 6, 6, 6, 7, -1, 5])
     }
 }
