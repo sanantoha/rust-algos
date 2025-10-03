@@ -1,24 +1,37 @@
 
-pub fn three_sum(arr: &[i32], target: i32) -> Vec<[i32; 3]> {
-    vec![]
-}
-
-pub fn three_sum1(arr: &[i32], target: i32) -> Vec<[i32; 3]> {
-    vec![]
+pub fn search_range(arr: &[i32], target: i32) -> Option<(usize, usize)> {
+    None
 }
 
 #[cfg(test)]
 mod tests {
-    use super::three_sum;
-    use super::three_sum1;
+    use super::search_range;
 
     #[test]
-    fn test_three_sum() {
-        assert_eq!(three_sum(&vec![12, 3, 1, 2, -6, 5, -8, 6], 0), vec![[3, 5, -8], [1, -6, 5], [2, -8, 6]]);
+    fn test_search_for_range() {
+        let arr: &[i32] = &[5,7,7,8,8,8,8,8,8,8,10];
+
+        assert_eq!(search_range(arr, 8), Some((3, 9)));
     }
 
     #[test]
-    fn test_three_sum1() {
-        assert_eq!(three_sum1(&vec![12, 3, 1, 2, -6, 5, -8, 6], 0), vec![[-8, 2, 6], [-8, 3, 5], [-6, 1, 5]]);
+    fn test_search_for_range_case1() {
+        let arr: &[i32] = &[5,7,7,8,8,8,8,8,8,8,10];
+
+        assert_eq!(search_range(arr, 6), None);
+    }
+
+    #[test]
+    fn test_search_for_range_case2() {
+        let arr: &[i32] = &[1];
+
+        assert_eq!(search_range(arr, 1), Some((0,0)));
+    }
+
+    #[test]
+    fn test_search_for_range_case3() {
+        let arr: &[i32] = &[];
+
+        assert_eq!(search_range(arr, 0), None);
     }
 }
