@@ -1,37 +1,41 @@
+use crate::graph::Digraph;
 
-pub fn search_range(arr: &[i32], target: i32) -> Option<(usize, usize)> {
-    None
+pub fn sort_rec(graph: &Digraph) -> Result<Vec<i32>, String> {
+    Err("not implemented".to_owned())
 }
+
+pub fn sort_iter(graph: &Digraph) -> Result<Vec<i32>, String> {
+    Err("not implemented".to_owned())
+}
+
 
 #[cfg(test)]
 mod tests {
-    use super::search_range;
+    use std::path::PathBuf;
+    use crate::graph::Digraph;
+    use super::{sort_iter, sort_rec};
 
     #[test]
-    fn test_search_for_range() {
-        let arr: &[i32] = &[5,7,7,8,8,8,8,8,8,8,10];
+    fn test_sort_rec() {
 
-        assert_eq!(search_range(arr, 8), Some((3, 9)));
+        if let Ok(graph) = Digraph::from_file(PathBuf::from("src/graph/digraph.txt")) {
+            println!("{}", graph);
+
+            let res = sort_rec(&graph).expect("sorting successfully");
+            println!("{:?}", res);
+            assert_eq!(res, vec![8, 9, 1, 0, 2, 3, 4, 5, 10, 11, 6, 7, 12, 13]);
+        }
     }
 
     #[test]
-    fn test_search_for_range_case1() {
-        let arr: &[i32] = &[5,7,7,8,8,8,8,8,8,8,10];
+    fn test_sort_iter() {
 
-        assert_eq!(search_range(arr, 6), None);
-    }
+        if let Ok(graph) = Digraph::from_file(PathBuf::from("src/graph/digraph.txt")) {
+            println!("{}", graph);
 
-    #[test]
-    fn test_search_for_range_case2() {
-        let arr: &[i32] = &[1];
-
-        assert_eq!(search_range(arr, 1), Some((0,0)));
-    }
-
-    #[test]
-    fn test_search_for_range_case3() {
-        let arr: &[i32] = &[];
-
-        assert_eq!(search_range(arr, 0), None);
+            let res = sort_iter(&graph).expect("sorting successfully");
+            println!("{:?}", res);
+            assert_eq!(res, vec![0, 1, 8, 2, 9, 4, 3, 5, 6, 10, 7, 11, 12, 13]);
+        }
     }
 }
