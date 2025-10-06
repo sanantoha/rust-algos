@@ -1,22 +1,39 @@
 
-pub fn binary_search(arr: &[i32], target: i32) -> i32 {
-    -1
-}
 
+fn counting_sort(arr: &mut [i32]) {
+
+}
 
 #[cfg(test)]
 mod tests {
-    use super::binary_search;
-
-    const ARR: &[i32] = &[10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+    use rand::Rng;
+    use super::*;
 
     #[test]
-    fn test_binary_search() {
-        assert_eq!(binary_search(ARR, 80), 7);
+    fn test_counting_sort() {
+        let mut arr = vec![5, 2, 4, 6, 1, 3];
+
+        counting_sort(&mut arr);
+
+        assert_eq!(arr, [1, 2, 3, 4, 5, 6]);
     }
 
     #[test]
-    fn test_binary_search_missing_target() {
-        assert_eq!(binary_search(ARR, 81), -9);
+    fn test_counting_sort_case1() {
+        let mut arr = vec![0; 30];
+
+        let mut rand = rand::rng();
+
+        for i in 0..arr.len() {
+            arr[i] = rand.random_range(0..100)
+        }
+
+        counting_sort(&mut arr);
+
+        println!("{:?}", arr);
+
+        for i in 1..arr.len() {
+            assert!(arr[i - 1] <= arr[i]);
+        }
     }
 }
