@@ -1,24 +1,40 @@
 
-pub fn generate_matrix(n: usize) -> Vec<Vec<i32>> {
-    vec![]
+pub fn median(arr1: &[i32], arr2: &[i32]) -> f64 {
+    0.0
+}
+
+pub fn median1(arr1: &[i32], arr2: &[i32]) -> f64 {
+    0.0
 }
 
 #[cfg(test)]
 mod tests {
-    use super::generate_matrix;
+    use super::{median, median1};
+
+    const ARR1: &[i32] = &[1,2,3,4,5,6];
+    const ARR2: &[i32] = &[7,8,9,10,11,12];
+    const ARR3: &[i32] = &[1,2,3,4,5,6,13];
+
+    const EXP_RES: f64 = 6.5;
+    const EXP_RES1: f64 = 7.0;
 
     #[test]
-    fn test_generate_matrix_for_3() {
-        assert_eq!(generate_matrix(3), vec![vec![1, 2, 3], vec![8, 9, 4], vec![7, 6, 5]])
+    fn it_median() {
+        assert_eq!(median(ARR1, ARR2), EXP_RES);
     }
 
     #[test]
-    fn test_generate_matrix_for_1() {
-        assert_eq!(generate_matrix(1), vec![vec![1]])
+    fn it_median_one() {
+        assert_eq!(median(ARR3, ARR2), EXP_RES1);
     }
 
     #[test]
-    fn test_generate_matrix_for_4() {
-        assert_eq!(generate_matrix(4), vec![vec![1, 2, 3, 4], vec![12, 13, 14, 5], vec![11, 16, 15, 6], vec![10, 9, 8, 7]])
+    fn it_median1() {
+        assert_eq!(median1(ARR1, ARR2), EXP_RES);
+    }
+
+    #[test]
+    fn it_median1_one() {
+        assert_eq!(median1(ARR3, ARR2), EXP_RES1);
     }
 }
