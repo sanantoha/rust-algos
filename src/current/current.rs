@@ -1,40 +1,29 @@
 
-pub fn median(arr1: &[i32], arr2: &[i32]) -> f64 {
-    0.0
+pub fn valid_starting_city(distances: &[i32], fuel: &[i32], mpg: i32) -> Option<usize> {
+    None
 }
 
-pub fn median1(arr1: &[i32], arr2: &[i32]) -> f64 {
-    0.0
+pub fn valid_starting_city1(distances: &[i32], fuel: &[i32], mpg: i32) -> Option<usize> {
+    None
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{median, median1};
+    use super::valid_starting_city;
+    use super::valid_starting_city1;
 
-    const ARR1: &[i32] = &[1,2,3,4,5,6];
-    const ARR2: &[i32] = &[7,8,9,10,11,12];
-    const ARR3: &[i32] = &[1,2,3,4,5,6,13];
-
-    const EXP_RES: f64 = 6.5;
-    const EXP_RES1: f64 = 7.0;
+    const DISTANCES: &[i32] = &[5, 25, 15, 10, 15];
+    const FUEL: &[i32] = &[1, 2, 1, 0, 3];
+    const MPG: i32 = 10;
+    const EXP: usize = 4;
 
     #[test]
-    fn it_median() {
-        assert_eq!(median(ARR1, ARR2), EXP_RES);
+    fn it_valid_starting_city() {
+        assert_eq!(valid_starting_city(DISTANCES, FUEL, MPG), Some(EXP));
     }
 
     #[test]
-    fn it_median_one() {
-        assert_eq!(median(ARR3, ARR2), EXP_RES1);
-    }
-
-    #[test]
-    fn it_median1() {
-        assert_eq!(median1(ARR1, ARR2), EXP_RES);
-    }
-
-    #[test]
-    fn it_median1_one() {
-        assert_eq!(median1(ARR3, ARR2), EXP_RES1);
+    fn it_valid_starting_city1() {
+        assert_eq!(valid_starting_city1(DISTANCES, FUEL, MPG), Some(EXP));
     }
 }
