@@ -1,83 +1,75 @@
 use std::cell::RefCell;
 use std::rc::Rc;
-use crate::list::ListNode;
+use crate::list::ArbListNode;
 
-pub fn is_cycle(root: &Option<Rc<RefCell<ListNode>>>) -> bool {
-    false
+pub fn deep_copy(head: &Rc<RefCell<ArbListNode>>) -> Option<Rc<RefCell<ArbListNode>>> {
+    None
 }
 
-pub fn is_cycle2(root: &Rc<RefCell<ListNode>>) -> bool {
-    false
-}
-
-
-pub fn is_cycle_ws(root: &Option<Rc<RefCell<ListNode>>>) -> bool {
-    false
-}
-
-
-pub fn is_cycle_ws2(root: &Rc<RefCell<ListNode>>) -> bool {
-    false
-}
 
 #[cfg(test)]
 mod tests {
 
-    use std::rc::Rc;
-    use std::cell::RefCell;
-    use crate::list::ListNode;
-    use super::{is_cycle, is_cycle2, is_cycle_ws, is_cycle_ws2};
+    use super::deep_copy;
+    use crate::list::ArbListNode;
+    use std::{cell::RefCell, rc::Rc};
+    use crate::list::Displayable;
 
     #[test]
-    pub fn test_is_cycle_if_circle() {
-        let root = Some(create_circle_list());
+    fn it_deep_copy() {
+        let root = ArbListNode::new(1);
+        let second = ArbListNode::new(2);
+        let third = ArbListNode::new(3);
+        let four = ArbListNode::new(4);
+        let five = ArbListNode::new(5);
 
-        assert!(is_cycle(&root));
+        root.borrow_mut().next = Some(Rc::clone(&second));
+        second.borrow_mut().next = Some(Rc::clone(&third));
+        third.borrow_mut().next = Some(Rc::clone(&four));
+        four.borrow_mut().next = Some(Rc::clone(&five));
+
+        second.borrow_mut().arb = Some(Rc::clone(&five));
+        third.borrow_mut().arb = Some(Rc::clone(&root));
+        five.borrow_mut().arb = Some(Rc::clone(&second));
+
+
+        // ArbitraryListNode copy = deepCopy(root);
+        let copy = deep_copy(&root);
+        assert!(copy.is_some());
+        if let Some(node) = copy {
+            println!("root: {}", Displayable::new(Rc::clone(&root)));
+            println!("copy: {}", Displayable::new(Rc::clone(&node)));
+            assert_arb_list_node(&root, &node);
+        }
+
     }
 
-    #[test]
-    pub fn test_is_cycle_if_circle2() {
-        let root = create_circle_list();
+    fn assert_arb_list_node(root: &Rc<RefCell<ArbListNode>>, copy: &Rc<RefCell<ArbListNode>>) {
 
-        assert!(is_cycle2(&root));
-    }
+        let mut curr = Some(Rc::clone(root));
+        let mut curr_copy = Some(Rc::clone(copy));
 
-    #[test]
-    pub fn test_is_cycle_ws_if_circle() {
-        let root = Some(create_circle_list());
+        while let (Some(node), Some(node_copy)) = (curr.take(), curr_copy.take()) {
 
-        assert!(is_cycle_ws(&root));
-    }
+            assert_eq!(node.borrow().val, node_copy.borrow().val); // copied value should be the same
+            assert!(!Rc::ptr_eq(&node, &node_copy)); // failed if the same pointer means copy was incorrect
 
-    #[test]
-    pub fn test_is_cycle_ws_if_circle2() {
-        let root = create_circle_list();
+            let arb = node.borrow().arb.as_ref().map(Rc::clone);
+            let arb_copy = node_copy.borrow().arb.as_ref().map(Rc::clone);
+            assert_eq!(arb.is_none(), arb_copy.is_none()); // if arbitrary pointer is not present it should be the same in the copy
+            assert_eq!(arb.is_some(), arb_copy.is_some()); // if artibrary pointer is present it should be the same in the copy
 
-        assert!(is_cycle_ws2(&root));
-    }
+            if let (Some(arb), Some(arb_copy)) = (arb, arb_copy) {
+                assert_eq!(arb.borrow().val, arb_copy.borrow().val); // arbitrary value should be the same
+                assert!(!Rc::ptr_eq(&arb, &arb_copy)); // failed if copy arbitrary pointer is the same as original
+            }
 
-    #[test]
-    pub fn test_is_not_cycle() {
-        let root = Some(create_list());
-        assert!(!is_cycle(&root));
-    }
+            curr = node.borrow().next.as_ref().map(Rc::clone);
+            curr_copy = node_copy.borrow().next.as_ref().map(Rc::clone);
+        }
 
-    #[test]
-    pub fn test_ic_cycle_ws() {
-        let root = Some(create_list());
-        assert!(!is_cycle_ws(&root));
-    }
+        assert!(curr.is_none()); // list should have the same length and ended after iterate all node
+        assert!(curr_copy.is_none()); // copy list should also ended after iteration because main list and copy should have the same amount of nodes
 
-    pub fn create_circle_list() -> Rc<RefCell<ListNode>> {
-        let node0 = ListNode::with_next(0, Some(ListNode::with_next(1, Some(ListNode::new(3)))));
-        let node4 = ListNode::with_next(4, Some(ListNode::with_next(5, Some(ListNode::with_next(6, Some(ListNode::with_next(7, Some(Rc::clone(&node0)))))))));
-
-        node0.borrow().next.as_ref().unwrap().borrow().next.as_ref().unwrap().borrow_mut().next = Some(Rc::clone(&node4));
-
-        node0
-    }
-
-    pub fn create_list() -> Rc<RefCell<ListNode>> {
-        ListNode::with_next(0, Some(ListNode::with_next(1, Some(ListNode::new(2)))))
     }
 }
