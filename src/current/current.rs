@@ -1,40 +1,40 @@
-use crate::list::ListNode;
-use std::cell::RefCell;
-use std::rc::Rc;
 
 
-pub fn middle_node(head: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
-    None
+pub fn find_permutation(s1: &str, s2: &str) -> bool {
+    false
+}
+
+pub fn find_permutation1(s1: &str, s2: &str) -> bool {
+    false
 }
 
 
 #[cfg(test)]
 mod tests {
-    use super::middle_node;
-    use crate::list::Displayable;
-    use crate::list::ListNode;
+    use super::find_permutation;
+    use super::find_permutation1;
 
     #[test]
-    pub fn test_middle_node() {
-        let head = Some(ListNode::with_next(4, Some(ListNode::with_next(8, Some(ListNode::with_next(15, Some(ListNode::new(19))))))));
-        let exp = Some(ListNode::with_next(15, Some(ListNode::new(19))));
+    fn it_find_permutation() {
 
-        let res = middle_node(&head);
-        if let Some(display_res) = Displayable::from_option(res.clone()) {
-            println!("{}", display_res);
-        }
-        assert_eq!(middle_node(&head), exp);
+        assert!(find_permutation("abc", "hdflebacworld"));
     }
 
     #[test]
-    pub fn test_middle_node_odd_list() {
-        let head1 = Some(ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5))))))))));
-        let exp1 = Some(ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5))))));
+    fn it_find_permutation_case2() {
 
-        let res1 = middle_node(&head1);
-        if let Some(display_res) = Displayable::from_option(res1.clone()) {
-            println!("{}", display_res);
-        }
-        assert_eq!(middle_node(&head1), exp1);
+        assert!(find_permutation("abbc", "hbbcadflebdworld"));
+    }
+
+    #[test]
+    fn it_find_permutation1() {
+
+        assert!(find_permutation1("abc", "hdflebacworld"));
+    }
+
+    #[test]
+    fn it_find_permutation1_case2() {
+
+        assert!(find_permutation1("abbc", "hbbcadflebdworld"));
     }
 }
