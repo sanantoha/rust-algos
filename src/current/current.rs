@@ -1,40 +1,40 @@
+use crate::tree::TreeNode;
 
-
-pub fn find_permutation(s1: &str, s2: &str) -> bool {
-    false
+pub fn binary_tree_diameter(root: &Option<Box<TreeNode>>) -> i32 {
+    0
 }
-
-pub fn find_permutation1(s1: &str, s2: &str) -> bool {
-    false
-}
-
 
 #[cfg(test)]
 mod tests {
-    use super::find_permutation;
-    use super::find_permutation1;
+    use crate::tree::TreeNode;
+    use super::binary_tree_diameter;
 
     #[test]
-    fn it_find_permutation() {
+    fn test_binary_tree_diameter() {
 
-        assert!(find_permutation("abc", "hdflebacworld"));
-    }
+        let root = Some(
+            Box::new(TreeNode::new(
+                1,
+                Some(Box::new(TreeNode::new(3,
+                                            Some(Box::new(TreeNode::new(7,
+                                                                        Some(Box::new(TreeNode::new(8,
+                                                                                                    Some(Box::new(TreeNode::leaf(9))),
+                                                                                                    None
+                                                                        ))),
+                                                                        None
+                                            ))),
+                                            Some(Box::new(TreeNode::new(4,
+                                                                        None,
+                                                                        Some(Box::new(TreeNode::new(5,
+                                                                                                    None,
+                                                                                                    Some(Box::new(TreeNode::leaf(6)))
+                                                                        )))
+                                            )))
+                ))),
+                Some(Box::new(TreeNode::leaf(2))),
+            ))
+        );
 
-    #[test]
-    fn it_find_permutation_case2() {
-
-        assert!(find_permutation("abbc", "hbbcadflebdworld"));
-    }
-
-    #[test]
-    fn it_find_permutation1() {
-
-        assert!(find_permutation1("abc", "hdflebacworld"));
-    }
-
-    #[test]
-    fn it_find_permutation1_case2() {
-
-        assert!(find_permutation1("abbc", "hbbcadflebdworld"));
+        assert_eq!(binary_tree_diameter(&root), 6);
     }
 }
