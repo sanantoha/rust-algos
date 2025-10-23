@@ -1,40 +1,28 @@
-use crate::tree::TreeNode;
 
-pub fn binary_tree_diameter(root: &Option<Box<TreeNode>>) -> i32 {
+pub fn maximum_subarray(arr: &[i32]) -> i32 {
     0
 }
 
+
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::binary_tree_diameter;
+    use super::maximum_subarray;
 
     #[test]
-    fn test_binary_tree_diameter() {
+    fn test_maximum_subarray() {
 
-        let root = Some(
-            Box::new(TreeNode::new(
-                1,
-                Some(Box::new(TreeNode::new(3,
-                                            Some(Box::new(TreeNode::new(7,
-                                                                        Some(Box::new(TreeNode::new(8,
-                                                                                                    Some(Box::new(TreeNode::leaf(9))),
-                                                                                                    None
-                                                                        ))),
-                                                                        None
-                                            ))),
-                                            Some(Box::new(TreeNode::new(4,
-                                                                        None,
-                                                                        Some(Box::new(TreeNode::new(5,
-                                                                                                    None,
-                                                                                                    Some(Box::new(TreeNode::leaf(6)))
-                                                                        )))
-                                            )))
-                ))),
-                Some(Box::new(TreeNode::leaf(2))),
-            ))
-        );
+        assert_eq!(maximum_subarray(&[3, 5, -9, 1, 3, -2, 3, 4, 7, 2, -9, 6, 3, 1, -5, 4]), 19);
+    }
 
-        assert_eq!(binary_tree_diameter(&root), 6);
+    #[test]
+    fn test_maximum_subarray1() {
+
+        assert_eq!(maximum_subarray(&[-2,1,-3,4,-1,2,1,-5,4]), 6);
+    }
+
+    #[test]
+    fn test_maximum_subarray2() {
+
+        assert_eq!(maximum_subarray(&[3, 4, -6, 7, 8, -18, 100]), 100);
     }
 }
