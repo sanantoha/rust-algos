@@ -1,18 +1,34 @@
+use crate::tree::TreeNode;
 
-pub fn minimal_heaviest_set_a(arr: &[i32]) -> Vec<i32> {
-    vec![]
+pub fn kth_smallest_element(root: TreeNode, k: i32) -> Option<i32> {
+    None
 }
 
 
 #[cfg(test)]
 mod tests {
-    use super::minimal_heaviest_set_a;
+    use crate::tree::TreeNode;
+    use super::kth_smallest_element;
+
 
     #[test]
-    fn it_minimal_heaviest_set_a() {
+    fn it_kth_smallest_element() {
 
-        let arr = &[6, 4, 2, 3, 1, 5];
+        let root = TreeNode::new(5,
+                                 Some(Box::new(TreeNode::new(2,
+                                                             Some(Box::new(TreeNode::leaf(1))),
+                                                             Some(Box::new(TreeNode::leaf(3))))
+                                 )), Some(Box::new(TreeNode::new(10,
+                                                                 Some(Box::new(TreeNode::new(7,
+                                                                                             Some(Box::new(TreeNode::leaf(6))),
+                                                                                             Some(Box::new(TreeNode::leaf(8))))
+                                                                 )),
+                                                                 Some(Box::new(TreeNode::new(15,
+                                                                                             Some(Box::new(TreeNode::leaf(14))),
+                                                                                             Some(Box::new(TreeNode::leaf(17))))
+                                                                 ))
+            ))));
 
-        assert_eq!(minimal_heaviest_set_a(arr), vec![5, 6]);
+        assert_eq!(kth_smallest_element(root, 5), Some(6));
     }
 }
