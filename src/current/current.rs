@@ -1,34 +1,25 @@
-use crate::tree::TreeNode;
 
-pub fn kth_smallest_element(root: TreeNode, k: i32) -> Option<i32> {
-    None
+pub fn levenshtein_distance(s1: &str, s2: &str) -> usize {
+    0
+}
+
+
+pub fn levenshtein_distance1(s1: &str, s2: &str) -> usize {
+    0
 }
 
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::kth_smallest_element;
-
+    use super::{levenshtein_distance, levenshtein_distance1};
 
     #[test]
-    fn it_kth_smallest_element() {
+    fn it_levenshtein_distance() {
+        assert_eq!(levenshtein_distance("abc", "yabd"), 2);
+    }
 
-        let root = TreeNode::new(5,
-                                 Some(Box::new(TreeNode::new(2,
-                                                             Some(Box::new(TreeNode::leaf(1))),
-                                                             Some(Box::new(TreeNode::leaf(3))))
-                                 )), Some(Box::new(TreeNode::new(10,
-                                                                 Some(Box::new(TreeNode::new(7,
-                                                                                             Some(Box::new(TreeNode::leaf(6))),
-                                                                                             Some(Box::new(TreeNode::leaf(8))))
-                                                                 )),
-                                                                 Some(Box::new(TreeNode::new(15,
-                                                                                             Some(Box::new(TreeNode::leaf(14))),
-                                                                                             Some(Box::new(TreeNode::leaf(17))))
-                                                                 ))
-            ))));
-
-        assert_eq!(kth_smallest_element(root, 5), Some(6));
+    #[test]
+    fn it_levenshtein_distance1() {
+        assert_eq!(levenshtein_distance1("abc", "yabd"), 2);
     }
 }
