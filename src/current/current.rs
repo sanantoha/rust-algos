@@ -1,25 +1,31 @@
 
-pub fn levenshtein_distance(s1: &str, s2: &str) -> usize {
-    0
-}
-
-
-pub fn levenshtein_distance1(s1: &str, s2: &str) -> usize {
+pub fn reverse(i: i32) -> i32 {
     0
 }
 
 
 #[cfg(test)]
 mod tests {
-    use super::{levenshtein_distance, levenshtein_distance1};
+
+    use super::reverse;
 
     #[test]
-    fn it_levenshtein_distance() {
-        assert_eq!(levenshtein_distance("abc", "yabd"), 2);
+    fn test_reverse() {
+        assert_eq!(reverse(123), 321);
     }
 
     #[test]
-    fn it_levenshtein_distance1() {
-        assert_eq!(levenshtein_distance1("abc", "yabd"), 2);
+    fn test_reverse_case1() {
+        assert_eq!(reverse(0), 0);
+    }
+
+    #[test]
+    fn test_reverse_case2() {
+        assert_eq!(reverse(-123), -321);
+    }
+
+    #[test]
+    fn test_reverse_case3() {
+        assert_eq!(reverse(120), 21);
     }
 }

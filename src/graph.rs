@@ -36,6 +36,7 @@ mod bellman_ford_as_map;
 mod dijkstra_shortest_paths_as_map;
 mod kruskal_min_spanning_tree_as_map;
 mod topological_sort_dfs_cycle_graph_as_map;
+mod rotting_oranges;
 
 const EPSILON: f64 = 1e-10;
 
