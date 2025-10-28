@@ -13,6 +13,14 @@ pub fn oranges_rotting(grid: Vec<Vec<i32>>) -> i32 {
     let grid_slice: Vec<&[i32]> = m_grid.iter().map(|i| i.as_slice()).collect();
     let mut queue = find_all_rotten(&grid_slice);
 
+    if queue.is_empty() {
+        if is_all_rotten(&grid_slice) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+
     while !queue.is_empty() {
         let mut size = queue.len();
 
@@ -38,36 +46,20 @@ pub fn oranges_rotting(grid: Vec<Vec<i32>>) -> i32 {
     let grid_slice: Vec<&[i32]> = m_grid.iter().map(|i| i.as_slice()).collect();
     if is_all_rotten(&grid_slice) {
         count - 1
-    } else if at_least_one_fresh(&grid_slice) {
-        -1
     } else {
-        0
+        -1
     }
-}
-
-fn at_least_one_fresh(grid: &[&[i32]]) -> bool {
-    for row in 0..grid.len() {
-        for col in 0..grid[row].len() {
-            if grid[row][col] == 1 {
-                return true;
-            }
-        }
-    }
-    false
 }
 
 fn is_all_rotten(grid: &[&[i32]]) -> bool {
-    let mut at_least_one_rotten = false;
     for row in 0..grid.len() {
         for col in 0..grid[row].len() {
             if grid[row][col] == 1 {
                 return false;
-            } else if grid[row][col] == 2 {
-                at_least_one_rotten = true;
             }
         }
     }
-    at_least_one_rotten
+    true
 }
 
 fn get_neighbors(grid: &[&[i32]], row: usize, col: usize) -> Vec<(usize, usize)> {
@@ -152,6 +144,17 @@ mod tests {
         let res = oranges_rotting(grid);
         println!("test case4: {}", res);
         assert_eq!(res, 0);
+    }
+
+    #[test]
+    pub fn test_case5() {
+        let grid = vec![
+            vec![1]
+        ];
+
+        let res = oranges_rotting(grid);
+        println!("test case4: {}", res);
+        assert_eq!(res, -1);
     }
 
 }
