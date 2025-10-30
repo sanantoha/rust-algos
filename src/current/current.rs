@@ -1,43 +1,41 @@
+use crate::tree::TreeNode;
 
-pub fn lnds(arr: &[i32]) -> i32 {
-    0
-}
-
-pub fn lnds1(arr: &[i32]) -> i32 {
-    0
-}
-
-pub fn lnds_list(arr: &[i32]) -> Vec<i32> {
-    vec![]
-}
-
-pub fn lnds_list1(arr: &[i32]) -> Vec<i32> {
-    vec![]
+pub fn sorted_array_to_bst(_arr: &[i32]) -> Option<Box<TreeNode>> {
+    None
 }
 
 #[cfg(test)]
 mod tests {
-
-    use super::{lnds, lnds1, lnds_list, lnds_list1};
-
-    const ARR: &[i32] = &[-2, -1, 2, 3, 4, 5, 2, 2, 2, 2, 3];
-    #[test]
-    fn test_lnds() {
-        assert_eq!(lnds(ARR), 8);
-    }
+    use super::sorted_array_to_bst;
+    use crate::tree::TreeNode;
 
     #[test]
-    fn test_lnds1() {
-        assert_eq!(lnds1(ARR), 8);
-    }
+    fn it_sorted_array_to_bst() {
+        let arr: &[i32] = &[1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-    #[test]
-    fn test_lnds_list() {
-        assert_eq!(lnds_list(ARR), vec![-2, -1, 2, 2, 2, 2, 2, 3]);
-    }
+        let tree = sorted_array_to_bst(arr);
+        println!("{:?}", tree);
 
-    #[test]
-    fn test_lnds_list1() {
-        assert_eq!(lnds_list1(ARR), vec![-2, -1, 2, 2, 2, 2, 2, 3]);
+        let exp_tree = Some(Box::new(TreeNode::new(5,
+                                                   Some(Box::new(TreeNode::new(2,
+                                                                               Some(Box::new(TreeNode::leaf(1))),
+                                                                               Some(Box::new(TreeNode::new(3,
+                                                                                                           None,
+                                                                                                           Some(Box::new(TreeNode::leaf(4)))
+                                                                               )))
+                                                   ))),
+                                                   Some(Box::new(TreeNode::new(8,
+                                                                               Some(Box::new(TreeNode::new(6,
+                                                                                                           None,
+                                                                                                           Some(Box::new(TreeNode::leaf(7)))
+                                                                               ))),
+                                                                               Some(Box::new(TreeNode::new(9,
+                                                                                                           None,
+                                                                                                           Some(Box::new(TreeNode::leaf(10)))
+                                                                               ))),
+                                                   ))),
+        )));
+
+        assert_eq!(tree, exp_tree);
     }
 }
