@@ -14,10 +14,10 @@ pub fn oranges_rotting(grid: Vec<Vec<i32>>) -> i32 {
     let mut queue = find_all_rotten(&grid_slice);
 
     if queue.is_empty() {
-        if is_all_rotten(&grid_slice) {
-            return 0;
-        } else {
+        if is_at_least_one_fresh(&grid_slice) {
             return -1;
+        } else {
+            return 0;
         }
     }
 
@@ -44,22 +44,22 @@ pub fn oranges_rotting(grid: Vec<Vec<i32>>) -> i32 {
 
 
     let grid_slice: Vec<&[i32]> = m_grid.iter().map(|i| i.as_slice()).collect();
-    if is_all_rotten(&grid_slice) {
-        count - 1
-    } else {
+    if is_at_least_one_fresh(&grid_slice) {
         -1
+    } else {
+        count - 1
     }
 }
 
-fn is_all_rotten(grid: &[&[i32]]) -> bool {
+fn is_at_least_one_fresh(grid: &[&[i32]]) -> bool {
     for row in 0..grid.len() {
         for col in 0..grid[row].len() {
             if grid[row][col] == 1 {
-                return false;
+                return true;
             }
         }
     }
-    true
+    false
 }
 
 fn get_neighbors(grid: &[&[i32]], row: usize, col: usize) -> Vec<(usize, usize)> {
