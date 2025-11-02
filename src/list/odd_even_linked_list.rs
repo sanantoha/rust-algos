@@ -40,28 +40,25 @@ pub fn odd_even_list(root: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<L
 }
 
 // O(n) time | O(1) space
-pub fn odd_even_list1(root: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
-    let res = root.as_ref().map(Rc::clone);
-    let mut odd = root.as_ref().map(Rc::clone);
-    let mut even = root.and_then(|x| x.borrow().next.as_ref().map(Rc::clone));
+pub fn odd_even_list1(head: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
+    let res = head.as_ref().map(Rc::clone);
+    let mut odd = head.as_ref().map(Rc::clone);
+    let mut even = head.and_then(|x| x.borrow().next.as_ref().map(Rc::clone));
     let even_head = even.as_ref().map(Rc::clone);
 
-    while even.is_some() && even.as_ref().and_then(|x| x.borrow().next.as_ref().map(Rc::clone)).is_some() {        
-        if let Some(even_node) = even.take() {
-            if let Some(odd_node) = odd.take() {
-                odd_node.borrow_mut().next = even_node.borrow().next.as_ref().map(Rc::clone);
-                if let Some(odd_next_node) = odd_node.borrow().next.as_ref().map(Rc::clone) {
-                    odd = Some(Rc::clone(&odd_next_node));            
-                    even_node.borrow_mut().next = odd_next_node.borrow().next.as_ref().map(Rc::clone);
-                }            
-            }
-    
-            even = even_node.borrow().next.as_ref().map(Rc::clone);        
-        }        
+    while even.is_some() && even.as_ref().and_then(|x| x.borrow().next.as_ref().map(Rc::clone)).is_some() {
+        if let Some(o) = odd.take() {
+            o.borrow_mut().next = even.as_ref().and_then(|x| x.borrow().next.as_ref().map(Rc::clone));
+            odd = o.borrow().next.as_ref().map(Rc::clone);
+        }
+        if let Some(e) = even.take() {
+            e.borrow_mut().next = odd.as_ref().and_then(|x| x.borrow().next.as_ref().map(Rc::clone));
+            even = e.borrow().next.as_ref().map(Rc::clone);
+        }
     }
 
-    if let Some(odd_node) = odd.take() {
-        odd_node.borrow_mut().next = even_head;
+    if let Some(o) = odd.take() {
+        o.borrow_mut().next = even_head;
     }
 
     res
