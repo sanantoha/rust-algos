@@ -1,18 +1,14 @@
 
-pub fn find_pivot_index(_arr: &[i32]) -> Option<usize> {
-    None
+pub fn min_number_of_coins_for_change(_n: usize, _denoms: &[usize]) ->  i32 {
+    0
 }
-
 
 #[cfg(test)]
 mod tests {
-    use super::find_pivot_index;
+    use super::min_number_of_coins_for_change;
 
     #[test]
-    fn test_find_pivot_index() {
-
-        assert_eq!(find_pivot_index(&[1, 7, 3, 6, 5, 6]), Some(3));
-        assert_eq!(find_pivot_index(&[1, 2, 3]), None);
-        assert_eq!(find_pivot_index(&[2, 1, -1]), Some(0));
+    fn test_min_number_of_coins_for_change() {
+        assert_eq!(min_number_of_coins_for_change(7, &[1, 5, 10]), 3);
     }
 }
