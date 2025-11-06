@@ -1,64 +1,28 @@
-use std::collections::HashMap;
-use std::rc::Rc;
-use crate::graph::EdgeT;
 
-pub fn mst(_graph: &HashMap<String, Vec<Rc<EdgeT<String>>>>) -> HashMap<String, Vec<Rc<EdgeT<String>>>> {
-    HashMap::new()
+pub fn min_swaps_required(str: &str) -> Option<i32> {
+    None
 }
+
 
 #[cfg(test)]
 mod tests {
-    use crate::graph::{compare_as_map, create_graph, create_graph1, exp_graph, exp_graph1, graph_to_string};
-    use super::mst;
-    /*
-            6 5
-            0: 0-1 7.0
-            1: 1-2 3.0  0-1 7.0
-            2: 1-2 3.0  2-4 3.0
-            3: 3-4 2.0
-            4: 3-4 2.0  4-5 2.0  2-4 3.0
-            5: 4-5 2.0
-         */
+
+    use super::min_swaps_required;
+
     #[test]
-    fn test_mst() {
-        let graph = create_graph();
-        let graph_str = graph_to_string(&graph);
-        println!("{}", graph_str);
+    fn it_min_swaps_required() {
 
-        let exp_graph = exp_graph();
-
-        let res = mst(&graph);
-        println!("{}", graph_to_string(&exp_graph));
-        println!("{}", graph_to_string(&res));
-
-        // assert_eq!(res, exp_graph)
-        assert!(compare_as_map(&res, &exp_graph));
+        assert_eq!(min_swaps_required("0100101"), Some(2));
     }
 
-    /*
-            7 6
-            0: 0-1 2.0  0-2 3.0
-            1: 0-1 2.0  1-6 3.0
-            2: 2-4 1.0  0-2 3.0
-            3: 3-4 5.0
-            4: 2-4 1.0  3-4 5.0
-            5: 5-6 2.0
-            6: 5-6 2.0  1-6 3.0
-         */
     #[test]
-    fn test_mst1() {
-        let graph = create_graph1();
-        let graph_str = graph_to_string(&graph);
-        println!("{}", graph_str);
+    fn it_no_way_to_make_palindrom() {
 
-        let exp_graph = exp_graph1();
-
-        let res = mst(&graph);
-        println!("{}", graph_to_string(&exp_graph));
-        println!("{}", graph_to_string(&res));
-
-        // assert_eq!(res, exp_graph);
-        assert!(compare_as_map(&res, &exp_graph));
+        assert_eq!(min_swaps_required("1110"), None);
     }
 
+    #[test]
+    fn it_one_swap() {
+        assert_eq!(min_swaps_required("11101"), Some(1));
+    }
 }
