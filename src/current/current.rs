@@ -1,24 +1,28 @@
 
-pub fn top_k_frequent<'a>(_words: &[&'a str], _k: i32) -> Vec<&'a str> {
+pub fn river_sizes(_matrix: &[&[i32]]) -> Vec<i32> {
     vec![]
 }
+
 
 #[cfg(test)]
 mod tests {
 
-    use super::top_k_frequent;
+    use super::river_sizes;
 
     #[test]
-    pub fn test_top_k_frequent() {
-        let words = vec!["i","love","leetcode","i","love","coding"];
+    pub fn test_river_sizes() {
 
-        assert_eq!(top_k_frequent(&words, 2), vec!["i", "love"]);
-    }
+        let matrix: &[&[i32]] = &[
+            &[1, 0, 0, 1, 0],
+            &[1, 0, 1, 0, 1],
+            &[0, 0, 1, 0, 1],
+            &[1, 0, 1, 1, 0],
+            &[1, 0, 1, 0, 0],
+        ];
 
-    #[test]
-    pub fn test_top_k_frequent_for_4() {
-        let words = vec!["the","day","is","sunny","the","the","the","sunny","is","is"];
+        let res = river_sizes(matrix);
+        println!("{:?}", res);
 
-        assert_eq!(top_k_frequent(&words, 4), vec!["the","is","sunny","day"]);
+        assert_eq!(res, vec![2, 1, 5, 2, 2])
     }
 }
