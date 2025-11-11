@@ -1,28 +1,27 @@
 
-pub fn river_sizes(_matrix: &[&[i32]]) -> Vec<i32> {
-    vec![]
+pub fn water_area(_heights: &[i32]) -> i32 {
+    0
 }
 
+pub fn water_area1(_heights: &[i32]) -> i32 {
+    0
+}
 
 #[cfg(test)]
 mod tests {
+    use super::{water_area, water_area1};
 
-    use super::river_sizes;
+    const HEIGHTS: &[i32] = &[0, 8, 0, 0, 5, 0, 0, 10, 0, 0, 1, 1, 0, 3];
+
+    const EXP: i32 = 48;
 
     #[test]
-    pub fn test_river_sizes() {
+    fn test_water_area() {
+        assert_eq!(water_area(HEIGHTS), EXP)
+    }
 
-        let matrix: &[&[i32]] = &[
-            &[1, 0, 0, 1, 0],
-            &[1, 0, 1, 0, 1],
-            &[0, 0, 1, 0, 1],
-            &[1, 0, 1, 1, 0],
-            &[1, 0, 1, 0, 0],
-        ];
-
-        let res = river_sizes(matrix);
-        println!("{:?}", res);
-
-        assert_eq!(res, vec![2, 1, 5, 2, 2])
+    #[test]
+    fn test_water_area1() {
+        assert_eq!(water_area1(HEIGHTS), EXP)
     }
 }
