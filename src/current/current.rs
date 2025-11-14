@@ -1,19 +1,19 @@
 
 
-pub fn phone_number_mnemonics(src: &str) -> Vec<String> {
+pub fn minimal_heaviest_set_a(_arr: &[i32]) -> Vec<i32> {
     vec![]
 }
 
 #[cfg(test)]
 mod tests {
-    use super::phone_number_mnemonics;
+
+    use super::minimal_heaviest_set_a;
 
     #[test]
-    fn it_phone_number_mnemonics() {
-        let res = phone_number_mnemonics("1905");
-        println!("{:?}", res);
+    fn it_minimal_heaviest_set_a() {
 
-        assert_eq!(res, vec!["1w0j", "1w0k", "1w0l", "1x0j", "1x0k", "1x0l",
-                             "1y0j", "1y0k", "1y0l", "1z0j", "1z0k", "1z0l"]);
+        let arr = &[6, 4, 2, 3, 1, 5];
+
+        assert_eq!(minimal_heaviest_set_a(arr), vec![5, 6]);
     }
 }
