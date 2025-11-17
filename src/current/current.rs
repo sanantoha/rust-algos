@@ -1,38 +1,54 @@
 
-pub fn gcd(mut a: i32, mut b: i32) -> i32 {
-    0
+pub fn exists(board: &mut Vec<Vec<char>>, word: &str) -> bool {
+    false
 }
+
 
 #[cfg(test)]
 mod tests {
-    use super::gcd;
-
+    use super::exists;
 
     #[test]
-    fn test_gcd() {
-        let res = gcd(18, 6);
-        println!("{res}");
-        assert_eq!(res, 6);
+    fn it_exists() {
+        let mut board = vec![
+            vec!['A','B','C','E'],
+            vec!['S','F','C','S'],
+            vec!['A','D','E','E']
+        ];
+
+        assert!(exists(&mut board, "ABCCE"));
     }
 
     #[test]
-    fn test_gcd1() {
-        let res = gcd(18, 10);
-        println!("{res}");
-        assert_eq!(res, 2);
+    fn it_exists_case1() {
+        let mut board = vec![
+            vec!['A','B','C','E'],
+            vec!['S','F','E','S'],
+            vec!['A','D','E','E']
+        ];
+
+        assert!(exists(&mut board, "ABCESEEEFS"));
     }
 
     #[test]
-    fn test_gcd2() {
-        let res = gcd(17, 11);
-        println!("{res}");
-        assert_eq!(res, 1);
+    fn it_exists_case2() {
+        let mut board = vec![
+            vec!['A','B','C','E'],
+            vec!['S','F','E','S'],
+            vec!['A','D','E','E']
+        ];
+
+        assert!(exists(&mut board, "ABCEFSADEESE"));
     }
 
     #[test]
-    fn test_gcd3() {
-        let res = gcd(5, 15);
-        println!("{res}");
-        assert_eq!(res, 5);
+    fn it_exists_case3() {
+        let mut board = vec![
+            vec!['A','B','C','E'],
+            vec!['S','F','E','S'],
+            vec!['A','D','E','E']
+        ];
+
+        assert!(!exists(&mut board, "ABCEV"));
     }
 }
