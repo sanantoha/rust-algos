@@ -1,22 +1,39 @@
 
 
-pub fn reverse_string(arr: &mut [char]) {
-    
+pub fn rotate(arr: &mut Vec<Vec<i32>>) {
+
 }
 
 
 #[cfg(test)]
 mod tests {
 
-    use super::reverse_string;
+    use super::rotate;
 
     #[test]
-    fn it_reverse_string() {
+    fn it_rotate() {
 
-        let mut arr = ['h', 'e', 't', 'l', 'l', 'o'];
+        /*
+    1 2 3  =>  1 4 7  => 7 4 1
+    4 5 6  =>  2 5 8  => 8 5 2
+    7 8 9  =>  3 6 9  => 9 6 3
+        */
 
-        reverse_string(&mut arr);
+        let mut matrix = vec![
+            vec![1, 2, 3],
+            vec![4, 5, 6],
+            vec![7, 8, 9]
+        ];
 
-        assert_eq!(arr, ['o', 'l', 'l', 't', 'e', 'h']);
+        let exp = vec![
+            vec![7, 4, 1],
+            vec![8, 5, 2],
+            vec![9, 6, 3]
+        ];
+
+        rotate(&mut matrix);
+
+        println!("{:?}", matrix);
+        assert_eq!(matrix, exp)
     }
 }
