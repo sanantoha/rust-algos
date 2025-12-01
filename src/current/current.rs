@@ -1,99 +1,39 @@
-use std::cell::RefCell;
-use std::rc::Rc;
-use crate::list::ListNode;
 
-pub fn sort(head: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
-    None
+pub fn find_permutation(s1: &str, s2: &str) -> bool {
+    false
 }
 
-fn merge(left: Option<Rc<RefCell<ListNode>>>, right: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
-    None
-}
-
-fn get_mid(head: Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
-    None
+pub fn find_permutation1(s1: &str, s2: &str) -> bool {
+    false
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::list::{Displayable, ListNode};
-    use super::{merge, sort, get_mid};
+
+    use super::find_permutation;
+    use super::find_permutation1;
 
     #[test]
-    fn test_sort() {
-        let head = ListNode::with_next(4,
-                                       Some(ListNode::with_next(7,
-                                                                Some(ListNode::with_next(1,
-                                                                                         Some(ListNode::with_next(5,
-                                                                                                                  Some(ListNode::with_next(3,
-                                                                                                                                           Some(ListNode::new(2)))))))))));
+    fn it_find_permutation() {
 
-        let exp_head = ListNode::with_next(1,
-                                           Some(ListNode::with_next(2,
-                                                                    Some(ListNode::with_next(3,
-                                                                                             Some(ListNode::with_next(4,
-                                                                                                                      Some(ListNode::with_next(5,
-                                                                                                                                               Some(ListNode::new(7)))))))))));
-
-        let res = sort(Some(head));
-
-        if let Some(display) = Displayable::from_option(res.clone()) {
-            println!("{}", display);
-        }
-
-        assert_eq!(res, Some(exp_head));
+        assert!(find_permutation("abc", "hdflebacworld"));
     }
 
     #[test]
-    fn test_merge() {
-        let one = ListNode::with_next(10,
-                                      Some(ListNode::with_next(20,
-                                                               Some(ListNode::new(30)))));
+    fn it_find_permutation_case2() {
 
-        let two = ListNode::with_next(13,
-                                      Some(ListNode::with_next(15,
-                                                               Some(ListNode::with_next(33,
-                                                                                        Some(ListNode::new(34)))))));
-
-
-        let exp = ListNode::with_next(10,
-                                      Some(ListNode::with_next(13,
-                                                               Some(ListNode::with_next(15,
-                                                                                        Some(ListNode::with_next(20,
-                                                                                                                 Some(ListNode::with_next(30,
-                                                                                                                                          Some(ListNode::with_next(33,
-                                                                                                                                                                   Some(ListNode::new(34)))))))))))));
-
-        let res = merge(Some(one), Some(two));
-
-        if let Some(display) = Displayable::from_option(res.clone()) {
-            println!("{}", display);
-        }
-
-        assert_eq!(res, Some(exp));
+        assert!(find_permutation("abbc", "hbbcadflebdworld"));
     }
 
     #[test]
-    fn test_get_mid() {
-        let lst = ListNode::with_next(10,
-                                      Some(ListNode::with_next(13,
-                                                               Some(ListNode::with_next(15,
-                                                                                        Some(ListNode::with_next(20,
-                                                                                                                 Some(ListNode::with_next(30,
-                                                                                                                                          Some(ListNode::with_next(33,
-                                                                                                                                                                   Some(ListNode::new(34)))))))))))));
+    fn it_find_permutation1() {
 
-        let exp = ListNode::with_next(20,
-                                      Some(ListNode::with_next(30,
-                                                               Some(ListNode::with_next(33,
-                                                                                        Some(ListNode::new(34)))))));
+        assert!(find_permutation1("abc", "hdflebacworld"));
+    }
 
-        let res = get_mid(Some(lst));
+    #[test]
+    fn it_find_permutation1_case2() {
 
-        if let Some(display) = Displayable::from_option(res.clone()) {
-            println!("{}", display);
-        }
-
-        assert_eq!(res, Some(exp));
+        assert!(find_permutation1("abbc", "hbbcadflebdworld"));
     }
 }
