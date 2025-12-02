@@ -1,39 +1,81 @@
+use crate::tree::Node;
+use std::cell::RefCell;
+use std::rc::Rc;
 
-pub fn find_permutation(s1: &str, s2: &str) -> bool {
-    false
-}
 
-pub fn find_permutation1(s1: &str, s2: &str) -> bool {
-    false
+pub fn connect(root: Option<Rc<RefCell<Node>>>) -> Option<Rc<RefCell<Node>>> {
+    None
 }
 
 #[cfg(test)]
 mod tests {
-
-    use super::find_permutation;
-    use super::find_permutation1;
+    use super::connect;
+    use crate::tree::Node;
+    use std::cell::RefCell;
+    use std::rc::Rc;
 
     #[test]
-    fn it_find_permutation() {
+    fn test_connect() {
 
-        assert!(find_permutation("abc", "hdflebacworld"));
+        let root = Some(Rc::new(RefCell::new(Node::new_with(1,
+                                                            Some(Rc::new(RefCell::new(Node::new_with(2,
+                                                                                                     Some(Rc::new(RefCell::new(Node::new(4)))),
+                                                                                                     Some(Rc::new(RefCell::new(Node::new(5)))),
+                                                                                                     None
+                                                            )))),
+                                                            Some(Rc::new(RefCell::new(Node::new_with(3,
+                                                                                                     Some(Rc::new(RefCell::new(Node::new(6)))),
+                                                                                                     Some(Rc::new(RefCell::new(Node::new(7)))),
+                                                                                                     None
+                                                            )))),
+                                                            None
+        ))));
+
+
+        let exp = create_exp_tree();
+
+        let res = connect(root.as_ref().map(Rc::clone));
+        assert_eq!(res, exp);
     }
 
-    #[test]
-    fn it_find_permutation_case2() {
+    fn create_exp_tree() -> Option<Rc<RefCell<Node>>> {
+        let node2 = Some(Rc::new(RefCell::new(Node::new(2))));
+        let node4 = Some(Rc::new(RefCell::new(Node::new(4))));
+        let node5 = Some(Rc::new(RefCell::new(Node::new(5))));
 
-        assert!(find_permutation("abbc", "hbbcadflebdworld"));
-    }
+        let node3 = Some(Rc::new(RefCell::new(Node::new(3))));
+        let node6 = Some(Rc::new(RefCell::new(Node::new(6))));
+        let node7 = Some(Rc::new(RefCell::new(Node::new(7))));
 
-    #[test]
-    fn it_find_permutation1() {
+        if let Some(node2_) = node2.as_ref() {
+            node2_.borrow_mut().parent = node3.as_ref().map(Rc::clone);
+            node2_.borrow_mut().left = node4.as_ref().map(Rc::clone);
+            node2_.borrow_mut().right = node5.as_ref().map(Rc::clone);
+        }
 
-        assert!(find_permutation1("abc", "hdflebacworld"));
-    }
+        if let Some(node3_) = node3.as_ref() {
+            node3_.borrow_mut().left = node6.as_ref().map(Rc::clone);
+            node3_.borrow_mut().right = node7.as_ref().map(Rc::clone);
+        }
 
-    #[test]
-    fn it_find_permutation1_case2() {
+        if let Some(node4_) = node4.as_ref() {
+            node4_.borrow_mut().parent = node5.as_ref().map(Rc::clone);
+        }
 
-        assert!(find_permutation1("abbc", "hbbcadflebdworld"));
+        if let Some(node5_) = node5.as_ref() {
+            node5_.borrow_mut().parent = node6.as_ref().map(Rc::clone);
+        }
+
+        if let Some(node6_) = node6.as_ref() {
+            node6_.borrow_mut().parent = node7.as_ref().map(Rc::clone);
+        }
+
+        let exp = Some(Rc::new(RefCell::new(Node::new_with(1,
+                                                           node2.as_ref().map(Rc::clone),
+                                                           node3.as_ref().map(Rc::clone),
+                                                           None
+        ))));
+
+        exp
     }
 }
