@@ -1,79 +1,33 @@
-use std::cell::RefCell;
-use std::rc::Rc;
-use crate::graph::Node;
 
-pub fn clone_graph(node: Rc<RefCell<Node>>) -> Option<Rc<RefCell<Node>>> {
+pub fn kth_smallest_element_in_array(arr: &mut [usize], k: usize) -> Option<usize> {
     None
 }
 
 #[cfg(test)]
 mod tests {
-    use std::cell::RefCell;
-    use std::rc::Rc;
-    use super::clone_graph;
-    use crate::graph::Node;
+    use super::kth_smallest_element_in_array;
 
     #[test]
-    fn test_clone_graph() {
-        let node1 = Rc::new(RefCell::new(Node::new(1)));
-        let node2 = Rc::new(RefCell::new(Node::new(2)));
-        let node3 = Rc::new(RefCell::new(Node::new(3)));
-        let node4 = Rc::new(RefCell::new(Node::new(4)));
+    fn test_kth_smallest_element_in_array() {
+        let mut arr: Vec<usize> = vec![8, 2, 1, 6, 9, 3, 45, 6, 7, 13];
+        let mut arr_copy: Vec<usize> = arr.clone();
+        arr_copy.sort();
 
-        node1.borrow_mut().neighbors.push(Rc::clone(&node2));
-        node1.borrow_mut().neighbors.push(Rc::clone(&node4));
-
-        node2.borrow_mut().neighbors.push(Rc::clone(&node1));
-        node2.borrow_mut().neighbors.push(Rc::clone(&node3));
-
-        node3.borrow_mut().neighbors.push(Rc::clone(&node2));
-        node3.borrow_mut().neighbors.push(Rc::clone(&node4));
-
-        node4.borrow_mut().neighbors.push(Rc::clone(&node1));
-        node4.borrow_mut().neighbors.push(Rc::clone(&node3));
-
-        let cloned_graph = clone_graph(Rc::clone(&node1));
-
-        match &cloned_graph {
-            Some(copy_node1) => {
-                assert_eq!(copy_node1.borrow().val, 1);
-                assert!(!Rc::ptr_eq(copy_node1, &node1));
-                assert_eq!(copy_node1.borrow().neighbors.len(), 2);
-
-                let copy_node2 = Rc::clone(copy_node1.borrow().neighbors.get(0).unwrap());
-                let copy_node4 = Rc::clone(copy_node1.borrow().neighbors.get(1).unwrap());
-
-                assert_eq!(copy_node2.borrow().val, 2);
-                assert!(!Rc::ptr_eq(&copy_node2, &node2));
-                assert_eq!(copy_node2.borrow().neighbors.len(), 2);
-
-                assert_eq!(copy_node4.borrow().val, 4);
-                assert!(!Rc::ptr_eq(&copy_node4, &node4));
-                assert_eq!(copy_node4.borrow().neighbors.len(), 2);
-
-                let copy_node11 = Rc::clone(copy_node2.borrow().neighbors.get(0).unwrap());
-                let copy_node3 = Rc::clone(copy_node2.borrow().neighbors.get(1).unwrap());
-
-                assert_eq!(copy_node11.borrow().val, 1);
-                assert!(!Rc::ptr_eq(&copy_node11, &node1));
-                assert!(Rc::ptr_eq(&copy_node11, &copy_node1));
-                assert_eq!(copy_node11.borrow().neighbors.len(), 2);
-
-                assert_eq!(copy_node3.borrow().val, 3);
-                assert!(!Rc::ptr_eq(&copy_node3, &node3));
-                assert_eq!(copy_node3.borrow().neighbors.len(), 2);
-
-                let copy_node22 = Rc::clone(copy_node3.borrow().neighbors.get(0).unwrap());
-                let copy_node44 = Rc::clone(copy_node3.borrow().neighbors.get(1).unwrap());
-                assert!(Rc::ptr_eq(&copy_node22, &copy_node2));
-                assert!(Rc::ptr_eq(&copy_node44, &copy_node4));
-
-                let copy_node33 = Rc::clone(copy_node4.borrow().neighbors.get(1).unwrap());
-                assert!(Rc::ptr_eq(&copy_node33, &copy_node3));
-            }
-            None => {
-                assert!(false);
-            }
+        for i in 0..arr.len() {
+            let exp = arr_copy[i];
+            assert_eq!(kth_smallest_element_in_array(&mut arr, i + 1), Some(exp));
         }
+    }
+
+    #[test]
+    fn test_kth_smallest_element_in_array_case1() {
+        let mut arr: Vec<usize> = vec![1, 2, 3];
+        assert_eq!(kth_smallest_element_in_array(&mut arr, 0), None);
+    }
+
+    #[test]
+    fn test_kth_smallest_element_in_array_case2() {
+        let mut arr: Vec<usize> = vec![1, 2, 3];
+        assert_eq!(kth_smallest_element_in_array(&mut arr, 11), None);
     }
 }
