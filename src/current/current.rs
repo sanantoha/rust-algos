@@ -1,33 +1,46 @@
 
-pub fn kth_smallest_element_in_array(arr: &mut [usize], k: usize) -> Option<usize> {
+
+pub fn subarray_sort(arr: &[i32]) -> Option<(usize, usize)> {
     None
+}
+
+fn is_out_of_order(arr: &[i32], idx: usize) -> bool {
+    if arr.len() <= 1 {
+        return false;
+    }
+
+    if idx == 0 {
+        arr[idx] > arr[idx + 1]
+    } else if idx == arr.len() - 1 {
+        arr[idx - 1] > arr[idx]
+    } else {
+        arr[idx - 1] > arr[idx] || arr[idx] > arr[idx + 1]
+    }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::kth_smallest_element_in_array;
+
+    use super::subarray_sort;
 
     #[test]
-    fn test_kth_smallest_element_in_array() {
-        let mut arr: Vec<usize> = vec![8, 2, 1, 6, 9, 3, 45, 6, 7, 13];
-        let mut arr_copy: Vec<usize> = arr.clone();
-        arr_copy.sort();
+    fn it_subarray_sort() {
+        let arr = &[1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19];
 
-        for i in 0..arr.len() {
-            let exp = arr_copy[i];
-            assert_eq!(kth_smallest_element_in_array(&mut arr, i + 1), Some(exp));
-        }
+        assert_eq!(subarray_sort(arr), Some((3, 9)));
     }
 
     #[test]
-    fn test_kth_smallest_element_in_array_case1() {
-        let mut arr: Vec<usize> = vec![1, 2, 3];
-        assert_eq!(kth_smallest_element_in_array(&mut arr, 0), None);
+    fn it_subarray_sort_case() {
+        let arr = &[1, 2, 4, 7, 10, 11, 7, 12, 7, 7, 16, 18, 19];
+
+        assert_eq!(subarray_sort(arr), Some((4, 9)));
     }
 
     #[test]
-    fn test_kth_smallest_element_in_array_case2() {
-        let mut arr: Vec<usize> = vec![1, 2, 3];
-        assert_eq!(kth_smallest_element_in_array(&mut arr, 11), None);
+    fn it_subarray_sort_case1() {
+        let arr = &[1, 2];
+
+        assert_eq!(subarray_sort(arr), None);
     }
 }
