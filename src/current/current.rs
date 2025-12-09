@@ -1,32 +1,40 @@
 
-
-pub fn subarray_sort(arr: &[i32]) -> Option<(usize, usize)> {
-    None
+pub fn string_without_aaa_bbb(mut a: usize, mut b: usize) -> String {
+    "".to_owned()
 }
 
 #[cfg(test)]
 mod tests {
 
-    use super::subarray_sort;
+    use super::string_without_aaa_bbb;
 
     #[test]
-    fn it_subarray_sort() {
-        let arr = &[1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19];
-
-        assert_eq!(subarray_sort(arr), Some((3, 9)));
+    fn test_string_without_aaa_bbb() {
+        assert_eq!(string_without_aaa_bbb(1, 1), "ab");
     }
 
     #[test]
-    fn it_subarray_sort_case() {
-        let arr = &[1, 2, 4, 7, 10, 11, 7, 12, 7, 7, 16, 18, 19];
-
-        assert_eq!(subarray_sort(arr), Some((4, 9)));
+    fn test_string_without_aaa_bbb_case1() {
+        assert_eq!(string_without_aaa_bbb(3, 3), "abbaab");
     }
 
     #[test]
-    fn it_subarray_sort_case1() {
-        let arr = &[1, 2];
+    fn test_string_without_aaa_bbb_case2() {
+        assert_eq!(string_without_aaa_bbb(2, 5), "babbabb");
+    }
 
-        assert_eq!(subarray_sort(arr), None);
+    #[test]
+    fn test_string_without_aaa_bbb_case3() {
+        assert_eq!(string_without_aaa_bbb(5, 3), "aabaabab");
+    }
+
+    #[test]
+    fn test_string_without_aaa_bbb_case4() {
+        assert_eq!(string_without_aaa_bbb(3, 3), "abbaab");
+    }
+
+    #[test]
+    fn test_string_without_aaa_bbb_case5() {
+        assert_eq!(string_without_aaa_bbb(1, 4), "bbabb");
     }
 }
