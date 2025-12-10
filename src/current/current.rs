@@ -1,40 +1,33 @@
+use crate::tree::TreeNode;
 
-pub fn string_without_aaa_bbb(mut a: usize, mut b: usize) -> String {
-    "".to_owned()
+pub fn zig_zag(root: &Option<Box<TreeNode>>) -> Vec<Vec<i32>> {
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
-
-    use super::string_without_aaa_bbb;
-
-    #[test]
-    fn test_string_without_aaa_bbb() {
-        assert_eq!(string_without_aaa_bbb(1, 1), "ab");
-    }
+    use crate::tree::TreeNode;
+    use super::zig_zag;
 
     #[test]
-    fn test_string_without_aaa_bbb_case1() {
-        assert_eq!(string_without_aaa_bbb(3, 3), "abbaab");
-    }
+    fn test_zig_zag() {
 
-    #[test]
-    fn test_string_without_aaa_bbb_case2() {
-        assert_eq!(string_without_aaa_bbb(2, 5), "babbabb");
-    }
+        let root = Some(
+            Box::new(TreeNode::new(5,
+                                   Some(Box::new(TreeNode::new(2,
+                                                               Some(Box::new(TreeNode::leaf(1))),
+                                                               Some(Box::new(TreeNode::leaf(3)))
+                                   ))),
+                                   Some(Box::new(TreeNode::new(10,
+                                                               Some(Box::new(TreeNode::leaf(7))),
+                                                               Some(Box::new(TreeNode::new(15,
+                                                                                           Some(Box::new(TreeNode::leaf(14))),
+                                                                                           Some(Box::new(TreeNode::leaf(17)))
+                                                               )))
+                                   )))
+            ))
+        );
 
-    #[test]
-    fn test_string_without_aaa_bbb_case3() {
-        assert_eq!(string_without_aaa_bbb(5, 3), "aabaabab");
-    }
-
-    #[test]
-    fn test_string_without_aaa_bbb_case4() {
-        assert_eq!(string_without_aaa_bbb(3, 3), "abbaab");
-    }
-
-    #[test]
-    fn test_string_without_aaa_bbb_case5() {
-        assert_eq!(string_without_aaa_bbb(1, 4), "bbabb");
+        assert_eq!(zig_zag(&root), vec![vec![5], vec![10, 2], vec![1, 3, 7, 15], vec![17, 14]]);
     }
 }
