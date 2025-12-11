@@ -1,63 +1,44 @@
 
-pub fn is_match(s: &str, p: &str) -> bool {
-    false
+pub fn largest_island(matrix: &[&[i32]]) -> i32 {
+    0
 }
 
-pub fn is_match_iter(s: &str, p: &str) -> bool {
-    false
+pub fn largest_island1(matrix: &mut [&mut [i32]]) -> i32 {
+    0
 }
+
 
 #[cfg(test)]
 mod tests {
-    use super::{is_match, is_match_iter};
+    use super::{largest_island, largest_island1};
+
+    const MATRIX: &[&[i32]] = &[
+        &[1, 0, 1, 0, 0],
+        &[0, 0, 1, 1, 0],
+        &[0, 1, 1, 1, 1],
+        &[1, 0, 1, 0, 0],
+    ];
+
+    const EXP: i32 = 8;
 
     #[test]
-    fn test_is_match() {
-        assert!(!is_match("aa", "a"));
+    fn test_largest_island() {
+
+        assert_eq!(largest_island(MATRIX), EXP);
     }
 
     #[test]
-    fn test_is_match_case1() {
-        assert!(is_match("aa", "a*"));
-    }
+    fn test_largest_island1() {
+        // let mut matrix: Vec<Vec<i32>> = MATRIX.to_vec().into_iter().map(|v| v.to_vec()).collect();
+        let mut matrix: Vec<Vec<i32>> = vec![
+            vec![1, 0, 1, 0, 0],
+            vec![0, 0, 1, 1, 0],
+            vec![0, 1, 1, 1, 1],
+            vec![1, 0, 1, 0, 0],
+        ];
 
-    #[test]
-    fn test_is_match_case2() {
-        assert!(is_match("abcde", ".*"));
-    }
+        let mut mut_matrix: Vec<&mut [i32]> = matrix.iter_mut().map(|row| row.as_mut_slice()).collect();
 
-    #[test]
-    fn test_is_match_case3() {
-        assert!(is_match("abcde", ".*de"));
-    }
-
-    #[test]
-    fn test_is_match_case4() {
-        assert!(!is_match("abcde", ".*dk"));
-    }
-
-    #[test]
-    fn test_is_match_iter() {
-        assert!(!is_match_iter("aa", "a"));
-    }
-
-    #[test]
-    fn test_is_match_iter_case1() {
-        assert!(is_match_iter("aa", "a*"));
-    }
-
-    #[test]
-    fn test_is_match_iter_case2() {
-        assert!(is_match_iter("abcde", ".*"));
-    }
-
-    #[test]
-    fn test_is_match_iter_case3() {
-        assert!(is_match_iter("abcde", ".*de"));
-    }
-
-    #[test]
-    fn test_is_match_iter_case4() {
-        assert!(!is_match_iter("abcde", ".*dk"));
+        assert_eq!(largest_island1(&mut mut_matrix), EXP);
     }
 }
