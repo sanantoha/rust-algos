@@ -1,33 +1,63 @@
-use crate::tree::TreeNode;
 
-pub fn zig_zag(root: &Option<Box<TreeNode>>) -> Vec<Vec<i32>> {
-    vec![]
+pub fn is_match(s: &str, p: &str) -> bool {
+    false
+}
+
+pub fn is_match_iter(s: &str, p: &str) -> bool {
+    false
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::zig_zag;
+    use super::{is_match, is_match_iter};
 
     #[test]
-    fn test_zig_zag() {
+    fn test_is_match() {
+        assert!(!is_match("aa", "a"));
+    }
 
-        let root = Some(
-            Box::new(TreeNode::new(5,
-                                   Some(Box::new(TreeNode::new(2,
-                                                               Some(Box::new(TreeNode::leaf(1))),
-                                                               Some(Box::new(TreeNode::leaf(3)))
-                                   ))),
-                                   Some(Box::new(TreeNode::new(10,
-                                                               Some(Box::new(TreeNode::leaf(7))),
-                                                               Some(Box::new(TreeNode::new(15,
-                                                                                           Some(Box::new(TreeNode::leaf(14))),
-                                                                                           Some(Box::new(TreeNode::leaf(17)))
-                                                               )))
-                                   )))
-            ))
-        );
+    #[test]
+    fn test_is_match_case1() {
+        assert!(is_match("aa", "a*"));
+    }
 
-        assert_eq!(zig_zag(&root), vec![vec![5], vec![10, 2], vec![1, 3, 7, 15], vec![17, 14]]);
+    #[test]
+    fn test_is_match_case2() {
+        assert!(is_match("abcde", ".*"));
+    }
+
+    #[test]
+    fn test_is_match_case3() {
+        assert!(is_match("abcde", ".*de"));
+    }
+
+    #[test]
+    fn test_is_match_case4() {
+        assert!(!is_match("abcde", ".*dk"));
+    }
+
+    #[test]
+    fn test_is_match_iter() {
+        assert!(!is_match_iter("aa", "a"));
+    }
+
+    #[test]
+    fn test_is_match_iter_case1() {
+        assert!(is_match_iter("aa", "a*"));
+    }
+
+    #[test]
+    fn test_is_match_iter_case2() {
+        assert!(is_match_iter("abcde", ".*"));
+    }
+
+    #[test]
+    fn test_is_match_iter_case3() {
+        assert!(is_match_iter("abcde", ".*de"));
+    }
+
+    #[test]
+    fn test_is_match_iter_case4() {
+        assert!(!is_match_iter("abcde", ".*dk"));
     }
 }
