@@ -1,44 +1,31 @@
+use crate::list::ListNode;
+use std::cell::RefCell;
+use std::rc::Rc;
 
-pub fn largest_island(matrix: &[&[i32]]) -> i32 {
-    0
-}
-
-pub fn largest_island1(matrix: &mut [&mut [i32]]) -> i32 {
-    0
+pub fn add_two_numbers(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
+    None
 }
 
 
 #[cfg(test)]
 mod tests {
-    use super::{largest_island, largest_island1};
-
-    const MATRIX: &[&[i32]] = &[
-        &[1, 0, 1, 0, 0],
-        &[0, 0, 1, 1, 0],
-        &[0, 1, 1, 1, 1],
-        &[1, 0, 1, 0, 0],
-    ];
-
-    const EXP: i32 = 8;
+    use super::add_two_numbers;
+    use crate::list::Displayable;
+    use crate::list::ListNode;
 
     #[test]
-    fn test_largest_island() {
+    pub fn test_add_two_numbers() {
 
-        assert_eq!(largest_island(MATRIX), EXP);
-    }
 
-    #[test]
-    fn test_largest_island1() {
-        // let mut matrix: Vec<Vec<i32>> = MATRIX.to_vec().into_iter().map(|v| v.to_vec()).collect();
-        let mut matrix: Vec<Vec<i32>> = vec![
-            vec![1, 0, 1, 0, 0],
-            vec![0, 0, 1, 1, 0],
-            vec![0, 1, 1, 1, 1],
-            vec![1, 0, 1, 0, 0],
-        ];
+        let l1 = Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::with_next(9, Some(ListNode::new(9))))))));
+        let l2 = Some(ListNode::with_next(7, Some(ListNode::with_next(3, Some(ListNode::new(2))))));
 
-        let mut mut_matrix: Vec<&mut [i32]> = matrix.iter_mut().map(|row| row.as_mut_slice()).collect();
+        let exp = Some(ListNode::with_next(8, Some(ListNode::with_next(3, Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::new(1))))))))));
 
-        assert_eq!(largest_island1(&mut mut_matrix), EXP);
+        let res = add_two_numbers(&l1, &l2);
+        if let Some(disp_list_node) = Displayable::from_option(res.clone()) {
+            println!("{}", disp_list_node);
+        }
+        assert_eq!(res, exp);
     }
 }
