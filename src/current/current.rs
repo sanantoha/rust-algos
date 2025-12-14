@@ -1,31 +1,48 @@
-use crate::list::ListNode;
-use std::cell::RefCell;
+use std::collections::{HashMap, HashSet};
 use std::rc::Rc;
+use crate::graph::EdgeT;
 
-pub fn add_two_numbers(l1: &Option<Rc<RefCell<ListNode>>>, l2: &Option<Rc<RefCell<ListNode>>>) -> Option<Rc<RefCell<ListNode>>> {
-    None
+pub fn dfs_rec<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
+    vec![]
+}
+
+
+pub fn dfs<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
+    vec![]
 }
 
 
 #[cfg(test)]
 mod tests {
-    use super::add_two_numbers;
-    use crate::list::Displayable;
-    use crate::list::ListNode;
+    use std::path::PathBuf;
+    use super::{dfs_rec, dfs};
+    use crate::graph::{graph_from_file, graph_to_string};
+
+    const PATH: &str = "src/graph/dfs.txt";
+
+    const EXP: &[&str] = &["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"];
 
     #[test]
-    pub fn test_add_two_numbers() {
+    fn it_dfs_rec() {
+        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
+            let graph_str = graph_to_string(&graph);
+            println!("{}", graph_str);
 
-
-        let l1 = Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::with_next(9, Some(ListNode::new(9))))))));
-        let l2 = Some(ListNode::with_next(7, Some(ListNode::with_next(3, Some(ListNode::new(2))))));
-
-        let exp = Some(ListNode::with_next(8, Some(ListNode::with_next(3, Some(ListNode::with_next(1, Some(ListNode::with_next(0, Some(ListNode::new(1))))))))));
-
-        let res = add_two_numbers(&l1, &l2);
-        if let Some(disp_list_node) = Displayable::from_option(res.clone()) {
-            println!("{}", disp_list_node);
+            let res = dfs_rec(&graph, "0");
+            println!("{:?}", res);
+            assert_eq!(res, EXP)
         }
-        assert_eq!(res, exp);
+    }
+
+    #[test]
+    fn it_dfs() {
+        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
+            let graph_str = graph_to_string(&graph);
+            println!("{}", graph_str);
+
+            let res = dfs(&graph, "0");
+            println!("{:?}", res);
+            assert_eq!(res, EXP)
+        }
     }
 }
