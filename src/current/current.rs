@@ -1,48 +1,70 @@
-use std::collections::{HashMap, HashSet};
-use std::rc::Rc;
-use crate::graph::EdgeT;
 
-pub fn dfs_rec<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
-    vec![]
+pub fn solve(board: &mut [&mut [char]]) {
+
 }
-
-
-pub fn dfs<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
-    vec![]
-}
-
 
 #[cfg(test)]
 mod tests {
-    use std::path::PathBuf;
-    use super::{dfs_rec, dfs};
-    use crate::graph::{graph_from_file, graph_to_string};
-
-    const PATH: &str = "src/graph/dfs.txt";
-
-    const EXP: &[&str] = &["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"];
+    use super::solve;
 
     #[test]
-    fn it_dfs_rec() {
-        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
-            let graph_str = graph_to_string(&graph);
-            println!("{}", graph_str);
+    fn test_solve() {
+        let board: &mut [&mut [char]] = &mut[
+            &mut ['X','X','X','X'],
+            &mut ['X','O','O','X'],
+            &mut ['X','X','O','X'],
+            &mut ['X','O','X','X'],
+        ];
 
-            let res = dfs_rec(&graph, "0");
-            println!("{:?}", res);
-            assert_eq!(res, EXP)
-        }
+        let exp: &[&[char]] = &[
+            &['X','X','X','X'],
+            &['X','X','X','X'],
+            &['X','X','X','X'],
+            &['X','O','X','X'],
+        ];
+
+        solve(board);
+
+        assert_eq!(board, exp);
     }
 
     #[test]
-    fn it_dfs() {
-        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
-            let graph_str = graph_to_string(&graph);
-            println!("{}", graph_str);
+    fn test_solve_case1() {
+        let board: &mut [&mut [char]] = &mut[
+            &mut ['O', 'O', 'O'],
+            &mut ['O', 'O', 'O'],
+            &mut ['O', 'O', 'O'],
+        ];
 
-            let res = dfs(&graph, "0");
-            println!("{:?}", res);
-            assert_eq!(res, EXP)
-        }
+        let exp: &[&[char]] = &[
+            &['O', 'O', 'O'],
+            &['O', 'O', 'O'],
+            &['O', 'O', 'O'],
+        ];
+
+        solve(board);
+
+        assert_eq!(board, exp);
+    }
+
+    #[test]
+    fn test_solve_case2() {
+        let board: &mut [&mut [char]] = &mut [
+            &mut ['X','O','X','O','X','O'],
+            &mut ['O','X','O','X','O','X'],
+            &mut ['X','O','X','O','X','O'],
+            &mut ['O','X','O','X','O','X'],
+        ];
+
+        let exp: &[&[char]] = &[
+            &['X','O','X','O','X','O'],
+            &['O','X','X','X','X','X'],
+            &['X','X','X','X','X','O'],
+            &['O','X','O','X','O','X'],
+        ];
+
+        solve(board);
+
+        assert_eq!(board, exp);
     }
 }
