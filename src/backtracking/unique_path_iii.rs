@@ -1,5 +1,5 @@
 
-// O(w * h) time | O(w * h) space
+// O(3 ^ n) time | O(n) space
 pub fn unique_path_iii(grid: &mut Vec<Vec<i32>>) -> i32 {
 
     let mut start_row = 0;

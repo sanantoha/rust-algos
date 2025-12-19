@@ -1,20 +1,21 @@
 
-pub fn unique_path_iii(grid: &mut Vec<Vec<i32>>) -> i32 {
-    0
+pub fn sqrt(n: i32) -> i32 {
+
+    -1
 }
 
 #[cfg(test)]
 mod tests {
-    use super::unique_path_iii;
+
+    use super::sqrt;
 
     #[test]
-    fn it_unique_path_iii() {
-        let mut grid = vec![
-            vec![1, 0, 0, 0],
-            vec![0, 0, 0, 0],
-            vec![0, 0, 2, -1]
-        ];
+    fn test_sqrt() {
+        assert_eq!(sqrt(16), 4);
+    }
 
-        assert_eq!(unique_path_iii(&mut grid), 2);
+    #[test]
+    fn test_sqrt_case1() {
+        assert_eq!(sqrt(8), 2);
     }
 }
