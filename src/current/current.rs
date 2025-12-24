@@ -1,77 +1,32 @@
+use crate::tree::TreeNode;
 
-pub fn rotate(arr: &mut [i32], k: i32) {
-    
-}
 
-pub fn rotate1(arr: &mut [i32], k: i32) {
-    
+pub fn evaluate_expression_tree(tree: &Option<Box<TreeNode>>) -> i32 {
+    0
 }
 
 #[cfg(test)]
 mod tests {
-
-    use super::rotate;
-    use super::rotate1;
-
-    #[test]
-    fn it_rotate_arr() {
-        let mut arr = [1, 2, 3, 4, 5, 6, 7];
-
-        rotate(&mut arr, 3);
-
-        println!("{arr:?}");
-        assert_eq!(arr, [5, 6, 7, 1, 2, 3, 4])
-    }
+    use crate::tree::TreeNode;
+    use super::evaluate_expression_tree;
 
     #[test]
-    fn it_rotate_arr1() {
-        let mut arr = [-1,-100,3,99];
+    fn test_evaluate_expression_tree() {
 
-        rotate(&mut arr, 2);
+        let root = Some(Box::new(TreeNode::new(-1,
+                                               Some(Box::new(TreeNode::new(-2,
+                                                                           Some(Box::new(TreeNode::new(-4,
+                                                                                                       Some(Box::new(TreeNode::leaf(3))),
+                                                                                                       Some(Box::new(TreeNode::leaf(2)))
+                                                                           ))),
+                                                                           Some(Box::new(TreeNode::leaf(2)))
+                                               ))),
+                                               Some(Box::new(TreeNode::new(-3,
+                                                                           Some(Box::new(TreeNode::leaf(8))),
+                                                                           Some(Box::new(TreeNode::leaf(3)))
+                                               )))
+        )));
 
-        println!("{arr:?}");
-        assert_eq!(arr, [3, 99, -1, -100])
+        assert_eq!(evaluate_expression_tree(&root), 6);
     }
-
-    #[test]
-    fn it_rotate_arr2() {
-        let mut arr = [1, 2, 3];
-
-        rotate(&mut arr, 2);
-
-        println!("{arr:?}");
-        assert_eq!(arr, [2, 3, 1])
-    }
-
-    #[test]
-    fn it_rotate1_arr() {
-        let mut arr = [1, 2, 3, 4, 5, 6, 7];
-
-        rotate1(&mut arr, 3);
-
-        println!("{arr:?}");
-        assert_eq!(arr, [5, 6, 7, 1, 2, 3, 4])
-    }
-
-    #[test]
-    fn it_rotate1_arr1() {
-        let mut arr = [-1,-100,3,99];
-
-        rotate1(&mut arr, 2);
-
-        println!("{arr:?}");
-        assert_eq!(arr, [3, 99, -1, -100])
-    }
-
-    #[test]
-    fn it_rotate1_arr2() {
-        let mut arr = [1, 2, 3];
-
-        rotate1(&mut arr, 2);
-
-        println!("{arr:?}");
-        assert_eq!(arr, [2, 3, 1])
-    }
-
-
 }
