@@ -1,32 +1,32 @@
-use crate::tree::TreeNode;
+use std::i32;
 
 
-pub fn evaluate_expression_tree(tree: &Option<Box<TreeNode>>) -> i32 {
-    0
+pub fn valid_starting_city(distances: &[i32], fuel: &[i32], mpg: i32) -> Option<usize> {
+    None
+}
+
+pub fn valid_starting_city1(distances: &[i32], fuel: &[i32], mpg: i32) -> Option<usize> {
+    None
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::evaluate_expression_tree;
+
+    use super::valid_starting_city;
+    use super::valid_starting_city1;
+
+    const DISTANCES: &[i32] = &[5, 25, 15, 10, 15];
+    const FUEL: &[i32] = &[1, 2, 1, 0, 3];
+    const MPG: i32 = 10;
+    const EXP: usize = 4;
 
     #[test]
-    fn test_evaluate_expression_tree() {
+    fn it_valid_starting_city() {
+        assert_eq!(valid_starting_city(DISTANCES, FUEL, MPG), Some(EXP));
+    }
 
-        let root = Some(Box::new(TreeNode::new(-1,
-                                               Some(Box::new(TreeNode::new(-2,
-                                                                           Some(Box::new(TreeNode::new(-4,
-                                                                                                       Some(Box::new(TreeNode::leaf(3))),
-                                                                                                       Some(Box::new(TreeNode::leaf(2)))
-                                                                           ))),
-                                                                           Some(Box::new(TreeNode::leaf(2)))
-                                               ))),
-                                               Some(Box::new(TreeNode::new(-3,
-                                                                           Some(Box::new(TreeNode::leaf(8))),
-                                                                           Some(Box::new(TreeNode::leaf(3)))
-                                               )))
-        )));
-
-        assert_eq!(evaluate_expression_tree(&root), 6);
+    #[test]
+    fn it_valid_starting_city1() {
+        assert_eq!(valid_starting_city1(DISTANCES, FUEL, MPG), Some(EXP));
     }
 }
