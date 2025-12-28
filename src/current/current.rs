@@ -1,76 +1,51 @@
-use std::cell::RefCell;
+use crate::graph::EdgeT;
+use std::collections::HashMap;
 use std::rc::Rc;
 
-use crate::list::ArbListNode;
 
+pub fn dfs_rec<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
 
-pub fn deep_copy(head: &Rc<RefCell<ArbListNode>>) -> Option<Rc<RefCell<ArbListNode>>> {
-    None
+    vec![]
 }
+
+pub fn dfs<'a>(graph: &'a HashMap<String, Vec<Rc<EdgeT<String>>>>, start: &'a str) -> Vec<&'a str> {
+    vec![]
+}
+
 
 #[cfg(test)]
 mod tests {
+    use std::path::PathBuf;
 
-    use super::deep_copy;
-    use crate::list::ArbListNode;
-    use std::{cell::RefCell, rc::Rc};
-    use crate::list::Displayable;
+    use super::dfs;
+    use super::dfs_rec;
+    use crate::graph::{graph_from_file, graph_to_string};
+
+    const PATH: &str = "src/graph/dfs.txt";
+
+    const EXP: &[&str] = &["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"];
 
     #[test]
-    fn it_deep_copy() {
-        let root = ArbListNode::new(1);
-        let second = ArbListNode::new(2);
-        let third = ArbListNode::new(3);
-        let four = ArbListNode::new(4);
-        let five = ArbListNode::new(5);
+    fn it_dfs_rec() {
+        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
+            let graph_str = graph_to_string(&graph);
+            println!("{}", graph_str);
 
-        root.borrow_mut().next = Some(Rc::clone(&second));
-        second.borrow_mut().next = Some(Rc::clone(&third));
-        third.borrow_mut().next = Some(Rc::clone(&four));
-        four.borrow_mut().next = Some(Rc::clone(&five));
-
-        second.borrow_mut().arb = Some(Rc::clone(&five));
-        third.borrow_mut().arb = Some(Rc::clone(&root));
-        five.borrow_mut().arb = Some(Rc::clone(&second));
-
-
-        // ArbitraryListNode copy = deepCopy(root);
-        let copy = deep_copy(&root);
-        assert!(copy.is_some());
-        if let Some(node) = copy {
-            println!("root: {}", Displayable::new(Rc::clone(&root)));
-            println!("copy: {}", Displayable::new(Rc::clone(&node)));
-            assert_arb_list_node(&root, &node);
+            let res = dfs_rec(&graph, "0");
+            println!("{:?}", res);
+            assert_eq!(res, EXP)
         }
-
     }
 
-    fn assert_arb_list_node(root: &Rc<RefCell<ArbListNode>>, copy: &Rc<RefCell<ArbListNode>>) {
+    #[test]
+    fn it_dfs() {
+        if let Ok(graph) = graph_from_file(PathBuf::from(PATH)) {
+            let graph_str = graph_to_string(&graph);
+            println!("{}", graph_str);
 
-        let mut curr = Some(Rc::clone(root));
-        let mut curr_copy = Some(Rc::clone(copy));
-
-        while let (Some(node), Some(node_copy)) = (curr.take(), curr_copy.take()) {
-
-            assert_eq!(node.borrow().val, node_copy.borrow().val); // copied value should be the same
-            assert!(!Rc::ptr_eq(&node, &node_copy)); // failed if the same pointer means copy was incorrect
-
-            let arb = node.borrow().arb.as_ref().map(Rc::clone);
-            let arb_copy = node_copy.borrow().arb.as_ref().map(Rc::clone);
-            assert_eq!(arb.is_none(), arb_copy.is_none()); // if arbitrary pointer is not present it should be the same in the copy
-            assert_eq!(arb.is_some(), arb_copy.is_some()); // if artibrary pointer is present it should be the same in the copy
-
-            if let (Some(arb), Some(arb_copy)) = (arb, arb_copy) {
-                assert_eq!(arb.borrow().val, arb_copy.borrow().val); // arbitrary value should be the same
-                assert!(!Rc::ptr_eq(&arb, &arb_copy)); // failed if copy arbitrary pointer is the same as original
-            }
-
-            curr = node.borrow().next.as_ref().map(Rc::clone);
-            curr_copy = node_copy.borrow().next.as_ref().map(Rc::clone);
+            let res = dfs(&graph, "0");
+            println!("{:?}", res);
+            assert_eq!(res, EXP)
         }
-
-        assert!(curr.is_none()); // list should have the same length and ended after iterate all node
-        assert!(curr_copy.is_none()); // copy list should also ended after iteration because main list and copy should have the same amount of nodes
-
     }
 }
