@@ -35,7 +35,7 @@ pub fn mst(graph: &EdgeWeightedGraph) -> Option<EdgeWeightedGraph> {
 pub fn mst1(graph: &EdgeWeightedGraph) -> Option<EdgeWeightedGraph> {
     let mut ngraph = EdgeWeightedGraph::new(graph.v);
 
-    let mut edge_list = Vec::with_capacity(ngraph.v);
+    let mut edge_list = Vec::with_capacity(ngraph.e);
     for edge in graph.edges() {
         edge_list.push(Rc::clone(&edge));
     }
