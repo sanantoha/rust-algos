@@ -1,27 +1,77 @@
+use crate::tree::TreeNode;
 
-pub fn maximum_subarray(arr: &[i32]) -> i32 {
-    0
+pub fn merge_binary_trees(left: &mut Option<Box<TreeNode>>, right: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
+    None
+}
+
+pub fn merge_binary_trees_iter(left: &mut Option<Box<TreeNode>>, right: &Option<Box<TreeNode>>) -> Option<Box<TreeNode>> {
+    None
 }
 
 #[cfg(test)]
 mod tests {
-    use super::maximum_subarray;
+    use itertools::assert_equal;
+    use crate::tree::TreeNode;
+    use super::{merge_binary_trees, merge_binary_trees_iter};
 
     #[test]
-    fn test_maximum_subarray() {
+    fn test_merge_binary_trees() {
+        let mut left = create_left_tree();
+        let right = create_right_tree();
+        let exp_tree = create_exp_tree();
 
-        assert_eq!(maximum_subarray(&[3, 5, -9, 1, 3, -2, 3, 4, 7, 2, -9, 6, 3, 1, -5, 4]), 19);
+        assert_equal(merge_binary_trees(&mut left, &right), exp_tree);
     }
 
     #[test]
-    fn test_maximum_subarray1() {
+    fn test_merge_binary_trees_iter() {
+        let mut left = create_left_tree();
+        let right = create_right_tree();
+        let exp_tree = create_exp_tree();
 
-        assert_eq!(maximum_subarray(&[-2,1,-3,4,-1,2,1,-5,4]), 6);
+        assert_equal(merge_binary_trees_iter(&mut left, &right), exp_tree);
     }
 
-    #[test]
-    fn test_maximum_subarray2() {
+    fn create_left_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(1,
+                                 Some(Box::new(TreeNode::new(3,
+                                                             Some(Box::new(TreeNode::leaf(7))),
+                                                             Some(Box::new(TreeNode::leaf(4)))
+                                 ))),
+                                 Some(Box::new(TreeNode::leaf(2)))
+        );
 
-        assert_eq!(maximum_subarray(&[3, 4, -6, 7, 8, -18, 100]), 100);
+        Some(Box::new(root))
+    }
+
+    fn create_right_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(1,
+                                 Some(Box::new(TreeNode::new(5,
+                                                             Some(Box::new(TreeNode::leaf(2))),
+                                                             None
+                                 ))),
+                                 Some(Box::new(TreeNode::new(9,
+                                                             Some(Box::new(TreeNode::leaf(7))),
+                                                             Some(Box::new(TreeNode::leaf(6)))
+                                 )))
+        );
+
+        Some(Box::new(root))
+    }
+
+    fn create_exp_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(2,
+                                 Some(Box::new(TreeNode::new(8,
+                                                             Some(Box::new(TreeNode::leaf(9))),
+                                                             Some(Box::new(TreeNode::leaf(4)))
+                                 ))),
+                                 Some(Box::new(TreeNode::new(11,
+                                                             Some(Box::new(TreeNode::leaf(7))),
+                                                             Some(Box::new(TreeNode::leaf(6)))
+                                 )))
+        );
+
+        Some(Box::new(root))
     }
 }
+
