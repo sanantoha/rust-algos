@@ -40,18 +40,14 @@ pub fn merge_binary_trees_iter(left: &mut Option<Box<TreeNode>>, right: &Option<
             if curr1.left.is_none() {
                 curr1.left = curr2.left.clone();
             } else {
-                if let Some(l) = curr1.left.as_mut() {
-                    stack1.push(Some(l));
-                }
+                stack1.push(curr1.left.as_mut());
                 stack2.push(curr2.left.as_ref());
             }
 
             if curr1.right.is_none() {
                 curr1.right = curr2.right.clone();
             } else {
-                if let Some(r) = curr1.right.as_mut() {
-                    stack1.push(Some(r));
-                }
+                stack1.push(curr1.right.as_mut());
                 stack2.push(curr2.right.as_ref());
             }
         }
