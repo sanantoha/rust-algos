@@ -38,6 +38,7 @@ mod kruskal_min_spanning_tree_as_map;
 mod topological_sort_dfs_cycle_graph_as_map;
 mod rotting_oranges;
 mod zero_one_matrix;
+mod course_schedule;
 
 const EPSILON: f64 = 1e-10;
 
