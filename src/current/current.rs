@@ -1,48 +1,80 @@
+use crate::tree::TreeNode;
 
 
-pub fn update_matrix(matrix: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-    vec![]
+pub fn reverse(root: &mut Option<Box<TreeNode>>) {
+
 }
 
 
+pub fn reverse_iter(root: &mut Option<Box<TreeNode>>) {
+
+}
+
 #[cfg(test)]
 mod tests {
-
-    use super::update_matrix;
+    use super::{reverse, reverse_iter};
+    use crate::tree::TreeNode;
 
     #[test]
-    pub fn test_update_matrix_case1() {
-        let input = vec![
-            vec![0, 0, 0],
-            vec![0, 1, 0],
-            vec![0, 0, 0],
-        ];
-        let exp = vec![
-            vec![0, 0, 0],
-            vec![0, 1, 0],
-            vec![0, 0, 0],
-        ];
+    fn test_reverse() {
+        let mut root = create_tree();
+        let exp_tree = create_exp_tree();
 
-        let res = update_matrix(input);
+        reverse(&mut root);
 
-        assert_eq!(res, exp);
+        assert_eq!(root, exp_tree);
     }
 
     #[test]
-    pub fn test_update_matrix_case2() {
-        let input = vec![
-            vec![0, 0, 0],
-            vec![0, 1, 0],
-            vec![1, 1, 1],
-        ];
-        let exp = vec![
-            vec![0, 0, 0],
-            vec![0, 1, 0],
-            vec![1, 2, 1],
-        ];
+    fn test_reverse_iter() {
+        let mut root = create_tree();
+        let exp_tree = create_exp_tree();
 
-        let res = update_matrix(input);
+        reverse_iter(&mut root);
 
-        assert_eq!(res, exp);
+        assert_eq!(root, exp_tree);
+    }
+
+    fn create_exp_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(
+            5,
+            Some(Box::new(TreeNode::new(
+                10,
+                Some(Box::new(TreeNode::new(15,
+                                            Some(Box::new(TreeNode::leaf(17))),
+                                            Some(Box::new(TreeNode::leaf(14))),
+                ))),
+                Some(Box::new(TreeNode::leaf(7))),
+            ))),
+            Some(Box::new(TreeNode::new(
+                2,
+                Some(Box::new(TreeNode::leaf(3))),
+                Some(Box::new(TreeNode::leaf(1))),
+            ))),
+        );
+
+        Some(Box::new(root))
+    }
+
+    fn create_tree() -> Option<Box<TreeNode>> {
+        let root = TreeNode::new(
+            5,
+            Some(Box::new(TreeNode::new(
+                2,
+                Some(Box::new(TreeNode::leaf(1))),
+                Some(Box::new(TreeNode::leaf(3))),
+            ))),
+            Some(Box::new(TreeNode::new(
+                10,
+                Some(Box::new(TreeNode::leaf(7))),
+                Some(Box::new(TreeNode::new(
+                    15,
+                    Some(Box::new(TreeNode::leaf(14))),
+                    Some(Box::new(TreeNode::leaf(17))),
+                ))),
+            ))),
+        );
+
+        Some(Box::new(root))
     }
 }
