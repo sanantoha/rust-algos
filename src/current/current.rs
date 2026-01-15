@@ -1,80 +1,31 @@
-use crate::tree::TreeNode;
+use std::rc::Rc;
+use std::cell::RefCell;
+use crate::list::ListNode;
 
-
-pub fn reverse(root: &mut Option<Box<TreeNode>>) {
-
-}
-
-
-pub fn reverse_iter(root: &mut Option<Box<TreeNode>>) {
+pub fn delete_node(node: Rc<RefCell<ListNode>>) {
 
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{reverse, reverse_iter};
-    use crate::tree::TreeNode;
+
+    use crate::list::ListNode;
+    use crate::list::Displayable;
+    use super::delete_node;
 
     #[test]
-    fn test_reverse() {
-        let mut root = create_tree();
-        let exp_tree = create_exp_tree();
+    fn it_delete_node() {
 
-        reverse(&mut root);
+        let node0 = ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5)))));
+        let node1 = ListNode::with_next(2, Some(node0.clone()));
+        let lst = ListNode::with_next(1, Some(node1));
 
-        assert_eq!(root, exp_tree);
-    }
+        let exp_lst = ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(4, Some(ListNode::new(5)))))));
 
-    #[test]
-    fn test_reverse_iter() {
-        let mut root = create_tree();
-        let exp_tree = create_exp_tree();
+        println!("{}", Displayable::new(lst.clone()));
+        delete_node(node0.clone());
+        println!("{}", Displayable::new(lst.clone()));
 
-        reverse_iter(&mut root);
-
-        assert_eq!(root, exp_tree);
-    }
-
-    fn create_exp_tree() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(
-            5,
-            Some(Box::new(TreeNode::new(
-                10,
-                Some(Box::new(TreeNode::new(15,
-                                            Some(Box::new(TreeNode::leaf(17))),
-                                            Some(Box::new(TreeNode::leaf(14))),
-                ))),
-                Some(Box::new(TreeNode::leaf(7))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                2,
-                Some(Box::new(TreeNode::leaf(3))),
-                Some(Box::new(TreeNode::leaf(1))),
-            ))),
-        );
-
-        Some(Box::new(root))
-    }
-
-    fn create_tree() -> Option<Box<TreeNode>> {
-        let root = TreeNode::new(
-            5,
-            Some(Box::new(TreeNode::new(
-                2,
-                Some(Box::new(TreeNode::leaf(1))),
-                Some(Box::new(TreeNode::leaf(3))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                10,
-                Some(Box::new(TreeNode::leaf(7))),
-                Some(Box::new(TreeNode::new(
-                    15,
-                    Some(Box::new(TreeNode::leaf(14))),
-                    Some(Box::new(TreeNode::leaf(17))),
-                ))),
-            ))),
-        );
-
-        Some(Box::new(root))
+        assert_eq!(lst, exp_lst);
     }
 }
