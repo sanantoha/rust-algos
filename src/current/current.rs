@@ -1,31 +1,51 @@
-use std::rc::Rc;
-use std::cell::RefCell;
-use crate::list::ListNode;
+use crate::tree::TreeNode;
 
-pub fn delete_node(node: Rc<RefCell<ListNode>>) {
-
+pub fn is_balanced(root: &Option<Box<TreeNode>>) -> bool {
+    false
 }
+
 
 #[cfg(test)]
 mod tests {
 
-    use crate::list::ListNode;
-    use crate::list::Displayable;
-    use super::delete_node;
+    use super::is_balanced;
+    use crate::tree::TreeNode;
 
     #[test]
-    fn it_delete_node() {
+    fn test_balanced_binary_tree() {
 
-        let node0 = ListNode::with_next(3, Some(ListNode::with_next(4, Some(ListNode::new(5)))));
-        let node1 = ListNode::with_next(2, Some(node0.clone()));
-        let lst = ListNode::with_next(1, Some(node1));
+        let root = Some(Box::new(TreeNode::new(
+            3,
+            Some(Box::new(TreeNode::leaf(9))),
+            Some(Box::new(TreeNode::new(
+                20,
+                Some(Box::new(TreeNode::leaf(15))),
+                Some(Box::new(TreeNode::leaf(7))),
+            ))),
+        )));
 
-        let exp_lst = ListNode::with_next(1, Some(ListNode::with_next(2, Some(ListNode::with_next(4, Some(ListNode::new(5)))))));
+        assert!(is_balanced(&root));
+    }
 
-        println!("{}", Displayable::new(lst.clone()));
-        delete_node(node0.clone());
-        println!("{}", Displayable::new(lst.clone()));
+    #[test]
+    pub fn test_not_balanced_tree() {
 
-        assert_eq!(lst, exp_lst);
+        let root = Some(Box::new(
+            TreeNode::new(
+                1,
+                Some(Box::new(TreeNode::new(
+                    2,
+                    Some(Box::new(TreeNode::new(
+                        3,
+                        Some(Box::new(TreeNode::new(4, None, None))),
+                        Some(Box::new(TreeNode::new(4, None, None))),
+                    ))),
+                    Some(Box::new(TreeNode::new(3, None, None))),
+                ))),
+                Some(Box::new(TreeNode::new(2, None, None))),
+            )
+        ));
+
+        assert!(!is_balanced(&root));
     }
 }
