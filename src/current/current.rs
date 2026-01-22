@@ -1,51 +1,38 @@
-use crate::tree::TreeNode;
 
-pub fn is_balanced(root: &Option<Box<TreeNode>>) -> bool {
-    false
+pub fn heap_sort(arr: &mut [i32]) {
+    
 }
-
 
 #[cfg(test)]
 mod tests {
-
-    use super::is_balanced;
-    use crate::tree::TreeNode;
+    use rand::Rng;
+    use super::heap_sort;
 
     #[test]
-    fn test_balanced_binary_tree() {
+    fn test_heap_sort() {
+        let mut arr = vec![5, 2, 4, 6, 1, 3];
 
-        let root = Some(Box::new(TreeNode::new(
-            3,
-            Some(Box::new(TreeNode::leaf(9))),
-            Some(Box::new(TreeNode::new(
-                20,
-                Some(Box::new(TreeNode::leaf(15))),
-                Some(Box::new(TreeNode::leaf(7))),
-            ))),
-        )));
+        heap_sort(&mut arr);
 
-        assert!(is_balanced(&root));
+        assert_eq!(arr, &[1, 2, 3, 4, 5, 6]);
     }
 
     #[test]
-    pub fn test_not_balanced_tree() {
+    fn test_heap_sort_case1() {
+        let mut arr = vec![0; 30];
 
-        let root = Some(Box::new(
-            TreeNode::new(
-                1,
-                Some(Box::new(TreeNode::new(
-                    2,
-                    Some(Box::new(TreeNode::new(
-                        3,
-                        Some(Box::new(TreeNode::new(4, None, None))),
-                        Some(Box::new(TreeNode::new(4, None, None))),
-                    ))),
-                    Some(Box::new(TreeNode::new(3, None, None))),
-                ))),
-                Some(Box::new(TreeNode::new(2, None, None))),
-            )
-        ));
+        let mut rand = rand::rng();
 
-        assert!(!is_balanced(&root));
+        for i in 0..arr.len() {
+            arr[i] = rand.random_range(0..100)
+        }
+
+        heap_sort(&mut arr);
+
+        println!("{:?}", arr);
+
+        for i in 1..arr.len() {
+            assert!(arr[i - 1] <= arr[i]);
+        }
     }
 }
