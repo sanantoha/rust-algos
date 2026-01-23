@@ -1,38 +1,30 @@
+use crate::tree::TreeNode;
 
-pub fn heap_sort(arr: &mut [i32]) {
-    
+
+pub fn left_view(root: Box<TreeNode>) -> Vec<i32> {
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
-    use rand::Rng;
-    use super::heap_sort;
+    use super::left_view;
+    use crate::tree::TreeNode;
 
     #[test]
-    fn test_heap_sort() {
-        let mut arr = vec![5, 2, 4, 6, 1, 3];
+    fn it_left_view() {
+        let root = Box::new(TreeNode::new(1,
+                                          Some(Box::new(TreeNode::leaf(2))),
+                                          Some(Box::new(TreeNode::new(3,
+                                                                      Some(Box::new(TreeNode::new(4,
+                                                                                                  Some(Box::new(TreeNode::leaf(5))),
+                                                                                                  Some(Box::new(TreeNode::new(6,
+                                                                                                                              None,
+                                                                                                                              Some(Box::new(TreeNode::leaf(7))))))))),
+                                                                      Some(Box::new(TreeNode::leaf(8)))))),
+        ));
 
-        heap_sort(&mut arr);
-
-        assert_eq!(arr, &[1, 2, 3, 4, 5, 6]);
-    }
-
-    #[test]
-    fn test_heap_sort_case1() {
-        let mut arr = vec![0; 30];
-
-        let mut rand = rand::rng();
-
-        for i in 0..arr.len() {
-            arr[i] = rand.random_range(0..100)
-        }
-
-        heap_sort(&mut arr);
-
-        println!("{:?}", arr);
-
-        for i in 1..arr.len() {
-            assert!(arr[i - 1] <= arr[i]);
-        }
+        let res = left_view(root);
+        println!("{res:?}");
+        assert_eq!(res, vec![1, 2, 4, 5, 7]);
     }
 }
