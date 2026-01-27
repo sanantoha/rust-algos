@@ -1,32 +1,17 @@
-use crate::tree::TreeNode;
 
-pub fn validate(root: &Option<Box<TreeNode>>) -> bool {
-    false
+pub fn combination_sum(arr: &[i32], target: i32) -> Vec<Vec<i32>> {
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::tree::TreeNode;
-    use super::validate;
+
+    use super::combination_sum;
 
     #[test]
-    fn test_validate() {
-        let root = Some(Box::new(TreeNode::new(
-            5,
-            Some(Box::new(TreeNode::new(
-                2,
-                Some(Box::new(TreeNode::leaf(1))),
-                Some(Box::new(TreeNode::leaf(3))),
-            ))),
-            Some(Box::new(TreeNode::new(
-                10,
-                Some(Box::new(TreeNode::leaf(7))),
-                Some(Box::new(TreeNode::leaf(15))),
-            ))),
-        )));
+    fn it_combination_sum() {
+        let arr = &[2, 3, 5, 7];
 
-        assert!(validate(&root));
+        assert_eq!(combination_sum(arr, 7), vec![vec![2, 2, 3], vec![2, 5], vec![7]]);
     }
-
-
 }
