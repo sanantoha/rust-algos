@@ -1,48 +1,39 @@
-use crate::tree::TreeNode;
 
-pub fn pre_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
-    vec![]
-}
 
-pub fn in_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
-    vec![]
-}
-
-pub fn post_order_rec(root: &Option<Box<TreeNode>>) -> Vec<i32> {
-    vec![]
+pub fn merge_sort(arr: &[i32]) -> Vec<i32> {
+    vec![]    
 }
 
 #[cfg(test)]
 mod tests {
 
-    use super::{pre_order_rec, in_order_rec, post_order_rec};
-    use crate::tree::TreeNode;
+    use super::merge_sort;
+    use rand::Rng;
 
     #[test]
-    pub fn test_dfs_pre_order_rec() {
-        assert_eq!(pre_order_rec(&create_tree()), vec![5, 2, 1, 3, 8, 7, 9]);
+    fn it_merge_sort() {
+        let res = merge_sort(&[8, 3, 6, 8, 3, 1, 5, 7, 8, 9]);
+        println!("{res:?}");
+        assert_eq!(res, vec![1, 3, 3, 5, 6, 7, 8, 8, 8, 9]);
     }
 
     #[test]
-    pub fn test_dfs_in_order_rec() {
-        assert_eq!(in_order_rec(&create_tree()), vec![1, 2, 3, 5, 7, 8, 9]);
-    }
+    fn it_merge_sort1() {
+        let mut arr = [0; 30];
 
-    #[test]
-    pub fn test_dfs_post_order_rec() {
-        assert_eq!(post_order_rec(&create_tree()), vec![1, 3, 2, 7, 9, 8, 5]);
-    }
+        let mut rng = rand::rng();
 
-    fn create_tree() -> Option<Box<TreeNode>> {
-        Some(
-            Box::new(TreeNode::new(5,
-                                   Some(Box::new(TreeNode::new(2,
-                                                               Some(Box::new(TreeNode::leaf(1))),
-                                                               Some(Box::new(TreeNode::leaf(3)))))),
-                                   Some(Box::new(TreeNode::new(8,
-                                                               Some(Box::new(TreeNode::leaf(7))),
-                                                               Some(Box::new(TreeNode::leaf(9)))))),
-            ))
-        )
+        for v in &mut arr {
+            *v = rng.random_range(1..101);
+        }
+
+        let res = merge_sort(&arr);
+
+        println!("{:?}", res);
+
+        for i in 1..arr.len() {
+            let s = format!("{} > {}", res[i - 1], res[i]);
+            assert!(res[i - 1] <= res[i], "{}", &s);
+        }
     }
 }
