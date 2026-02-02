@@ -1,39 +1,33 @@
+use crate::tree::TreeNode;
 
+pub fn level_order(root: Box<TreeNode>) -> Vec<Vec<i32>> {
 
-pub fn merge_sort(arr: &[i32]) -> Vec<i32> {
-    vec![]    
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
+    use super::level_order;
+    use crate::tree::TreeNode;
 
-    use super::merge_sort;
-    use rand::Rng;
 
     #[test]
-    fn it_merge_sort() {
-        let res = merge_sort(&[8, 3, 6, 8, 3, 1, 5, 7, 8, 9]);
+    fn it_level_order() {
+        let root = Box::new(TreeNode::new(5,
+                                          Some(Box::new(TreeNode::new(2,
+                                                                      Some(Box::new(TreeNode::leaf(1))),
+                                                                      Some(Box::new(TreeNode::leaf(3)))))),
+                                          Some(Box::new(TreeNode::new(10,
+                                                                      Some(Box::new(TreeNode::new(7,
+                                                                                                  Some(Box::new(TreeNode::leaf(6))),
+                                                                                                  Some(Box::new(TreeNode::leaf(8)))))),
+                                                                      Some(Box::new(TreeNode::new(15,
+                                                                                                  Some(Box::new(TreeNode::leaf(14))),
+                                                                                                  Some(Box::new(TreeNode::leaf(17)))))))))),
+        );
+
+        let res = level_order(root);
         println!("{res:?}");
-        assert_eq!(res, vec![1, 3, 3, 5, 6, 7, 8, 8, 8, 9]);
-    }
-
-    #[test]
-    fn it_merge_sort1() {
-        let mut arr = [0; 30];
-
-        let mut rng = rand::rng();
-
-        for v in &mut arr {
-            *v = rng.random_range(1..101);
-        }
-
-        let res = merge_sort(&arr);
-
-        println!("{:?}", res);
-
-        for i in 1..arr.len() {
-            let s = format!("{} > {}", res[i - 1], res[i]);
-            assert!(res[i - 1] <= res[i], "{}", &s);
-        }
+        assert_eq!(res, vec![vec![5], vec![2, 10], vec![1, 3, 7, 15], vec![6, 8, 14, 17]]);
     }
 }
