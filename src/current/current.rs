@@ -1,33 +1,27 @@
-use crate::tree::TreeNode;
-
-pub fn level_order(root: Box<TreeNode>) -> Vec<Vec<i32>> {
-
-    vec![]
+pub fn word_break(str: &str, word_dict: &[&str]) -> bool {
+    false
 }
+
 
 #[cfg(test)]
 mod tests {
-    use super::level_order;
-    use crate::tree::TreeNode;
-
+    use super::word_break;
 
     #[test]
-    fn it_level_order() {
-        let root = Box::new(TreeNode::new(5,
-                                          Some(Box::new(TreeNode::new(2,
-                                                                      Some(Box::new(TreeNode::leaf(1))),
-                                                                      Some(Box::new(TreeNode::leaf(3)))))),
-                                          Some(Box::new(TreeNode::new(10,
-                                                                      Some(Box::new(TreeNode::new(7,
-                                                                                                  Some(Box::new(TreeNode::leaf(6))),
-                                                                                                  Some(Box::new(TreeNode::leaf(8)))))),
-                                                                      Some(Box::new(TreeNode::new(15,
-                                                                                                  Some(Box::new(TreeNode::leaf(14))),
-                                                                                                  Some(Box::new(TreeNode::leaf(17)))))))))),
-        );
+    fn it_word_break() {
 
-        let res = level_order(root);
-        println!("{res:?}");
-        assert_eq!(res, vec![vec![5], vec![2, 10], vec![1, 3, 7, 15], vec![6, 8, 14, 17]]);
+        assert!(word_break("leetcode", &["leet", "code"]));
+    }
+
+    #[test]
+    fn it_word_break1() {
+
+        assert!(word_break("applepenapple", &["apple", "pen"]));
+    }
+
+    #[test]
+    fn it_word_break_impossible() {
+
+        assert!(!word_break("catsandog", &["cats", "dog", "sand", "and", "cat"]));
     }
 }
