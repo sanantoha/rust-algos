@@ -1,27 +1,22 @@
-pub fn word_break(str: &str, word_dict: &[&str]) -> bool {
-    false
+
+pub fn number_of_islands(grid: &[&[i32]]) -> i32 {
+    0
 }
 
 
 #[cfg(test)]
-mod tests {
-    use super::word_break;
+mod test {
+    use super::number_of_islands;
 
     #[test]
-    fn it_word_break() {
+    fn test_number_of_islands() {
+        let grid: &[&[i32]] = &[
+            &[0, 0, 0, 0, 1],
+            &[1, 1, 0, 0, 0],
+            &[1, 1, 0, 1, 1],
+            &[0, 0, 0, 1, 1],
+        ];
 
-        assert!(word_break("leetcode", &["leet", "code"]));
-    }
-
-    #[test]
-    fn it_word_break1() {
-
-        assert!(word_break("applepenapple", &["apple", "pen"]));
-    }
-
-    #[test]
-    fn it_word_break_impossible() {
-
-        assert!(!word_break("catsandog", &["cats", "dog", "sand", "and", "cat"]));
+        assert_eq!(number_of_islands(grid), 3);
     }
 }
