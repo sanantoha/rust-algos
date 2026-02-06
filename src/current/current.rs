@@ -1,49 +1,74 @@
-use crate::tree::TreeNode;
-
-pub fn find_node_distance_k(root: &Option<Box<TreeNode>>, target: i32, k: i32) -> Vec<i32> {
-    vec![]
+pub fn can_finish(num_courses: usize, prerequisites: &[&[usize]]) -> bool {
+    false
 }
 
-pub fn find_node_distance_k_rec(root: &Option<Box<TreeNode>>, target: i32, k: i32) -> Vec<i32> {
-    vec![]
+
+pub fn can_finish1(num_courses: usize, prerequisites: &[&[usize]]) -> bool {
+    false
 }
+
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use super::{can_finish, can_finish1};
 
     #[test]
-    fn test_find_node_distance_k() {
-        let root = create_tree();
-
-        let mut res = find_node_distance_k(&root, 3, 2);
-        res.sort();
-        assert_eq!(res, vec![2, 7, 8]);
+    fn test_can_finish_case1() {
+        let prerequisites: &[&[usize]] = &[];
+        assert!(can_finish(1, &prerequisites));
     }
 
     #[test]
-    fn test_find_node_distance_k_rec() {
-        let root = create_tree();
-
-        let mut res = find_node_distance_k_rec(&root, 3, 2);
-        res.sort();
-        assert_eq!(res, vec![2, 7, 8]);
+    fn test_can_finish_case2() {
+        let prerequisites: &[&[usize]] = &[&[1, 0]];
+        assert!(can_finish(2, &prerequisites));
     }
 
-    fn create_tree() -> Option<Box<TreeNode>> {
-        let root = Some(Box::new(TreeNode::new(1,
-                                               Some(Box::new(TreeNode::new(2,
-                                                                           Some(Box::new(TreeNode::leaf(4))),
-                                                                           Some(Box::new(TreeNode::leaf(5)))
-                                               ))),
-                                               Some(Box::new(TreeNode::new(3,
-                                                                           None,
-                                                                           Some(Box::new(TreeNode::new(6,
-                                                                                                       Some(Box::new(TreeNode::leaf(7))),
-                                                                                                       Some(Box::new(TreeNode::leaf(8)))
-                                                                           )))
-                                               )))
-        )));
-        root
+    #[test]
+    fn test_can_finish_case3() {
+        let prerequisites: &[&[usize]] = &[&[1, 0], &[0, 1]];
+        assert!(!can_finish(2, &prerequisites));
+    }
+
+    #[test]
+    fn test_can_finish_case4() {
+        let prerequisites: &[&[usize]] = &[&[1, 0], &[2, 1], &[3, 2], &[0, 3]];
+        assert!(!can_finish(4, &prerequisites));
+    }
+
+    #[test]
+    fn test_can_finish_case5() {
+        let prerequisites: &[&[usize]] = &[&[1, 0], &[2, 1], &[3, 2]];
+        assert!(can_finish(4, &prerequisites));
+    }
+
+    #[test]
+    fn test_can_finish1_case1() {
+        let prerequisites: &[&[usize]] = &[];
+        assert!(can_finish1(1, &prerequisites));
+    }
+
+    #[test]
+    fn test_can_finish1_case2() {
+        let prerequisites: &[&[usize]] = &[&[1, 0]];
+        assert!(can_finish1(2, &prerequisites));
+    }
+
+    #[test]
+    fn test_can_finish1_case3() {
+        let prerequisites: &[&[usize]] = &[&[1, 0], &[0, 1]];
+        assert!(!can_finish1(2, &prerequisites));
+    }
+
+    #[test]
+    fn test_can_finish1_case4() {
+        let prerequisites: &[&[usize]] = &[&[1, 0], &[2, 1], &[3, 2], &[0, 3]];
+        assert!(!can_finish1(4, &prerequisites));
+    }
+
+    #[test]
+    fn test_can_finish1_case5() {
+        let prerequisites: &[&[usize]] = &[&[1, 0], &[2, 1], &[3, 2]];
+        assert!(can_finish1(4, &prerequisites));
     }
 }
