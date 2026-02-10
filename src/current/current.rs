@@ -1,23 +1,28 @@
+use std::collections::HashMap;
 
-pub fn binary_search(arr: &[i32], target: i32) -> i32 {
+pub fn optimal_freelancing(jobs: &mut Vec<HashMap<&str, i32>>) -> i32 {
     -1
 }
-
 
 #[cfg(test)]
 mod tests {
 
-    use super::binary_search;
-
-    const ARR: &[i32] = &[10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-
-    #[test]
-    fn test_binary_search() {
-        assert_eq!(binary_search(ARR, 80), 7);
-    }
+    use super::optimal_freelancing;
+    use std::collections::HashMap;
 
     #[test]
-    fn test_binary_search_missing_target() {
-        assert_eq!(binary_search(ARR, 81), -9);
+    fn it_optimal_freelancing() {
+
+        let mut jobs: Vec<HashMap<&str, i32>> = vec![
+            HashMap::from([("deadline", 2), ("payment", 2)]),
+            HashMap::from([("deadline", 4), ("payment", 3)]),
+            HashMap::from([("deadline", 5), ("payment", 1)]),
+            HashMap::from([("deadline", 7), ("payment", 2)]),
+            HashMap::from([("deadline", 3), ("payment", 1)]),
+            HashMap::from([("deadline", 3), ("payment", 2)]),
+            HashMap::from([("deadline", 1), ("payment", 3)]),
+        ];
+
+        assert_eq!(optimal_freelancing(&mut jobs), 13);
     }
 }
