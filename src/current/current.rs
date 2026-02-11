@@ -1,28 +1,26 @@
-use std::collections::HashMap;
+use crate::graph::EdgeWeightedDigraph;
 
-pub fn optimal_freelancing(jobs: &mut Vec<HashMap<&str, i32>>) -> i32 {
-    -1
+
+pub fn bfs(graph: &EdgeWeightedDigraph, start: usize) -> Vec<usize> {
+
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
+    use std::path::PathBuf;
+    use super::bfs;
+    use crate::graph::EdgeWeightedDigraph;
 
-    use super::optimal_freelancing;
-    use std::collections::HashMap;
 
     #[test]
-    fn it_optimal_freelancing() {
+    fn it_bfs() {
+        if let Ok(graph) = EdgeWeightedDigraph::from_file(PathBuf::from("src/graph/bfs.txt")) {
+            println!("{}", graph);
 
-        let mut jobs: Vec<HashMap<&str, i32>> = vec![
-            HashMap::from([("deadline", 2), ("payment", 2)]),
-            HashMap::from([("deadline", 4), ("payment", 3)]),
-            HashMap::from([("deadline", 5), ("payment", 1)]),
-            HashMap::from([("deadline", 7), ("payment", 2)]),
-            HashMap::from([("deadline", 3), ("payment", 1)]),
-            HashMap::from([("deadline", 3), ("payment", 2)]),
-            HashMap::from([("deadline", 1), ("payment", 3)]),
-        ];
-
-        assert_eq!(optimal_freelancing(&mut jobs), 13);
+            let res = bfs(&graph, 0);
+            println!("{:?}", res);
+            assert_eq!(res, vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]);
+        }
     }
 }
