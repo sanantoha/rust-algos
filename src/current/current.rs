@@ -1,26 +1,41 @@
-use crate::graph::EdgeWeightedDigraph;
+use crate::graph::Digraph;
 
 
-pub fn bfs(graph: &EdgeWeightedDigraph, start: usize) -> Vec<usize> {
+pub fn sort_rec(graph: &Digraph) -> Result<Vec<usize>, String> {
+    Err("not impl".to_owned())
+}
 
-    vec![]
+pub fn sort_iter(graph: &Digraph) -> Result<Vec<usize>, String> {
+    Err("not impl".to_owned())
 }
 
 #[cfg(test)]
 mod tests {
+    use super::{sort_iter, sort_rec};
+    use crate::graph::Digraph;
     use std::path::PathBuf;
-    use super::bfs;
-    use crate::graph::EdgeWeightedDigraph;
-
 
     #[test]
-    fn it_bfs() {
-        if let Ok(graph) = EdgeWeightedDigraph::from_file(PathBuf::from("src/graph/bfs.txt")) {
+    fn test_sort_rec() {
+
+        if let Ok(graph) = Digraph::from_file(PathBuf::from("src/graph/digraph.txt")) {
             println!("{}", graph);
 
-            let res = bfs(&graph, 0);
+            let res = sort_rec(&graph).expect("sorting successfully");
             println!("{:?}", res);
-            assert_eq!(res, vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]);
+            assert_eq!(res, vec![8, 9, 1, 0, 2, 3, 4, 5, 10, 11, 6, 7, 12, 13]);
+        }
+    }
+
+    #[test]
+    fn test_sort_iter() {
+
+        if let Ok(graph) = Digraph::from_file(PathBuf::from("src/graph/digraph.txt")) {
+            println!("{}", graph);
+
+            let res = sort_iter(&graph).expect("sorting successfully");
+            println!("{:?}", res);
+            assert_eq!(res, vec![0, 1, 8, 2, 9, 4, 3, 5, 6, 10, 7, 11, 12, 13]);
         }
     }
 }
