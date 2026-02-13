@@ -1,41 +1,56 @@
-use crate::graph::Digraph;
+use crate::tree::TreeNode;
 
-
-pub fn sort_rec(graph: &Digraph) -> Result<Vec<usize>, String> {
-    Err("not impl".to_owned())
+pub fn reconstruct_bst(arr: &[i32]) -> Option<Box<TreeNode>> {
+    None
 }
 
-pub fn sort_iter(graph: &Digraph) -> Result<Vec<usize>, String> {
-    Err("not impl".to_owned())
+
+pub fn reconstruct_bst1(arr: &[i32]) -> Option<Box<TreeNode>> {
+    None
 }
+
 
 #[cfg(test)]
 mod tests {
-    use super::{sort_iter, sort_rec};
-    use crate::graph::Digraph;
-    use std::path::PathBuf;
+    use super::{reconstruct_bst, reconstruct_bst1};
+    use crate::tree::TreeNode;
+
+    const ARR: &[i32] = &[10, 4, 2, 1, 3, 17, 19, 18];
 
     #[test]
-    fn test_sort_rec() {
+    fn test_reconstruct_bst() {
+        let exp_tree = create_exp_tree();
 
-        if let Ok(graph) = Digraph::from_file(PathBuf::from("src/graph/digraph.txt")) {
-            println!("{}", graph);
-
-            let res = sort_rec(&graph).expect("sorting successfully");
-            println!("{:?}", res);
-            assert_eq!(res, vec![8, 9, 1, 0, 2, 3, 4, 5, 10, 11, 6, 7, 12, 13]);
-        }
+        let res = reconstruct_bst(ARR);
+        assert_eq!(res, exp_tree)
     }
 
     #[test]
-    fn test_sort_iter() {
+    fn test_reconstruct_bst1() {
+        let exp_tree = create_exp_tree();
 
-        if let Ok(graph) = Digraph::from_file(PathBuf::from("src/graph/digraph.txt")) {
-            println!("{}", graph);
+        let res = reconstruct_bst1(ARR);
+        assert_eq!(res, exp_tree)
+    }
 
-            let res = sort_iter(&graph).expect("sorting successfully");
-            println!("{:?}", res);
-            assert_eq!(res, vec![0, 1, 8, 2, 9, 4, 3, 5, 6, 10, 7, 11, 12, 13]);
-        }
+    fn create_exp_tree() -> Option<Box<TreeNode>> {
+        let root = Some(Box::new(TreeNode::new(10,
+                                               Some(Box::new(TreeNode::new(4,
+                                                                           Some(Box::new(TreeNode::new(2,
+                                                                                                       Some(Box::new(TreeNode::leaf(1))),
+                                                                                                       Some(Box::new(TreeNode::leaf(3)))
+                                                                           ))),
+                                                                           None
+                                               ))),
+                                               Some(Box::new(TreeNode::new(17,
+                                                                           None,
+                                                                           Some(Box::new(TreeNode::new(19,
+                                                                                                       Some(Box::new(TreeNode::leaf(18))),
+                                                                                                       None
+                                                                           )))
+                                               ))),
+        )));
+
+        root
     }
 }
