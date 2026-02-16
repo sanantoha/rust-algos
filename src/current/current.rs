@@ -1,56 +1,42 @@
-use crate::tree::TreeNode;
+use crate::graph::EdgeWeightedDigraph;
 
-pub fn reconstruct_bst(arr: &[i32]) -> Option<Box<TreeNode>> {
-    None
+pub fn dfs_rec(graph: &EdgeWeightedDigraph, start: usize) -> Vec<usize> {
+    vec![]
 }
 
-
-pub fn reconstruct_bst1(arr: &[i32]) -> Option<Box<TreeNode>> {
-    None
+pub fn dfs(graph: &EdgeWeightedDigraph, start: usize) -> Vec<usize> {
+    vec![]
 }
-
 
 #[cfg(test)]
 mod tests {
-    use super::{reconstruct_bst, reconstruct_bst1};
-    use crate::tree::TreeNode;
+    use std::path::PathBuf;
 
-    const ARR: &[i32] = &[10, 4, 2, 1, 3, 17, 19, 18];
+    use crate::graph::depth_first_search::dfs;
+    use crate::graph::depth_first_search::dfs_rec;
+    use crate::graph::EdgeWeightedDigraph;
+
+    const PATH: &str = "src/graph/dfs.txt";
 
     #[test]
-    fn test_reconstruct_bst() {
-        let exp_tree = create_exp_tree();
+    fn it_dfs_rec() {
+        if let Ok(graph) = EdgeWeightedDigraph::from_file(PathBuf::from(PATH)) {
+            println!("{}", graph);
 
-        let res = reconstruct_bst(ARR);
-        assert_eq!(res, exp_tree)
+            let res = dfs_rec(&graph, 0);
+            println!("{:?}", res);
+            assert_eq!(res, vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
+        }
     }
 
     #[test]
-    fn test_reconstruct_bst1() {
-        let exp_tree = create_exp_tree();
+    fn it_dfs() {
+        if let Ok(graph) = EdgeWeightedDigraph::from_file(PathBuf::from(PATH)) {
+            println!("{}", graph);
 
-        let res = reconstruct_bst1(ARR);
-        assert_eq!(res, exp_tree)
-    }
-
-    fn create_exp_tree() -> Option<Box<TreeNode>> {
-        let root = Some(Box::new(TreeNode::new(10,
-                                               Some(Box::new(TreeNode::new(4,
-                                                                           Some(Box::new(TreeNode::new(2,
-                                                                                                       Some(Box::new(TreeNode::leaf(1))),
-                                                                                                       Some(Box::new(TreeNode::leaf(3)))
-                                                                           ))),
-                                                                           None
-                                               ))),
-                                               Some(Box::new(TreeNode::new(17,
-                                                                           None,
-                                                                           Some(Box::new(TreeNode::new(19,
-                                                                                                       Some(Box::new(TreeNode::leaf(18))),
-                                                                                                       None
-                                                                           )))
-                                               ))),
-        )));
-
-        root
+            let res = dfs(&graph, 0);
+            println!("{:?}", res);
+            assert_eq!(res, vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
+        }
     }
 }
