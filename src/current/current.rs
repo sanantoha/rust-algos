@@ -1,15 +1,26 @@
-pub fn sort_k_sorted_array(arr: &mut [i32], k: i32) -> Vec<i32> {
-    vec![]
+
+pub fn minimum_passes_of_matrix(matrix: &mut [&mut [i32]]) -> i32 {
+    -1
 }
+
 
 #[cfg(test)]
 mod tests {
-    use super::sort_k_sorted_array;
+    use super::minimum_passes_of_matrix;
 
     #[test]
-    fn basic() {
-        let mut arr: Vec<i32> = vec![3, 2, 1, 5, 4, 7, 6, 5];
+    fn test_minimum_passes_of_matrix() {
+        let mut matrix = vec![
+            vec![0, -1, -3, 2, 0],
+            vec![1, -2, -5, -1, -3],
+            vec![3, 0, 0, -4, -1]
+        ];
 
-        assert_eq!(sort_k_sorted_array(&mut arr, 3), vec![1, 2, 3, 4, 5, 5, 6, 7]);
+        let mut mut_matrix: Vec<&mut [i32]> = matrix.iter_mut().map(|v| v.as_mut_slice()).collect();
+
+        let res = minimum_passes_of_matrix(&mut mut_matrix);
+        println!("{}", res);
+
+        assert_eq!(res, 3);
     }
 }
