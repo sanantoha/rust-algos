@@ -1,31 +1,15 @@
 
-
-pub fn reverse(i: i32) -> i32 {
+pub fn numbers_of_ways_to_make_change(n: usize, denoms: &[usize]) -> i32 {
     0
 }
 
 #[cfg(test)]
 mod tests {
-
-    use super::reverse;
-
-    #[test]
-    fn test_reverse() {
-        assert_eq!(reverse(123), 321);
-    }
+    use super::numbers_of_ways_to_make_change;
 
     #[test]
-    fn test_reverse_case1() {
-        assert_eq!(reverse(0), 0);
-    }
+    fn test_numbers_of_ways_to_make_change() {
 
-    #[test]
-    fn test_reverse_case2() {
-        assert_eq!(reverse(-123), -321);
-    }
-
-    #[test]
-    fn test_reverse_case3() {
-        assert_eq!(reverse(120), 21);
+        assert_eq!(numbers_of_ways_to_make_change(6, &[1, 5]), 2);
     }
 }
