@@ -1,15 +1,31 @@
 
-pub fn numbers_of_ways_to_make_change(n: usize, denoms: &[usize]) -> i32 {
-    0
+pub fn disk_stacking(disks: &[(i32, i32, i32)]) -> Vec<(i32, i32, i32)> {
+    vec![]
 }
 
 #[cfg(test)]
 mod tests {
-    use super::numbers_of_ways_to_make_change;
+    use super::disk_stacking;
 
     #[test]
-    fn test_numbers_of_ways_to_make_change() {
+    fn test_disk_stacking() {
+        let disks: &[(i32, i32, i32)] = &[
+            (2, 1, 2),
+            (3, 2, 3),
+            (2, 2, 8),
+            (2, 3, 4),
+            (2, 2, 1),
+            (4, 4, 5),
+        ];
 
-        assert_eq!(numbers_of_ways_to_make_change(6, &[1, 5]), 2);
+        let exp: Vec<(i32, i32, i32)> = vec![
+            (2, 1, 2),
+            (3, 2, 3),
+            (4, 4, 5)
+        ];
+
+        let res = disk_stacking(disks);
+        println!("{:?}", res);
+        assert_eq!(res, exp);
     }
 }
