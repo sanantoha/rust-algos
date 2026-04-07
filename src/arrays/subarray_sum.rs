@@ -19,7 +19,7 @@ pub fn subarray_sum(nums: &[i32], k: i32) -> i32 {
             count += cnt;
         }
 
-        let cnt = map.entry(sum).or_insert(0);
+        let cnt = map.entry(sum).or_default();
         *cnt += 1;
     }
 
